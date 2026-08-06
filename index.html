@@ -108,6 +108,21 @@
   .lk:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
   .flag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--rust);border:1px solid var(--rust);border-radius:4px;padding:1px 5px;margin-left:8px;vertical-align:2px;font-weight:600}
   .flag.build{color:var(--amber);border-color:var(--amber)}
+  .flag.revise{color:var(--ink-3);border-color:var(--line);background:var(--surface-2)}
+
+  /* step lists inside an item */
+  ul.how{margin:9px 0 0;padding-left:17px;color:var(--ink-2);font-size:13px;line-height:1.5}
+  ul.how li{margin:4px 0}
+  ul.how li::marker{color:var(--ink-3)}
+  ul.how.mono li{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:-.01em}
+
+  /* section-level level badge */
+  .sflag{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;border:1px solid currentColor;border-radius:4px;padding:2px 6px;white-space:nowrap}
+  .sflag.new{color:var(--rust)}
+  .sflag.rev{color:var(--ink-3);border-color:var(--line);background:var(--paper)}
+
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:12.5px;color:var(--ink-2);margin:-6px 0 18px}
+  .legend .flag{margin-left:0;margin-right:5px}
 
   textarea{width:100%;font:inherit;font-size:13.5px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;resize:vertical;min-height:90px}
   textarea:focus{outline:2px solid var(--teal);outline-offset:-1px;border-color:var(--teal)}
@@ -178,54 +193,150 @@ const W = (label, url) => ({ l: "↗ " + label, u: url });
 const DATA = [
 {
   id: "method", name: "Method", tag: "read first",
-  blurb: "Six habits that decide whether the next few months compound or evaporate. Set these up once, then never think about them again.",
+  blurb: "How to study, before what to study. Two parts: six things you set up once and then stop thinking about, and a six-step routine for reading a problem you have never seen. Everything else in this ledger assumes you have done these.",
   sections: [
-    { n: "Set up once", items: [
-      { t: "One repo for everything", d: "Create a public GitHub repo 'prime-prep' with folders: /dsa (Java solutions), /java, /springboot, /sql, /react, /python. Recruiters and TCS mentors do look. Commit every single day you study — the green wall is your accountability.", k:[W("Your GitHub","https://github.com/23335a0504raju")] },
-      { t: "A mistake log, not a notes app", d: "One file, MISTAKES.md. Every failed problem gets three lines: what the problem actually asked, what I did wrong, what the trigger was that I should have spotted. Re-read it before every practice session. This single file fixes the pattern-recognition gap faster than any playlist." },
-      { t: "Constraint → complexity table pinned above your desk", d: "N ≤ 10 → O(N!)/O(2^N) · N ≤ 20 → O(2^N) · N ≤ 500 → O(N³) · N ≤ 5,000 → O(N²) · N ≤ 10⁶ → O(N log N) · N ≤ 10⁸ → O(N). Read the constraints BEFORE you read the problem. This is the exact thing that failed you in the Infosys hidden tests.", f:"focus" },
-      { t: "Java fast I/O template saved as a snippet", d: "Scanner is too slow past ~10⁵ lines of input. Keep a BufferedReader + StringBuilder + StringTokenizer main() template ready to paste in any online assessment.", k:[Y("fast input output java competitive programming BufferedReader StringTokenizer","fast I/O in Java")], f:"focus" },
-      { t: "Two fixed sessions, morning and evening", d: "Morning = DSA only, brain is fresh and problems are hard. Evening = stack learning and building, which tolerates tiredness better. Never swap them." },
-      { t: "The 7-day re-solve rule", d: "Any problem you could not solve alone gets re-solved from a blank file seven days later. If you can't, it goes back in the queue. Solving 200 problems once is worth less than solving 80 three times." }
+    { n: "Part 1 — Set these up once, this week", lvl:"new", note:"About half a day of work in total. After this you never have to decide how to study again — you just show up and follow the system.", items: [
+      { t: "Keep one repo for everything you write",
+        d: "A single public GitHub repo called prime-prep holds every line of practice code from now until joining.",
+        how:[
+          "Make these folders: /dsa · /java · /springboot · /sql · /react · /python.",
+          "One file per problem or topic. No giant scratch files you never reopen.",
+          "Commit on every day you study, even if it is one problem. The green commit wall is the accountability.",
+          "Keep the README current — recruiters and TCS mentors genuinely do open this."
+        ],
+        k:[W("Your GitHub","https://github.com/23335a0504raju")] },
+
+      { t: "Keep a mistake log called MISTAKES.md",
+        d: "One file in that repo. Every problem you fail gets exactly three lines, written the moment you fail it — not later.",
+        how:[
+          "Line 1 — what the problem was actually asking, in your own plain words.",
+          "Line 2 — what you did wrong.",
+          "Line 3 — the trigger you should have spotted, e.g. 'sorted array + find a pair → two pointers'.",
+          "Spend two minutes re-reading the whole file before every practice session.",
+          "Why this matters most: your gap is recognising patterns, and this file is the list of the exact patterns that you personally miss."
+        ], f:"focus" },
+
+      { t: "Pin the constraint → complexity table above your desk",
+        d: "The input limits tell you which algorithm is expected before you have any idea how to solve it. Read the constraints first, every single time.",
+        mono:1,
+        how:[
+          "N ≤ 10      →  O(N!) / O(2^N)   try every arrangement · backtracking",
+          "N ≤ 20      →  O(2^N)           subsets · bitmask",
+          "N ≤ 500     →  O(N³)            three nested loops are fine",
+          "N ≤ 5,000   →  O(N²)            two nested loops are fine",
+          "N ≤ 10⁶     →  O(N log N)       sort · heap · binary search",
+          "N ≤ 10⁸     →  O(N)             one pass · hashing · two pointers · window",
+          "This is exactly what cost you the Infosys hidden tests: an answer that was correct but too slow."
+        ], f:"focus" },
+
+      { t: "Save a fast input/output template for Java",
+        d: "Scanner becomes too slow past roughly 10⁵ lines of input, and online assessments do reach that. Have a template ready to paste at the start of a test.",
+        how:[
+          "Read with BufferedReader + StringTokenizer, build output in a StringBuilder, print it once at the end.",
+          "Save it as an IDE live template so it is two keystrokes.",
+          "Type it out from memory once, so you can rebuild it inside a browser-only test window with no autocomplete."
+        ],
+        k:[Y("fast input output java competitive programming BufferedReader StringTokenizer","fast I/O in Java")], f:"focus" },
+
+      { t: "Fix two study sessions a day and never swap them",
+        d: "Hard thinking needs a fresh brain; learning a framework does not.",
+        how:[
+          "Morning — DSA only. New and unsolved problems, when you are sharpest.",
+          "Evening — stack learning and building (Java, Spring Boot, SQL, React). This survives tiredness.",
+          "Never move DSA to the evening. That is the swap that quietly kills the whole plan."
+        ] },
+
+      { t: "Re-solve every failed problem after 7 days",
+        d: "Any problem you could not solve alone goes into a queue and comes back a week later, from a blank file.",
+        how:[
+          "Keep the queue as a simple list at the top of MISTAKES.md.",
+          "If you still cannot solve it, it goes back in the queue for another 7 days.",
+          "Solving 200 problems once is worth far less than solving 80 problems three times."
+        ] }
     ]},
-    { n: "How to attack an unfamiliar problem (your #1 gap)", note:"Do this out loud, on paper, for every single unseen problem for the next month. It will feel slow for two weeks and then it will feel like cheating.", items: [
-      { t: "Step 1 — Restate it in three lines, without jargon", d: "'I'm given ___. I need to return ___. The rule connecting them is ___.' If you can't write those three lines, you have not understood the problem and writing code will waste 20 minutes.", f:"focus" },
-      { t: "Step 2 — Read the constraints and name the target complexity", d: "Constraints tell you the answer's shape before you have the answer. N = 10⁵ means you are looking for sorting, hashing, two pointers, sliding window, binary search or a single DP pass — nothing nested.", f:"focus" },
-      { t: "Step 3 — Ask the four operator questions, not 'which data structure'", d: "What changes as I move through the input? What operation repeats? What work am I redoing? What is the bottleneck? The data structure is the answer to these, never the first question.", f:"focus" },
-      { t: "Step 4 — Write brute force in comments, then optimise the bottleneck only", d: "Brute force first, always, even in a real test: it guarantees partial marks and it shows you exactly which line is the repeated work to kill." },
-      { t: "Step 5 — Dry run on the ugliest input you can invent", d: "Empty, single element, all-same, all-negative, max size, duplicates, already sorted, reverse sorted. Keep this checklist visible while you code." },
-      { t: "Step 6 — Time yourself and stop at 35 minutes", d: "If stuck at 35 minutes, read the editorial, understand it fully, close it, and re-implement from memory. Then log the trigger you missed in MISTAKES.md." }
+
+    { n: "Part 2 — The six steps for a problem you have never seen", lvl:"new", note:"This is your biggest single gap: not writing code, but reading the problem. Do all six steps out loud, on paper, for every unseen problem for the next month. It feels slow for about two weeks, then it starts to feel like cheating.", items: [
+      { t: "Step 1 · Restate the problem in three lines",
+        d: "Before anything else, fill in these three sentences in plain words, with no technical jargon.",
+        how:[
+          "I am given ___.",
+          "I have to return ___.",
+          "The rule that connects them is ___.",
+          "If you cannot fill all three blanks, you have not understood the problem yet. Re-read it — do not start coding, that is how 20 minutes disappears."
+        ], f:"focus" },
+
+      { t: "Step 2 · Read the constraints, then say the target complexity out loud",
+        d: "Look at how big N is before you look for an idea, and name the complexity you are aiming for.",
+        how:[
+          "Use the pinned table from Part 1.",
+          "N = 10⁵ means O(N log N) or better: sorting, hashing, two pointers, sliding window, binary search, or one DP pass.",
+          "If your idea has two loops over N, it is the wrong idea. Stop and think again instead of coding it hopefully."
+        ], f:"focus" },
+
+      { t: "Step 3 · Ask four questions about the input — never 'which data structure'",
+        d: "The data structure is the answer to these questions. It is never the starting point.",
+        how:[
+          "What changes as I move through the input?",
+          "Which operation keeps repeating?",
+          "What work am I doing twice?",
+          "Which single step is the bottleneck?",
+          "Example: 'I keep looking for a value I already saw' → HashMap. 'I keep needing the max of the last k items' → deque."
+        ], f:"focus" },
+
+      { t: "Step 4 · Write the brute force as comments, then fix only the bottleneck",
+        d: "Write the obvious slow solution in comments first, then replace just the line that is doing the repeated work.",
+        how:[
+          "Do this even in a real timed test — a slow correct answer scores partial marks, an empty editor scores zero.",
+          "The four standard fixes: nested loop → hashing · repeated range work → prefix sum · repeated recomputation → memoisation · repeated scanning of sorted data → two pointers or binary search."
+        ] },
+
+      { t: "Step 5 · Dry run on the ugliest inputs you can invent",
+        d: "Run the code by hand on inputs designed to break it, before you submit. Hidden test cases are made of exactly these.",
+        how:[
+          "Empty input · one element · all elements the same · all negative",
+          "Maximum allowed size · duplicates · already sorted · sorted in reverse",
+          "Keep this list stuck to your monitor while you code."
+        ] },
+
+      { t: "Step 6 · Stop at 35 minutes",
+        d: "Being stuck at 35 minutes is not failure — it is the signal to learn the pattern instead of trying to rediscover it.",
+        how:[
+          "Read the editorial until you fully understand it. Do not skim it.",
+          "Close it, then re-implement from a blank file, from memory.",
+          "Write the trigger you missed into MISTAKES.md.",
+          "Put the problem in the 7-day queue."
+        ] }
     ]}
   ]
 },
 
 {
   id: "dsa", name: "DSA", tag: "revise + extend",
-  blurb: "Phase 1 revises what you already own (arrays, strings, hashing, prefix, windows, pointers, greedy) but with a stopwatch and constraint-first thinking. Phase 2 is the new ground: trees, graphs, DP.",
+  blurb: "Two different jobs, and it matters that you don't confuse them. Sections 1–2 are revision: patterns you already own, re-run with a stopwatch and constraint-first thinking. Sections 4–6 are new ground — trees, graphs and DP — where you should go slowly and take notes.",
   sections: [
-    { n: "Revision sprint — arrays, strings and the patterns you already know", note:"Goal here is not learning, it's speed and recall. Target: solve each listed problem in under 20 minutes without looking at old code.", items: [
-      { t: "Prefix sums and difference arrays", d: "Re-derive the technique from scratch, then the HashMap variant for 'count subarrays with property X'. Also learn the difference-array trick for range updates — most people miss it.", k:[Y("prefix sum striver playlist","prefix sum"), LC("find-pivot-index"), LC("subarray-sum-equals-k"), LC("product-of-array-except-self"), LC("contiguous-array"), LC("subarray-sums-divisible-by-k")] },
-      { t: "Kadane's algorithm and the max-subarray family", d: "Maximum subarray sum in a single pass, then the variants: circular array, product instead of sum, and returning the start/end indices. This is one of the three most-asked array questions anywhere and it is the largest single hole in your array coverage right now.", k:[Y("kadanes algorithm maximum subarray explained striver","Kadane's algorithm"), LC("maximum-subarray"), LC("maximum-sum-circular-subarray"), LC("maximum-product-subarray")], f:"focus" },
-      { t: "Two pointers — both directions", d: "Opposite-ends on sorted data, and same-direction (fast/slow) for in-place rewriting. Know why sorting first is legal only when order doesn't matter.", k:[Y("two pointers pattern explained striver","two pointers"), LC("two-sum-ii-input-array-is-sorted"), LC("3sum"), LC("container-with-most-water"), LC("move-zeroes"), LC("trapping-rain-water")] },
-      { t: "Sliding window — fixed size", d: "Window sum/max maintained in O(1) per step. Trivial once seen, so the drill is spotting it in a wordy statement about 'k consecutive days/seats/readings'.", k:[Y("sliding window fixed size pattern","fixed window"), LC("maximum-average-subarray-i"), LC("permutation-in-string"), LC("find-all-anagrams-in-a-string")] },
-      { t: "Sliding window — variable size", d: "Expand right always, shrink left while the window is invalid. Write the four-line skeleton once and reuse it forever.", k:[Y("variable size sliding window pattern striver","variable window"), LC("longest-substring-without-repeating-characters"), LC("longest-repeating-character-replacement"), LC("minimum-size-subarray-sum"), LC("minimum-window-substring")] },
-      { t: "Hashing patterns beyond frequency counting", d: "Your strongest structure — push it further: map value→index, map prefix-state→count, map canonical-form→group, and set-based O(1) membership to kill an inner loop.", k:[LC("group-anagrams"), LC("longest-consecutive-sequence"), LC("valid-sudoku"), LC("top-k-frequent-elements")] },
-      { t: "Cyclic sort and numbers-in-a-range tricks", d: "When the array holds values 1..N, the index IS the hash: place each value at its own index, or mark a seen value by negating it. Solves missing number, duplicate number and first-missing-positive in O(N) time and O(1) extra space — exactly the follow-up that turns a partial score into full marks.", k:[LC("missing-number"), LC("find-all-numbers-disappeared-in-an-array"), LC("find-the-duplicate-number"), LC("first-missing-positive")] },
-      { t: "Sorting, comparators and the 'sort first' instinct", d: "Custom Comparator and Comparable in Java, sorting arrays of arrays, stable vs unstable, and knowing that sorting costs N log N so it's free when your target is already N log N.", k:[Y("java comparator comparable sorting explained","comparators in Java"), LC("sort-colors"), LC("largest-number"), LC("h-index")] },
-      { t: "Write merge sort and quick sort from scratch, once", d: "Interviewers do ask you to code them, and merge sort's merge step comes back in counting inversions, sorting a linked list and k-way merges. Know the partition scheme, quick sort's worst case, and why Java uses dual-pivot quicksort for primitives but Timsort for objects.", k:[Y("merge sort quick sort implementation java explained","merge & quick sort"), LC("sort-an-array"), LC("sort-list")] },
-      { t: "Intervals", d: "Sort by start, then merge/insert/count-overlaps. A guaranteed-appearance pattern in service-company assessments.", k:[LC("merge-intervals"), LC("insert-interval"), LC("non-overlapping-intervals")] },
-      { t: "Greedy — and how to know it's greedy", d: "Greedy works when a local choice provably can't be regretted. Practice stating the exchange argument in one sentence before coding; if you can't, it's probably DP.", k:[Y("greedy algorithms explained with proof intuition","greedy intuition"), LC("jump-game"), LC("jump-game-ii"), LC("gas-station"), LC("partition-labels")] },
-      { t: "Matrix traversal and simulation", d: "Spiral, rotate in place, set zeroes with O(1) space, boundary handling, and direction arrays dx[]/dy[] — which you will reuse constantly in graphs.", k:[LC("spiral-matrix"), LC("rotate-image"), LC("set-matrix-zeroes"), LC("game-of-life")] },
-      { t: "Stack fundamentals", d: "Valid parentheses, evaluate reverse polish notation, simplify path, asteroid collision. Small guaranteed-appearance problems where losing marks is inexcusable — clear them before the monotonic stack template.", k:[LC("valid-parentheses"), LC("evaluate-reverse-polish-notation"), LC("simplify-path"), LC("asteroid-collision")] },
-      { t: "Monotonic stack", d: "Your flagged weak spot. 'Next greater / previous smaller / span / largest rectangle' all use one template. Learn the template, not five problems.", k:[Y("monotonic stack pattern next greater element striver","monotonic stack"), LC("next-greater-element-i"), LC("daily-temperatures"), LC("largest-rectangle-in-histogram"), LC("trapping-rain-water"), LC("min-stack")], f:"focus" },
-      { t: "Deque and queue applications", d: "Monotonic deque for sliding-window maximum, and queue-as-BFS-frontier which is your bridge into graphs.", k:[LC("sliding-window-maximum"), LC("implement-queue-using-stacks")] },
-      { t: "Heap / PriorityQueue at interview depth", d: "Top-K, k-way merge, running median with two heaps, and custom comparators inside a PriorityQueue in Java.", k:[LC("kth-largest-element-in-an-array"), LC("k-closest-points-to-origin"), LC("merge-k-sorted-lists"), LC("find-median-from-data-stream")] },
-      { t: "Binary search on a sorted array", d: "Write the lower_bound / upper_bound templates yourself and stop guessing at mid, low = mid+1 boundaries. Rotated-array variants are the standard follow-up.", k:[Y("binary search template lower bound upper bound explained","binary search templates"), LC("binary-search"), LC("search-insert-position"), LC("find-first-and-last-position-of-element-in-sorted-array"), LC("search-in-rotated-sorted-array"), LC("find-minimum-in-rotated-sorted-array")] },
-      { t: "Binary search on the answer", d: "The single highest-value pattern you don't yet own. When a problem says 'minimum possible maximum' or 'minimum days/capacity/speed such that…', you binary-search the answer and write a boolean feasible(x). Learn it properly.", k:[Y("binary search on answer pattern striver","binary search on answer"), LC("koko-eating-bananas"), LC("capacity-to-ship-packages-within-d-days"), LC("split-array-largest-sum"), LC("minimum-number-of-days-to-make-m-bouquets")], f:"focus" },
-      { t: "String manipulation at speed", d: "StringBuilder vs String concatenation cost, char[] tricks, palindromic expansion around centres, compression, and parsing messy input.", k:[LC("longest-palindromic-substring"), LC("valid-palindrome"), LC("string-compression"), LC("longest-common-prefix"), LC("string-to-integer-atoi")] },
-      { t: "Linked list refresher", d: "Reverse, cycle detection, middle node, merge two lists, reorder. Fast/slow pointers are the whole topic. Cheap marks, don't skip.", k:[LC("reverse-linked-list"), LC("linked-list-cycle"), LC("middle-of-the-linked-list"), LC("merge-two-sorted-lists"), LC("remove-nth-node-from-end-of-list")] }
+    { n: "Arrays, strings and the patterns you already know", lvl:"revise", note:"Not learning — speed and recall. One pass per topic: solve two or three of the linked problems in under 20 minutes each, without opening your old code. Anything you can already do fast, tick and move on. The four items tagged focus are the real holes; give those proper time.", items: [
+      { t: "Prefix sums and difference arrays", d: "Refresh the plain version, the HashMap variant for 'count subarrays with property X', and the difference-array trick for range updates.", k:[Y("prefix sum striver playlist","prefix sum"), LC("find-pivot-index"), LC("subarray-sum-equals-k"), LC("product-of-array-except-self"), LC("contiguous-array"), LC("subarray-sums-divisible-by-k")] },
+      { t: "Kadane's algorithm and the max-subarray family", d: "The biggest hole in your array coverage, and one of the three most-asked array questions anywhere. Learn it properly: single-pass max subarray sum, then the circular, product and return-the-indices variants.", k:[Y("kadanes algorithm maximum subarray explained striver","Kadane's algorithm"), LC("maximum-subarray"), LC("maximum-sum-circular-subarray"), LC("maximum-product-subarray")], f:"focus" },
+      { t: "Two pointers — both directions", d: "Opposite-ends on sorted data, and fast/slow for in-place rewriting. Recall check: why sorting first is only legal when order doesn't matter.", k:[Y("two pointers pattern explained striver","two pointers"), LC("two-sum-ii-input-array-is-sorted"), LC("3sum"), LC("container-with-most-water"), LC("move-zeroes"), LC("trapping-rain-water")] },
+      { t: "Sliding window — fixed size", d: "You know the mechanics. The drill is only spotting it inside a wordy statement about 'k consecutive days / seats / readings'.", k:[LC("maximum-average-subarray-i"), LC("permutation-in-string"), LC("find-all-anagrams-in-a-string")] },
+      { t: "Sliding window — variable size", d: "Expand right always, shrink left while invalid. Write the four-line skeleton once from memory and reuse it forever.", k:[Y("variable size sliding window pattern striver","variable window"), LC("longest-substring-without-repeating-characters"), LC("longest-repeating-character-replacement"), LC("minimum-size-subarray-sum"), LC("minimum-window-substring")] },
+      { t: "Hashing patterns beyond frequency counting", d: "Your strongest structure. Just push it one level: value→index, prefix-state→count, canonical-form→group, and a set for O(1) membership to kill an inner loop.", k:[LC("group-anagrams"), LC("longest-consecutive-sequence"), LC("valid-sudoku"), LC("top-k-frequent-elements")] },
+      { t: "Cyclic sort and numbers-in-a-range tricks", d: "New to you and worth the hour. When the array holds values 1..N the index IS the hash: put each value at its own index, or mark a seen value by negating it. That turns missing / duplicate / first-missing-positive into O(N) time, O(1) space — the exact follow-up that converts a partial score into full marks.", k:[LC("missing-number"), LC("find-all-numbers-disappeared-in-an-array"), LC("find-the-duplicate-number"), LC("first-missing-positive")], f:"focus" },
+      { t: "Sorting, comparators and the 'sort first' instinct", d: "Comparator and Comparable in Java, sorting arrays of arrays, stable vs unstable. Key idea to keep: sorting is free when your target is already N log N.", k:[Y("java comparator comparable sorting explained","comparators in Java"), LC("sort-colors"), LC("largest-number"), LC("h-index")] },
+      { t: "Write merge sort and quick sort from scratch, once", d: "Do it once this month — interviewers ask you to code them, and the merge step returns in inversions, sorting a linked list and k-way merges. Also know quick sort's worst case.", k:[Y("merge sort quick sort implementation java explained","merge & quick sort"), LC("sort-an-array"), LC("sort-list")] },
+      { t: "Intervals", d: "Sort by start, then merge / insert / count overlaps. Guaranteed to appear in service-company assessments.", k:[LC("merge-intervals"), LC("insert-interval"), LC("non-overlapping-intervals")] },
+      { t: "Greedy — and how to know it's greedy", d: "Recall drill: state in one sentence why a local choice can't be regretted, before you code. If you can't state it, it's probably DP.", k:[LC("jump-game"), LC("jump-game-ii"), LC("gas-station"), LC("partition-labels")] },
+      { t: "Matrix traversal and simulation", d: "Spiral, rotate in place, set zeroes in O(1) space. Mainly here for the dx[]/dy[] direction-array habit, which you will reuse constantly in graphs.", k:[LC("spiral-matrix"), LC("rotate-image"), LC("set-matrix-zeroes"), LC("game-of-life")] },
+      { t: "Stack fundamentals", d: "Parentheses, RPN, simplify path, asteroid collision. Cheap marks — clear them before the monotonic stack template.", k:[LC("valid-parentheses"), LC("evaluate-reverse-polish-notation"), LC("simplify-path"), LC("asteroid-collision")] },
+      { t: "Monotonic stack", d: "Your own flagged weak spot, so treat it as new. 'Next greater / previous smaller / span / largest rectangle' are one template with different comparisons. Learn the template, not five separate problems.", k:[Y("monotonic stack pattern next greater element striver","monotonic stack"), LC("next-greater-element-i"), LC("daily-temperatures"), LC("largest-rectangle-in-histogram"), LC("trapping-rain-water"), LC("min-stack")], f:"focus" },
+      { t: "Deque and queue applications", d: "Monotonic deque for sliding-window maximum, and queue-as-BFS-frontier — your bridge into graphs.", k:[LC("sliding-window-maximum"), LC("implement-queue-using-stacks")] },
+      { t: "Heap / PriorityQueue at interview depth", d: "Top-K, k-way merge, running median with two heaps, and a custom comparator inside a Java PriorityQueue.", k:[LC("kth-largest-element-in-an-array"), LC("k-closest-points-to-origin"), LC("merge-k-sorted-lists"), LC("find-median-from-data-stream")] },
+      { t: "Binary search on a sorted array", d: "Write lower_bound / upper_bound yourself once so you stop guessing at the mid and low = mid+1 boundaries. Rotated-array variants are the standard follow-up.", k:[Y("binary search template lower bound upper bound explained","binary search templates"), LC("binary-search"), LC("find-first-and-last-position-of-element-in-sorted-array"), LC("search-in-rotated-sorted-array"), LC("find-minimum-in-rotated-sorted-array")] },
+      { t: "Binary search on the answer", d: "The highest-value pattern you don't own yet — learn it properly, not as a curiosity. Whenever a problem says 'minimum possible maximum' or 'smallest days / capacity / speed such that…', you binary-search the answer itself and write a boolean feasible(x).", k:[Y("binary search on answer pattern striver","binary search on answer"), LC("koko-eating-bananas"), LC("capacity-to-ship-packages-within-d-days"), LC("split-array-largest-sum"), LC("minimum-number-of-days-to-make-m-bouquets")], f:"focus" },
+      { t: "String manipulation at speed", d: "StringBuilder vs concatenation cost, char[] tricks, palindromic expansion around centres, and parsing messy input.", k:[LC("longest-palindromic-substring"), LC("valid-palindrome"), LC("string-compression"), LC("string-to-integer-atoi")] },
+      { t: "Linked list refresher", d: "Reverse, cycle, middle, merge, reorder. Fast/slow pointers are the whole topic. Cheap marks — don't skip.", k:[LC("reverse-linked-list"), LC("linked-list-cycle"), LC("middle-of-the-linked-list"), LC("merge-two-sorted-lists"), LC("remove-nth-node-from-end-of-list")] }
     ]},
-    { n: "Optimisation drills — turning 'correct' into 'accepted'", note:"This section is the direct fix for the Infosys hidden-test failure. Treat it as a topic in its own right.", items: [
+    { n: "Optimisation drills — turning 'correct' into 'accepted'", lvl:"new", note:"The direct fix for the Infosys hidden-test failure. Nothing here is a new algorithm — it is a new habit — so treat it as a topic in its own right and do not skip it because the words look familiar.", items: [
       { t: "Ten problems solved twice: brute force, then optimal", d: "Pick ten problems you already know. Submit the O(N²) version, watch it TLE, then rewrite it optimal. Feeling the TLE is what builds the instinct.", f:"focus" },
       { t: "Learn to count operations, not just Big-O", d: "10⁸ simple operations ≈ 1 second in Java. Practise estimating: 'N = 10⁵ and my loop is nested → 10¹⁰ → dead' should be a two-second judgement.", k:[Y("time complexity analysis with constraints competitive programming","complexity vs constraints")], f:"focus" },
       { t: "Space complexity and in-place rewriting", d: "In-place array rewriting, reusing the input array as the DP table, and rolling arrays that drop DP from O(N²) space to O(N)." },
@@ -552,7 +663,7 @@ const DATA = [
 <script>
 (function () {
   const KEY = "prime-ledger-v1";
-  const BLANK = () => ({ checked: {}, notes: {}, log: [], closed: {}, hideDone: {}, active: null, updated: null });
+  const BLANK = () => ({ checked: {}, notes: {}, log: [], closed: {}, hideDone: {}, focusOnly: {}, active: null, updated: null });
   let state = BLANK();
   let active = DATA[0].id;
   let saveTimer = null;
@@ -658,16 +769,29 @@ const DATA = [
   }
 
   /* ---------- panel ---------- */
-  function itemHTML(tr, si, ii, it) {
+  // Every item is either new ground ("focus") or something Raju already owns ("revise").
+  // The section says which is the default; an item can override it.
+  function level(it, sec) {
+    if (it.f === "revise") return "revise";
+    if (it.f === "focus" || it.f === "build") return "focus";
+    return sec.lvl === "revise" ? "revise" : "focus";
+  }
+
+  function itemHTML(tr, si, ii, it, sec) {
     const id = itemId(tr.id, si, ii);
     const done = !!state.checked[id];
     if (state.hideDone[tr.id] && done) return "";
+    if (state.focusOnly[tr.id] && level(it, sec) === "revise") return "";
     const links = (it.k || []).map((l) => '<a class="lk" href="' + l.u + '" target="_blank" rel="noopener">' + esc(l.l) + "</a>").join("");
-    const flag = it.f === "focus" ? '<span class="flag">focus</span>' : it.f === "build" ? '<span class="flag build">build</span>' : "";
+    const flag = it.f === "focus" ? '<span class="flag">focus</span>'
+      : it.f === "build" ? '<span class="flag build">build</span>'
+      : it.f === "revise" ? '<span class="flag revise">revision</span>' : "";
+    const how = (it.how || []).map((h) => "<li>" + esc(h) + "</li>").join("");
     return '<div class="item' + (done ? " done" : "") + '">' +
       '<input type="checkbox" data-id="' + id + '"' + (done ? " checked" : "") + ' aria-label="' + esc(it.t) + '">' +
       '<div><div class="it">' + esc(it.t) + flag + "</div>" +
       '<div class="id-txt">' + esc(it.d) + "</div>" +
+      (how ? '<ul class="how' + (it.mono ? " mono" : "") + '">' + how + "</ul>" : "") +
       (links ? '<div class="links">' + links + "</div>" : "") +
       "</div></div>";
   }
@@ -679,10 +803,13 @@ const DATA = [
       const d = ids.filter((i) => state.checked[i]).length;
       const closedKey = tr.id + "#" + si;
       const isClosed = !!state.closed[closedKey];
-      const body = sec.items.map((it, ii) => itemHTML(tr, si, ii, it)).join("");
+      const body = sec.items.map((it, ii) => itemHTML(tr, si, ii, it, sec)).join("");
+      if (!body && state.focusOnly[tr.id]) return ""; // nothing new to learn in this section
+      const sflag = sec.lvl === "revise" ? '<span class="sflag rev">revision</span>'
+        : sec.lvl === "new" ? '<span class="sflag new">new ground</span>' : "";
       return '<section class="block' + (isClosed ? " closed" : "") + '">' +
         '<div class="bhead" data-toggle="' + closedKey + '"><span class="bnum">' + String(si + 1).padStart(2, "0") + "</span>" +
-        '<span class="btitle">' + esc(sec.n) + '</span><span class="bcount">' + d + "/" + ids.length + '</span><span class="chev">▼</span></div>' +
+        '<span class="btitle">' + esc(sec.n) + "</span>" + sflag + '<span class="bcount" data-sec="' + closedKey + '">' + d + "/" + ids.length + '</span><span class="chev">▼</span></div>' +
         (sec.note ? '<div class="bnote">' + esc(sec.note) + "</div>" : "") +
         '<div class="items">' + (body || '<div class="item"><span></span><div class="id-txt">Everything here is finished. Turn off “Hide finished” to see it again.</div></div>') + "</div>" +
         "</section>";
@@ -691,11 +818,15 @@ const DATA = [
     return '<div class="track-head"><div><h2>' + esc(tr.name) + "</h2><p>" + esc(tr.blurb) + "</p></div></div>" +
       '<div class="bar"><span style="width:' + s.pct + '%"></span></div>' +
       '<div class="toolbar">' +
+      '<button class="btn' + (state.focusOnly[tr.id] ? " on" : "") + '" data-focus="' + tr.id + '">Focus only</button>' +
       '<button class="btn' + (state.hideDone[tr.id] ? " on" : "") + '" data-hide="' + tr.id + '">Hide finished</button>' +
       '<button class="btn" data-expand="' + tr.id + '">Expand all</button>' +
       '<button class="btn" data-collapse="' + tr.id + '">Collapse all</button>' +
       '<span class="bcount" style="margin-left:auto">' + s.done + " of " + s.total + " · " + s.pct + "%</span></div>" +
-      blocks +
+      '<div class="legend"><span><span class="flag">focus</span>new to you — learn it slowly and properly</span>' +
+      '<span><span class="flag revise">revision</span>you already know it — one pass to refresh, then move on</span>' +
+      '<span><span class="flag build">build</span>make something and put it on GitHub</span></div>' +
+      (blocks || '<section class="block"><div class="bnote">Nothing marked <b>focus</b> is left in this track — turn off “Focus only” to see the revision items.</div></section>') +
       '<div class="flabel">Notes for this track</div>' +
       '<textarea data-note="' + tr.id + '" placeholder="Doubts, links you liked, things to revisit…">' + esc(state.notes[tr.id] || "") + "</textarea>";
   }
@@ -735,6 +866,9 @@ const DATA = [
 
     const hide = e.target.closest("[data-hide]");
     if (hide) { const t = hide.dataset.hide; state.hideDone[t] = !state.hideDone[t]; save(); render(); return; }
+
+    const foc = e.target.closest("[data-focus]");
+    if (foc) { const t = foc.dataset.focus; state.focusOnly[t] = !state.focusOnly[t]; save(); render(); return; }
 
     const ex = e.target.closest("[data-expand]");
     if (ex) { DATA.find(t => t.id === ex.dataset.expand).sections.forEach((_, si) => delete state.closed[ex.dataset.expand + "#" + si]); save(); render(); return; }
@@ -810,10 +944,10 @@ const DATA = [
       const s = trackStats(tr);
       const bar = document.querySelector(".bar span"); if (bar) bar.style.width = s.pct + "%";
       const [si] = cb.dataset.id.split(".").slice(1);
-      const blocks = document.querySelectorAll(".block .bcount");
-      if (blocks[si]) {
+      const cnt = document.querySelector('.bcount[data-sec="' + tr.id + "#" + si + '"]');
+      if (cnt) {
         const ids = tr.sections[si].items.map((_, ii) => itemId(tr.id, si, ii));
-        blocks[si].textContent = ids.filter((i) => state.checked[i]).length + "/" + ids.length;
+        cnt.textContent = ids.filter((i) => state.checked[i]).length + "/" + ids.length;
       }
       const tot = document.querySelector(".toolbar .bcount");
       if (tot) tot.textContent = s.done + " of " + s.total + " · " + s.pct + "%";
