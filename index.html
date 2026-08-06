@@ -145,6 +145,38 @@
   .status.show{opacity:1}
   .hidden{display:none !important}
 
+  /* ---------- user chip ---------- */
+  .user-chip{display:flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:11.5px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink-2);cursor:pointer;transition:.15s;margin-left:auto}
+  .user-chip:hover{border-color:var(--teal);color:var(--teal)}
+  .user-chip .avatar{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;font-family:"Inter",sans-serif}
+  .user-chip .uname{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  /* ---------- login modal ---------- */
+  .modal-bg{position:fixed;inset:0;background:rgba(18,33,31,.55);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+  .modal-bg.hidden{display:none !important}
+  .modal{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:32px 28px;width:100%;max-width:420px;box-shadow:0 24px 60px -12px rgba(18,33,31,.35)}
+  .modal h2{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;font-size:24px;margin:0 0 6px;letter-spacing:-.02em}
+  .modal p{color:var(--ink-2);font-size:13.5px;margin:0 0 22px}
+  .modal label{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);display:block;margin-bottom:7px}
+  .modal input[type=text]{width:100%;font:inherit;font-size:15px;padding:11px 14px;border:1.5px solid var(--line);border-radius:var(--radius);background:var(--paper);color:var(--ink);outline:none;transition:.15s}
+  .modal input[type=text]:focus{border-color:var(--teal);background:#fff}
+  .modal-actions{display:flex;gap:10px;margin-top:18px}
+  .btn-primary{flex:1;font:inherit;font-size:14px;font-weight:700;cursor:pointer;background:var(--teal);color:#fff;border:none;border-radius:var(--radius);padding:11px 18px;transition:.15s}
+  .btn-primary:hover{background:#0a5248}
+  .btn-primary:disabled{opacity:.45;cursor:not-allowed}
+  .profiles-section{margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
+  .profiles-section h3{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+  .profile-list{display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto}
+  .profile-row{display:flex;align-items:center;gap:12px;padding:9px 12px;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;transition:.15s;background:var(--surface-2)}
+  .profile-row:hover{border-color:var(--teal);background:var(--teal-soft)}
+  .profile-row .p-avatar{width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+  .profile-row .p-info{flex:1;min-width:0}
+  .profile-row .p-name{font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .profile-row .p-meta{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);margin-top:1px}
+  .profile-row .p-pct{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--teal);font-weight:600}
+  .profile-row .p-del{background:none;border:none;cursor:pointer;color:var(--ink-3);font-size:15px;padding:2px 4px;line-height:1;border-radius:4px;flex:none}
+  .profile-row .p-del:hover{color:var(--rust)}
+
   @media (max-width:640px){
     .wrap{padding:20px 14px 80px}
     .lrow{grid-template-columns:104px 1fr 40px;gap:8px}
@@ -158,6 +190,24 @@
 </style>
 </head>
 <body>
+
+<!-- ===== LOGIN MODAL ===== -->
+<div class="modal-bg" id="loginModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h2 id="modalTitle">Who's studying?</h2>
+    <p>Enter your name to load your personal progress. Each person's ticks, notes and log are stored separately.</p>
+    <label for="nameInput">Your name</label>
+    <input type="text" id="nameInput" placeholder="e.g. Raju" maxlength="40" autocomplete="off">
+    <div class="modal-actions">
+      <button class="btn-primary" id="startBtn" disabled>Start studying →</button>
+    </div>
+    <div class="profiles-section" id="profilesSection" style="display:none">
+      <h3>Continue as…</h3>
+      <div class="profile-list" id="profileList"></div>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
   <header class="top">
     <div>
@@ -165,9 +215,16 @@
       <h1>Prime Readiness Ledger</h1>
       <p class="sub">Everything to learn before the joining letter: DSA revision through graphs, and the Java / Spring Boot / SQL / React stack. Tick items as you finish them — progress saves itself.</p>
     </div>
-    <div class="totals">
-      <div class="big" id="totalPct">0%</div>
-      <div class="cap" id="totalCount">0 of 0 done</div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+      <div class="totals">
+        <div class="big" id="totalPct">0%</div>
+        <div class="cap" id="totalCount">0 of 0 done</div>
+      </div>
+      <button class="user-chip hidden" id="userChip" title="Switch user" aria-label="Switch user">
+        <span class="avatar" id="userAvatar">?</span>
+        <span class="uname" id="userLabel">—</span>
+        <span>⇄</span>
+      </button>
     </div>
   </header>
 
@@ -662,17 +719,48 @@ const DATA = [
 </script>
 <script>
 (function () {
-  const KEY = "prime-ledger-v1";
+  // =====================================================================
+  // MULTI-USER SYSTEM
+  // Each user gets their own localStorage key: "prime-ledger-v1-<name>"
+  // sessionStorage tracks WHO is active in this browser tab/session.
+  // A new tab = new session = must pick/enter a name again → fresh slate.
+  // =====================================================================
+  const KEY_PREFIX = "prime-ledger-v1-";
+  const PROFILES_INDEX = "prime-ledger-profiles";   // JSON array of {name, updated, pct}
+  const SESSION_KEY = "prime-ledger-session-user";  // sessionStorage: who owns THIS tab
+
   const BLANK = () => ({ checked: {}, notes: {}, log: [], closed: {}, hideDone: {}, focusOnly: {}, active: null, updated: null });
   let state = BLANK();
   let active = DATA[0].id;
   let saveTimer = null;
   let canStore = true;
+  let currentUser = null;   // set after login
 
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   const itemId = (t, si, ii) => t + "." + si + "." + ii;
   const allItems = (tr) => tr.sections.flatMap((s, si) => s.items.map((it, ii) => itemId(tr.id, si, ii)));
+
+  /* ---------- profile index helpers ---------- */
+  function getProfiles() {
+    try { return JSON.parse(localStorage.getItem(PROFILES_INDEX)) || []; } catch(e) { return []; }
+  }
+  function saveProfiles(arr) {
+    try { localStorage.setItem(PROFILES_INDEX, JSON.stringify(arr)); } catch(e) {}
+  }
+  function upsertProfile(name, pct) {
+    const arr = getProfiles();
+    const idx = arr.findIndex(p => p.name === name);
+    const entry = { name, updated: Date.now(), pct: pct || 0 };
+    if (idx >= 0) arr[idx] = entry; else arr.unshift(entry);
+    // keep most recent first
+    arr.sort((a,b) => b.updated - a.updated);
+    saveProfiles(arr);
+  }
+  function deleteProfile(name) {
+    try { localStorage.removeItem(KEY_PREFIX + name); } catch(e) {}
+    saveProfiles(getProfiles().filter(p => p.name !== name));
+  }
 
   /* ---------- storage ---------- */
   function toast(msg) {
@@ -682,11 +770,9 @@ const DATA = [
     clearTimeout(el._t);
     el._t = setTimeout(() => el.classList.remove("show"), 1400);
   }
-  // Progress lives in this browser's localStorage, keyed per origin.
-  // Same laptop + same browser + same URL = your ticks come back.
   function storageWorks() {
     try {
-      const probe = KEY + "::probe";
+      const probe = KEY_PREFIX + "probe";
       localStorage.setItem(probe, "1");
       localStorage.removeItem(probe);
       return true;
@@ -694,21 +780,26 @@ const DATA = [
       return false;
     }
   }
+  function userKey() { return KEY_PREFIX + currentUser; }
   function load() {
     try {
-      const raw = localStorage.getItem(KEY);
+      const raw = localStorage.getItem(userKey());
       if (raw) state = Object.assign(BLANK(), JSON.parse(raw));
     } catch (e) {
-      /* nothing saved yet, or the entry is unreadable — start clean rather than crash */
+      state = BLANK();
     }
-    // Reopen on the track you were last looking at.
     if (state.active && (state.active === "__log" || DATA.some((t) => t.id === state.active))) active = state.active;
   }
   function writeNow() {
-    if (!canStore) return false;
+    if (!canStore || !currentUser) return false;
     try {
       state.updated = Date.now();
-      localStorage.setItem(KEY, JSON.stringify(state));
+      localStorage.setItem(userKey(), JSON.stringify(state));
+      // update the profile index with current progress
+      const all = DATA.flatMap(tr => allItems(tr));
+      const done = all.filter(i => state.checked[i]).length;
+      const pct = all.length ? Math.round(done / all.length * 100) : 0;
+      upsertProfile(currentUser, pct);
       return true;
     } catch (e) {
       canStore = false;
@@ -725,7 +816,6 @@ const DATA = [
       else if (!quiet) toast("Saved");
     }, 350);
   }
-  // A tick made 300ms before you close the tab must not be lost to the debounce.
   function flush() {
     if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; writeNow(); }
   }
@@ -970,12 +1060,132 @@ const DATA = [
   window.addEventListener("pagehide", flush);
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); });
 
+  /* ---------- user chip ---------- */
+  function updateUserChip() {
+    const chip = $("#userChip");
+    const label = $("#userLabel");
+    const avatar = $("#userAvatar");
+    if (!currentUser) { chip.classList.add("hidden"); return; }
+    chip.classList.remove("hidden");
+    label.textContent = currentUser;
+    avatar.textContent = currentUser.charAt(0).toUpperCase();
+  }
+
+  /* ---------- login modal ---------- */
+  function calcAllPct(userData) {
+    if (!userData) return 0;
+    const all = DATA.flatMap(tr => allItems(tr));
+    const done = all.filter(i => userData.checked && userData.checked[i]).length;
+    return all.length ? Math.round(done / all.length * 100) : 0;
+  }
+
+  function timeSince(ms) {
+    if (!ms) return "never opened";
+    const mins = Math.round((Date.now() - ms) / 60000);
+    if (mins < 1) return "just now";
+    if (mins < 60) return mins + " min ago";
+    const hrs = Math.round(mins / 60);
+    if (hrs < 24) return hrs + "h ago";
+    return new Date(ms).toLocaleDateString(undefined, {day:"2-digit",month:"short"});
+  }
+
+  function renderProfileList() {
+    const profiles = getProfiles();
+    const sec = $("#profilesSection");
+    const list = $("#profileList");
+    if (!profiles.length) { sec.style.display = "none"; return; }
+    sec.style.display = "";
+    list.innerHTML = profiles.map((p, i) => {
+      const initial = p.name.charAt(0).toUpperCase();
+      return `<div class="profile-row" data-pick="${esc(p.name)}">
+        <div class="p-avatar">${initial}</div>
+        <div class="p-info">
+          <div class="p-name">${esc(p.name)}</div>
+          <div class="p-meta">Last: ${timeSince(p.updated)}</div>
+        </div>
+        <span class="p-pct">${p.pct}%</span>
+        <button class="p-del" data-del-profile="${esc(p.name)}" title="Remove profile" aria-label="Remove ${esc(p.name)}">×</button>
+      </div>`;
+    }).join("");
+  }
+
+  function showLoginModal() {
+    flush(); // save any pending work for the previous user
+    $("#loginModal").classList.remove("hidden");
+    $("#nameInput").value = "";
+    $("#startBtn").disabled = true;
+    renderProfileList();
+    setTimeout(() => $("#nameInput").focus(), 60);
+  }
+
+  function activateUser(name) {
+    currentUser = name.trim();
+    sessionStorage.setItem(SESSION_KEY, currentUser);
+    canStore = storageWorks();
+    if (!canStore) $("#storageWarn").classList.remove("hidden");
+    state = BLANK();
+    active = DATA[0].id;
+    load();
+    updateUserChip();
+    $("#loginModal").classList.add("hidden");
+    render();
+    toast("Welcome, " + currentUser + "! 👋");
+  }
+
+  // Modal interactions
+  $("#nameInput").addEventListener("input", function() {
+    $("#startBtn").disabled = this.value.trim().length === 0;
+  });
+  $("#nameInput").addEventListener("keydown", function(e) {
+    if (e.key === "Enter" && this.value.trim()) $("#startBtn").click();
+  });
+  $("#startBtn").addEventListener("click", function() {
+    const name = $("#nameInput").value.trim();
+    if (!name) return;
+    activateUser(name);
+  });
+  $("#profileList").addEventListener("click", function(e) {
+    // delete profile button
+    const del = e.target.closest("[data-del-profile]");
+    if (del) {
+      e.stopPropagation();
+      const name = del.dataset.delProfile;
+      if (confirm("Remove " + name + "'s profile and all their progress? This cannot be undone.")) {
+        deleteProfile(name);
+        renderProfileList();
+      }
+      return;
+    }
+    // pick existing profile
+    const row = e.target.closest("[data-pick]");
+    if (row) activateUser(row.dataset.pick);
+  });
+  $("#userChip").addEventListener("click", function() {
+    showLoginModal();
+  });
+
   /* ---------- boot ---------- */
   (function () {
     canStore = storageWorks();
+    // Check if this browser SESSION already has an active user.
+    // sessionStorage is cleared when the tab/window closes, so a new
+    // browser open always shows the login modal — giving each person
+    // a clean start while returning to the same tab restores the user.
+    const sessionUser = sessionStorage.getItem(SESSION_KEY);
+    if (sessionUser && sessionUser.trim()) {
+      currentUser = sessionUser.trim();
+      load();
+      updateUserChip();
+      $("#loginModal").classList.add("hidden");
+      render();
+    } else {
+      // New session or new tab — show login modal.
+      // Don't load or render until a user is chosen.
+      $("#loginModal").classList.remove("hidden");
+      renderProfileList();
+      setTimeout(() => $("#nameInput").focus(), 100);
+    }
     if (!canStore) $("#storageWarn").classList.remove("hidden");
-    load();
-    render();
   })();
 })();
 </script>
