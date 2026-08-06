@@ -1,4 +1,4 @@
-# Prime Readiness Ledger
+# Readiness Ledger
 
 A single-file study tracker for pre-joining prep: DSA, Java, Spring Boot, SQL, REST, React, Git, Python, interview prep and day-one working-engineer skills. 11 tracks, 223 items. No build step, no dependencies, no backend.
 
