@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime Readiness Ledger — Raju</title>
+<meta name="description" content="Pre-joining study tracker: DSA, Java, Spring Boot, SQL, REST, React, Git, Python and interview prep.">
+<meta name="theme-color" content="#EDEFEA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B5E55'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' stroke='%23fff' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFEA;
+    --surface:#FFFFFF;
+    --surface-2:#F6F7F3;
+    --ink:#12211F;
+    --ink-2:#5A6B66;
+    --ink-3:#8A9791;
+    --line:#D6DBD4;
+    --teal:#0B5E55;
+    --teal-soft:#DCEAE6;
+    --amber:#B67708;
+    --green:#2E7D4F;
+    --rust:#A8412A;
+    --radius:10px;
+    --shadow:0 1px 0 rgba(18,33,31,.06), 0 8px 24px -18px rgba(18,33,31,.5);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:15px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:28px 20px 96px}
+
+  /* ---------- header ---------- */
+  header.top{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;padding-bottom:18px;border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+  h1{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.02;margin:6px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--ink-2);max-width:52ch;font-size:14px}
+  .totals{text-align:right;font-family:"JetBrains Mono",monospace}
+  .totals .big{font-size:clamp(34px,7vw,52px);font-weight:600;line-height:1;color:var(--teal)}
+  .totals .cap{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+
+  /* ---------- signature: mastery ledger ---------- */
+  .ledger{margin:22px 0 26px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px 8px;box-shadow:var(--shadow)}
+  .ledger h2{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin:0 0 14px;font-weight:600}
+  .lrow{display:grid;grid-template-columns:150px 1fr 46px;gap:12px;align-items:center;margin-bottom:10px;cursor:pointer;background:none;border:0;width:100%;padding:2px 0;font:inherit;color:inherit;text-align:left}
+  .lrow:hover .lname{color:var(--teal)}
+  .lrow:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
+  .lname{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .segs{display:flex;gap:2px;height:14px}
+  .seg{flex:1;background:var(--surface-2);border:1px solid var(--line);border-radius:2px;min-width:2px}
+  .seg.on{background:var(--teal);border-color:var(--teal)}
+  .lpct{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-2);text-align:right}
+
+  /* ---------- nav ---------- */
+  nav.tracks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .tab{font:inherit;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:7px 13px;border-radius:999px;display:flex;align-items:center;gap:8px;transition:.15s}
+  .tab:hover{border-color:var(--teal);color:var(--teal)}
+  .tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .tab .n{font-family:"JetBrains Mono",monospace;font-size:11px;opacity:.7}
+  .tab[aria-selected="true"] .n{opacity:.85}
+
+  /* ---------- track ---------- */
+  .track-head{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+  .track-head h2{font-family:"Bricolage Grotesque","Inter",sans-serif;font-size:26px;font-weight:700;margin:0;letter-spacing:-.01em}
+  .track-head p{margin:6px 0 0;color:var(--ink-2);max-width:66ch;font-size:14px}
+  .bar{height:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:16px 0 26px}
+  .bar span{display:block;height:100%;background:var(--teal);transition:width .3s ease}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+  .btn{font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:6px 12px;border-radius:7px;transition:.15s}
+  .btn:hover{border-color:var(--teal);color:var(--teal)}
+  .btn.on{background:var(--teal-soft);border-color:var(--teal);color:var(--teal)}
+  .btn.danger:hover{border-color:var(--rust);color:var(--rust)}
+
+  section.block{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .bhead{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;background:var(--surface-2);border-bottom:1px solid var(--line);user-select:none}
+  .bhead:hover .btitle{color:var(--teal)}
+  .bnum{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);min-width:26px}
+  .btitle{font-weight:700;font-size:15px;flex:1}
+  .bcount{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-2)}
+  .chev{color:var(--ink-3);transition:transform .2s;font-size:12px}
+  section.block.closed .chev{transform:rotate(-90deg)}
+  section.block.closed .items{display:none}
+  .bnote{padding:10px 18px;font-size:13px;color:var(--ink-2);background:#fff;border-bottom:1px dashed var(--line)}
+
+  .item{display:grid;grid-template-columns:26px 1fr;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line)}
+  .item:last-child{border-bottom:0}
+  .item.done .it{color:var(--ink-3);text-decoration:line-through;text-decoration-thickness:1px}
+  .item.done .id-txt{color:var(--ink-3)}
+  input[type=checkbox]{appearance:none;width:19px;height:19px;border:1.5px solid var(--ink-3);border-radius:5px;cursor:pointer;margin:3px 0 0;position:relative;background:#fff;flex:none}
+  input[type=checkbox]:hover{border-color:var(--teal)}
+  input[type=checkbox]:checked{background:var(--green);border-color:var(--green)}
+  input[type=checkbox]:checked::after{content:"";position:absolute;left:5.5px;top:1.5px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(43deg)}
+  input[type=checkbox]:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  .it{font-weight:600;font-size:14.5px}
+  .id-txt{color:var(--ink-2);font-size:13.5px;margin-top:2px}
+  .links{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+  .lk{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.02em;text-decoration:none;color:var(--teal);border:1px solid var(--teal-soft);background:var(--teal-soft);padding:3px 8px;border-radius:5px}
+  .lk:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .flag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--rust);border:1px solid var(--rust);border-radius:4px;padding:1px 5px;margin-left:8px;vertical-align:2px;font-weight:600}
+  .flag.build{color:var(--amber);border-color:var(--amber)}
+
+  textarea{width:100%;font:inherit;font-size:13.5px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;resize:vertical;min-height:90px}
+  textarea:focus{outline:2px solid var(--teal);outline-offset:-1px;border-color:var(--teal)}
+  .flabel{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:26px 0 8px}
+
+  /* ---------- log ---------- */
+  .logbox{display:flex;gap:8px;margin-bottom:14px}
+  .logbox input{flex:1;font:inherit;font-size:14px;padding:10px 13px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+  .logbox input:focus{outline:2px solid var(--teal);outline-offset:-1px}
+  .logbox .btn{padding:0 18px}
+  .entry{display:grid;grid-template-columns:104px 1fr 26px;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .entry time{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-3)}
+  .entry button{background:none;border:0;color:var(--ink-3);cursor:pointer;font-size:15px;line-height:1;padding:2px}
+  .entry button:hover{color:var(--rust)}
+  .empty{color:var(--ink-3);font-size:13.5px;padding:14px 0}
+
+  .warn{background:#FDF3E3;border:1px solid var(--amber);color:#6B4A08;border-radius:var(--radius);padding:11px 14px;font-size:13.5px;margin:18px 0 0}
+  .warn b{font-weight:600}
+  .status{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.06em;padding:8px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
+  .status.show{opacity:1}
+  .hidden{display:none !important}
+
+  @media (max-width:640px){
+    .wrap{padding:20px 14px 80px}
+    .lrow{grid-template-columns:104px 1fr 40px;gap:8px}
+    .totals{text-align:left}
+    header.top{align-items:flex-start}
+    .item{grid-template-columns:24px 1fr;gap:10px;padding:12px 14px}
+    .bhead{padding:12px 14px}
+    .entry{grid-template-columns:84px 1fr 24px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Pre-joining build-up · TCS Prime</div>
+      <h1>Prime Readiness Ledger</h1>
+      <p class="sub">Everything to learn before the joining letter: DSA revision through graphs, and the Java / Spring Boot / SQL / React stack. Tick items as you finish them — progress saves itself.</p>
+    </div>
+    <div class="totals">
+      <div class="big" id="totalPct">0%</div>
+      <div class="cap" id="totalCount">0 of 0 done</div>
+    </div>
+  </header>
+
+  <div class="warn hidden" id="storageWarn"><b>Progress can't be saved in this browser.</b> Private/incognito mode or blocked site data will make every tick disappear on refresh. Open the page in a normal window, or allow site data for this address.</div>
+
+  <div class="ledger">
+    <h2>Mastery ledger — every square is one item</h2>
+    <div id="ledgerRows"></div>
+  </div>
+
+  <nav class="tracks" id="tabs" role="tablist"></nav>
+  <main id="panel"></main>
+</div>
+<div class="status" id="status">Saved</div>
+<script>
+/* ---------- link helpers ---------- */
+// YouTube links are search links on purpose: exact video IDs rot, searches don't.
+// The query is written so the right course sits in the first 1-3 results.
+const Y = (q, label) => ({ l: "▶ " + (label || "video"), u: "https://www.youtube.com/results?search_query=" + encodeURIComponent(q) });
+const LC = (slug, label) => ({ l: "◆ " + (label || slug), u: "https://leetcode.com/problems/" + slug + "/" });
+const W = (label, url) => ({ l: "↗ " + label, u: url });
+
+const DATA = [
+{
+  id: "method", name: "Method", tag: "read first",
+  blurb: "Six habits that decide whether the next few months compound or evaporate. Set these up once, then never think about them again.",
+  sections: [
+    { n: "Set up once", items: [
+      { t: "One repo for everything", d: "Create a public GitHub repo 'prime-prep' with folders: /dsa (Java solutions), /java, /springboot, /sql, /react, /python. Recruiters and TCS mentors do look. Commit every single day you study — the green wall is your accountability.", k:[W("Your GitHub","https://github.com/23335a0504raju")] },
+      { t: "A mistake log, not a notes app", d: "One file, MISTAKES.md. Every failed problem gets three lines: what the problem actually asked, what I did wrong, what the trigger was that I should have spotted. Re-read it before every practice session. This single file fixes the pattern-recognition gap faster than any playlist." },
+      { t: "Constraint → complexity table pinned above your desk", d: "N ≤ 10 → O(N!)/O(2^N) · N ≤ 20 → O(2^N) · N ≤ 500 → O(N³) · N ≤ 5,000 → O(N²) · N ≤ 10⁶ → O(N log N) · N ≤ 10⁸ → O(N). Read the constraints BEFORE you read the problem. This is the exact thing that failed you in the Infosys hidden tests.", f:"focus" },
+      { t: "Java fast I/O template saved as a snippet", d: "Scanner is too slow past ~10⁵ lines of input. Keep a BufferedReader + StringBuilder + StringTokenizer main() template ready to paste in any online assessment.", k:[Y("fast input output java competitive programming BufferedReader StringTokenizer","fast I/O in Java")], f:"focus" },
+      { t: "Two fixed sessions, morning and evening", d: "Morning = DSA only, brain is fresh and problems are hard. Evening = stack learning and building, which tolerates tiredness better. Never swap them." },
+      { t: "The 7-day re-solve rule", d: "Any problem you could not solve alone gets re-solved from a blank file seven days later. If you can't, it goes back in the queue. Solving 200 problems once is worth less than solving 80 three times." }
+    ]},
+    { n: "How to attack an unfamiliar problem (your #1 gap)", note:"Do this out loud, on paper, for every single unseen problem for the next month. It will feel slow for two weeks and then it will feel like cheating.", items: [
+      { t: "Step 1 — Restate it in three lines, without jargon", d: "'I'm given ___. I need to return ___. The rule connecting them is ___.' If you can't write those three lines, you have not understood the problem and writing code will waste 20 minutes.", f:"focus" },
+      { t: "Step 2 — Read the constraints and name the target complexity", d: "Constraints tell you the answer's shape before you have the answer. N = 10⁵ means you are looking for sorting, hashing, two pointers, sliding window, binary search or a single DP pass — nothing nested.", f:"focus" },
+      { t: "Step 3 — Ask the four operator questions, not 'which data structure'", d: "What changes as I move through the input? What operation repeats? What work am I redoing? What is the bottleneck? The data structure is the answer to these, never the first question.", f:"focus" },
+      { t: "Step 4 — Write brute force in comments, then optimise the bottleneck only", d: "Brute force first, always, even in a real test: it guarantees partial marks and it shows you exactly which line is the repeated work to kill." },
+      { t: "Step 5 — Dry run on the ugliest input you can invent", d: "Empty, single element, all-same, all-negative, max size, duplicates, already sorted, reverse sorted. Keep this checklist visible while you code." },
+      { t: "Step 6 — Time yourself and stop at 35 minutes", d: "If stuck at 35 minutes, read the editorial, understand it fully, close it, and re-implement from memory. Then log the trigger you missed in MISTAKES.md." }
+    ]}
+  ]
+},
+
+{
+  id: "dsa", name: "DSA", tag: "revise + extend",
+  blurb: "Phase 1 revises what you already own (arrays, strings, hashing, prefix, windows, pointers, greedy) but with a stopwatch and constraint-first thinking. Phase 2 is the new ground: trees, graphs, DP.",
+  sections: [
+    { n: "Revision sprint — arrays, strings and the patterns you already know", note:"Goal here is not learning, it's speed and recall. Target: solve each listed problem in under 20 minutes without looking at old code.", items: [
+      { t: "Prefix sums and difference arrays", d: "Re-derive the technique from scratch, then the HashMap variant for 'count subarrays with property X'. Also learn the difference-array trick for range updates — most people miss it.", k:[Y("prefix sum striver playlist","prefix sum"), LC("find-pivot-index"), LC("subarray-sum-equals-k"), LC("product-of-array-except-self"), LC("contiguous-array"), LC("subarray-sums-divisible-by-k")] },
+      { t: "Kadane's algorithm and the max-subarray family", d: "Maximum subarray sum in a single pass, then the variants: circular array, product instead of sum, and returning the start/end indices. This is one of the three most-asked array questions anywhere and it is the largest single hole in your array coverage right now.", k:[Y("kadanes algorithm maximum subarray explained striver","Kadane's algorithm"), LC("maximum-subarray"), LC("maximum-sum-circular-subarray"), LC("maximum-product-subarray")], f:"focus" },
+      { t: "Two pointers — both directions", d: "Opposite-ends on sorted data, and same-direction (fast/slow) for in-place rewriting. Know why sorting first is legal only when order doesn't matter.", k:[Y("two pointers pattern explained striver","two pointers"), LC("two-sum-ii-input-array-is-sorted"), LC("3sum"), LC("container-with-most-water"), LC("move-zeroes"), LC("trapping-rain-water")] },
+      { t: "Sliding window — fixed size", d: "Window sum/max maintained in O(1) per step. Trivial once seen, so the drill is spotting it in a wordy statement about 'k consecutive days/seats/readings'.", k:[Y("sliding window fixed size pattern","fixed window"), LC("maximum-average-subarray-i"), LC("permutation-in-string"), LC("find-all-anagrams-in-a-string")] },
+      { t: "Sliding window — variable size", d: "Expand right always, shrink left while the window is invalid. Write the four-line skeleton once and reuse it forever.", k:[Y("variable size sliding window pattern striver","variable window"), LC("longest-substring-without-repeating-characters"), LC("longest-repeating-character-replacement"), LC("minimum-size-subarray-sum"), LC("minimum-window-substring")] },
+      { t: "Hashing patterns beyond frequency counting", d: "Your strongest structure — push it further: map value→index, map prefix-state→count, map canonical-form→group, and set-based O(1) membership to kill an inner loop.", k:[LC("group-anagrams"), LC("longest-consecutive-sequence"), LC("valid-sudoku"), LC("top-k-frequent-elements")] },
+      { t: "Cyclic sort and numbers-in-a-range tricks", d: "When the array holds values 1..N, the index IS the hash: place each value at its own index, or mark a seen value by negating it. Solves missing number, duplicate number and first-missing-positive in O(N) time and O(1) extra space — exactly the follow-up that turns a partial score into full marks.", k:[LC("missing-number"), LC("find-all-numbers-disappeared-in-an-array"), LC("find-the-duplicate-number"), LC("first-missing-positive")] },
+      { t: "Sorting, comparators and the 'sort first' instinct", d: "Custom Comparator and Comparable in Java, sorting arrays of arrays, stable vs unstable, and knowing that sorting costs N log N so it's free when your target is already N log N.", k:[Y("java comparator comparable sorting explained","comparators in Java"), LC("sort-colors"), LC("largest-number"), LC("h-index")] },
+      { t: "Write merge sort and quick sort from scratch, once", d: "Interviewers do ask you to code them, and merge sort's merge step comes back in counting inversions, sorting a linked list and k-way merges. Know the partition scheme, quick sort's worst case, and why Java uses dual-pivot quicksort for primitives but Timsort for objects.", k:[Y("merge sort quick sort implementation java explained","merge & quick sort"), LC("sort-an-array"), LC("sort-list")] },
+      { t: "Intervals", d: "Sort by start, then merge/insert/count-overlaps. A guaranteed-appearance pattern in service-company assessments.", k:[LC("merge-intervals"), LC("insert-interval"), LC("non-overlapping-intervals")] },
+      { t: "Greedy — and how to know it's greedy", d: "Greedy works when a local choice provably can't be regretted. Practice stating the exchange argument in one sentence before coding; if you can't, it's probably DP.", k:[Y("greedy algorithms explained with proof intuition","greedy intuition"), LC("jump-game"), LC("jump-game-ii"), LC("gas-station"), LC("partition-labels")] },
+      { t: "Matrix traversal and simulation", d: "Spiral, rotate in place, set zeroes with O(1) space, boundary handling, and direction arrays dx[]/dy[] — which you will reuse constantly in graphs.", k:[LC("spiral-matrix"), LC("rotate-image"), LC("set-matrix-zeroes"), LC("game-of-life")] },
+      { t: "Stack fundamentals", d: "Valid parentheses, evaluate reverse polish notation, simplify path, asteroid collision. Small guaranteed-appearance problems where losing marks is inexcusable — clear them before the monotonic stack template.", k:[LC("valid-parentheses"), LC("evaluate-reverse-polish-notation"), LC("simplify-path"), LC("asteroid-collision")] },
+      { t: "Monotonic stack", d: "Your flagged weak spot. 'Next greater / previous smaller / span / largest rectangle' all use one template. Learn the template, not five problems.", k:[Y("monotonic stack pattern next greater element striver","monotonic stack"), LC("next-greater-element-i"), LC("daily-temperatures"), LC("largest-rectangle-in-histogram"), LC("trapping-rain-water"), LC("min-stack")], f:"focus" },
+      { t: "Deque and queue applications", d: "Monotonic deque for sliding-window maximum, and queue-as-BFS-frontier which is your bridge into graphs.", k:[LC("sliding-window-maximum"), LC("implement-queue-using-stacks")] },
+      { t: "Heap / PriorityQueue at interview depth", d: "Top-K, k-way merge, running median with two heaps, and custom comparators inside a PriorityQueue in Java.", k:[LC("kth-largest-element-in-an-array"), LC("k-closest-points-to-origin"), LC("merge-k-sorted-lists"), LC("find-median-from-data-stream")] },
+      { t: "Binary search on a sorted array", d: "Write the lower_bound / upper_bound templates yourself and stop guessing at mid, low = mid+1 boundaries. Rotated-array variants are the standard follow-up.", k:[Y("binary search template lower bound upper bound explained","binary search templates"), LC("binary-search"), LC("search-insert-position"), LC("find-first-and-last-position-of-element-in-sorted-array"), LC("search-in-rotated-sorted-array"), LC("find-minimum-in-rotated-sorted-array")] },
+      { t: "Binary search on the answer", d: "The single highest-value pattern you don't yet own. When a problem says 'minimum possible maximum' or 'minimum days/capacity/speed such that…', you binary-search the answer and write a boolean feasible(x). Learn it properly.", k:[Y("binary search on answer pattern striver","binary search on answer"), LC("koko-eating-bananas"), LC("capacity-to-ship-packages-within-d-days"), LC("split-array-largest-sum"), LC("minimum-number-of-days-to-make-m-bouquets")], f:"focus" },
+      { t: "String manipulation at speed", d: "StringBuilder vs String concatenation cost, char[] tricks, palindromic expansion around centres, compression, and parsing messy input.", k:[LC("longest-palindromic-substring"), LC("valid-palindrome"), LC("string-compression"), LC("longest-common-prefix"), LC("string-to-integer-atoi")] },
+      { t: "Linked list refresher", d: "Reverse, cycle detection, middle node, merge two lists, reorder. Fast/slow pointers are the whole topic. Cheap marks, don't skip.", k:[LC("reverse-linked-list"), LC("linked-list-cycle"), LC("middle-of-the-linked-list"), LC("merge-two-sorted-lists"), LC("remove-nth-node-from-end-of-list")] }
+    ]},
+    { n: "Optimisation drills — turning 'correct' into 'accepted'", note:"This section is the direct fix for the Infosys hidden-test failure. Treat it as a topic in its own right.", items: [
+      { t: "Ten problems solved twice: brute force, then optimal", d: "Pick ten problems you already know. Submit the O(N²) version, watch it TLE, then rewrite it optimal. Feeling the TLE is what builds the instinct.", f:"focus" },
+      { t: "Learn to count operations, not just Big-O", d: "10⁸ simple operations ≈ 1 second in Java. Practise estimating: 'N = 10⁵ and my loop is nested → 10¹⁰ → dead' should be a two-second judgement.", k:[Y("time complexity analysis with constraints competitive programming","complexity vs constraints")], f:"focus" },
+      { t: "Space complexity and in-place rewriting", d: "In-place array rewriting, reusing the input array as the DP table, and rolling arrays that drop DP from O(N²) space to O(N)." },
+      { t: "The four standard bottleneck kills", d: "Nested loop → hashing. Repeated range work → prefix sum. Repeated recomputation → memoisation. Repeated scanning of a sorted space → two pointers or binary search. Memorise this list; it solves most 'optimise it' asks." },
+      { t: "Weekly timed simulation", d: "One 90-minute session per week: three unseen problems, no editorial, no IDE autocomplete help. Score yourself on how many you understood correctly in the first five minutes — that number matters more than how many you solved." }
+    ]},
+    { n: "Recursion and backtracking", items: [
+      { t: "Recursion tree, base cases, and the return-value habit", d: "Draw the tree before writing code. Decide early: does this function return a value or mutate shared state? Half of all recursion bugs come from mixing the two.", k:[Y("recursion complete playlist striver","recursion series")] },
+      { t: "Subsets, permutations, combinations", d: "The pick / don't-pick tree, and the swap-based permutation method. Understand where duplicates get skipped.", k:[LC("subsets"), LC("subsets-ii"), LC("permutations"), LC("combination-sum"), LC("combination-sum-ii")] },
+      { t: "Classic backtracking with constraints", d: "N-Queens, Sudoku solver, word search on a grid, palindrome partitioning. Learn to prune early — that's the whole skill.", k:[LC("n-queens"), LC("word-search"), LC("palindrome-partitioning"), LC("sudoku-solver")] }
+    ]},
+    { n: "Trees — new ground", note:"You know traversal concepts but haven't drilled problems. Two focused weeks of evenings covers this entire section.", items: [
+      { t: "Binary tree representation and the three DFS traversals", d: "Recursive first, then the iterative stack versions (interviewers ask), then level-order with a queue.", k:[Y("binary tree traversal recursive iterative striver","tree traversals"), LC("binary-tree-inorder-traversal"), LC("binary-tree-preorder-traversal"), LC("binary-tree-level-order-traversal")] },
+      { t: "Height, diameter, balance — the 'return more than one thing' trick", d: "Compute height and answer in a single post-order pass instead of calling height() inside a loop. This is a tree-specific optimisation lesson that transfers everywhere.", k:[LC("maximum-depth-of-binary-tree"), LC("diameter-of-binary-tree"), LC("balanced-binary-tree"), LC("binary-tree-maximum-path-sum")] },
+      { t: "Views and level-order variants", d: "Right/left side view, top/bottom view, zigzag order, vertical order. All are BFS with a small twist.", k:[LC("binary-tree-right-side-view"), LC("binary-tree-zigzag-level-order-traversal"), LC("binary-tree-level-order-traversal-ii")] },
+      { t: "Paths and LCA", d: "Root-to-leaf paths, path sum variants, lowest common ancestor in a binary tree and the faster BST version.", k:[LC("path-sum-ii"), LC("lowest-common-ancestor-of-a-binary-tree"), LC("lowest-common-ancestor-of-a-binary-search-tree")] },
+      { t: "Binary search trees", d: "Insert, delete, search, validate, kth smallest via inorder, floor/ceil, and inorder-successor. Remember: inorder of a BST is sorted — that single fact solves most BST problems.", k:[Y("binary search tree complete playlist striver","BST series"), LC("validate-binary-search-tree"), LC("kth-smallest-element-in-a-bst"), LC("delete-node-in-a-bst"), LC("convert-sorted-array-to-binary-search-tree")] },
+      { t: "Construction and serialisation", d: "Build a tree from preorder+inorder, serialise/deserialise. Common in product-company rounds.", k:[LC("construct-binary-tree-from-preorder-and-inorder-traversal"), LC("serialize-and-deserialize-binary-tree"), LC("flatten-binary-tree-to-linked-list")] }
+    ]},
+    { n: "Graphs — new ground", note:"Grid problems are the friendliest entry point and the most common in assessments. Start there, not at Dijkstra.", items: [
+      { t: "Representations: adjacency list, matrix, and edge list in Java", d: "List<List<Integer>> and Map<Integer,List<int[]>> for weighted graphs. Also learn to recognise that a grid IS a graph with 4 implicit edges per cell.", k:[Y("graph series introduction representation striver","graph basics")] },
+      { t: "BFS and DFS templates", d: "Write both once, cleanly, with a visited[] array, and reuse forever. Know when BFS is required (unweighted shortest path) versus interchangeable.", k:[Y("bfs dfs traversal graph striver java","BFS & DFS"), LC("clone-graph")] },
+      { t: "Grid problems — your fastest wins", d: "Islands, flood fill, rotting oranges (multi-source BFS), surrounded regions, 0/1 matrix distance, Pacific-Atlantic. Multi-source BFS especially is a pattern most candidates miss.", k:[LC("number-of-islands"), LC("flood-fill"), LC("rotting-oranges"), LC("surrounded-regions"), LC("01-matrix"), LC("pacific-atlantic-water-flow")] },
+      { t: "Connected components and cycle detection", d: "Components by repeated DFS, cycle detection in undirected (parent tracking) and directed (recursion-stack / colouring) graphs.", k:[LC("number-of-provinces"), LC("course-schedule")] },
+      { t: "Bipartite check and colouring", d: "Two-colouring by BFS. Shows up disguised as 'split into two teams so that no two rivals share a team'.", k:[LC("is-graph-bipartite"), LC("possible-bipartition")] },
+      { t: "Topological sort — Kahn's algorithm and DFS order", d: "Dependency ordering, course schedules, build order, and detecting impossibility via leftover in-degrees.", k:[Y("topological sort kahns algorithm explained","topological sort"), LC("course-schedule-ii"), LC("find-eventual-safe-states")] },
+      { t: "Shortest paths", d: "Dijkstra with a PriorityQueue (know it fails on negative weights), Bellman-Ford and Floyd-Warshall at recognise-and-apply level, and BFS-on-states problems like word ladder.", k:[Y("dijkstra algorithm priority queue java striver","Dijkstra"), LC("network-delay-time"), LC("cheapest-flights-within-k-stops"), LC("word-ladder"), LC("path-with-minimum-effort")] },
+      { t: "Disjoint Set Union (Union-Find)", d: "Union by rank plus path compression, in about 20 lines. Then Kruskal's MST and 'number of components after merges' problems.", k:[Y("disjoint set union find path compression striver","DSU"), LC("redundant-connection"), LC("accounts-merge"), LC("number-of-operations-to-make-network-connected")] },
+      { t: "Minimum spanning tree", d: "Prim's with a PQ and Kruskal's with DSU. Know one cold, recognise the other.", k:[Y("minimum spanning tree prims kruskals explained","MST")] }
+    ]},
+    { n: "Dynamic programming", note:"Not what blocked you at Infosys, so it sits below trees and graphs in priority — but it decides your ceiling in product-company rounds.", items: [
+      { t: "The recursion → memo → tabulation → space-optimised ladder", d: "Learn all four steps for ONE problem (Fibonacci, then climbing stairs) before touching any other DP. Every later problem is the same ladder.", k:[Y("dynamic programming introduction recursion memoization tabulation striver","DP intro")] },
+      { t: "1D DP on sequences", d: "Climbing stairs with cost, house robber and its circular variant, decode ways, word break.", k:[LC("climbing-stairs"), LC("min-cost-climbing-stairs"), LC("house-robber"), LC("house-robber-ii"), LC("decode-ways"), LC("word-break")] },
+      { t: "Knapsack family", d: "0/1 knapsack, subset sum, equal partition, target sum, coin change (count and min). Once you see the pick/not-pick shape everywhere, this family collapses into one idea.", k:[LC("partition-equal-subset-sum"), LC("target-sum"), LC("coin-change"), LC("coin-change-ii")] },
+      { t: "Grid DP", d: "Unique paths, minimum path sum, with obstacles, triangle. Natural bridge from your matrix comfort into DP.", k:[LC("unique-paths"), LC("unique-paths-ii"), LC("minimum-path-sum"), LC("triangle")] },
+      { t: "String DP", d: "Longest common subsequence, edit distance, longest palindromic subsequence, distinct subsequences. The two-pointer-on-two-strings shape.", k:[LC("longest-common-subsequence"), LC("edit-distance"), LC("longest-palindromic-subsequence")] },
+      { t: "LIS and stock problems", d: "LIS in O(N²) and the O(N log N) binary-search version, plus the buy/sell state-machine family.", k:[LC("longest-increasing-subsequence"), LC("best-time-to-buy-and-sell-stock"), LC("best-time-to-buy-and-sell-stock-ii"), LC("best-time-to-buy-and-sell-stock-with-cooldown")] }
+    ]},
+    { n: "Final layer", items: [
+      { t: "Trie", d: "Insert/search/startsWith, then word-search-II and autocomplete. Small topic, disproportionately impressive.", k:[LC("implement-trie-prefix-tree"), LC("design-add-and-search-words-data-structure"), LC("word-search-ii")] },
+      { t: "Bit manipulation", d: "AND/OR/XOR properties, n & (n-1), checking/setting bits, XOR to find the odd one out, subset generation via bitmask.", k:[Y("bit manipulation complete tutorial dsa","bit manipulation"), LC("single-number"), LC("number-of-1-bits"), LC("counting-bits"), LC("subsets")] },
+      { t: "Number theory essentials", d: "Sieve of Eratosthenes, GCD/LCM via Euclid, modular arithmetic and why 10⁹+7 appears everywhere, fast exponentiation.", k:[Y("number theory for coding interviews sieve gcd modular","number theory")] },
+      { t: "Segment tree and Fenwick tree — awareness only", d: "Understand what problem they solve (range query with point update) and be able to say so out loud. Full implementation is optional for TCS; do it only after graphs and DP are solid.", k:[Y("segment tree explained range query point update","segment tree")] }
+    ]}
+  ]
+},
+
+{
+  id: "java", name: "Java", tag: "core, deep",
+  blurb: "You write Java for DSA already, but TCS Prime interviews probe language internals: collections behaviour, equals/hashCode, streams, memory, threads. This track closes the gap between 'writes Java' and 'knows Java'.",
+  sections: [
+    { n: "Language and OOP at interview depth", items: [
+      { t: "The four pillars, explained with your own code", d: "Abstraction, encapsulation, inheritance, polymorphism — but the interview question is always 'give an example from a project you built'. Prepare answers using Campus Colab and STASH.", k:[Y("java oops concepts interview questions telusko","OOP in Java")] },
+      { t: "Abstract class vs interface, and default methods", d: "When to pick which, why Java 8 added default and static methods to interfaces, and how that solved the backward-compatibility problem." },
+      { t: "Static vs instance, final, and the initialisation order", d: "Static blocks, instance blocks, constructor order, and why final on a reference doesn't make the object immutable." },
+      { t: "equals() and hashCode() — the contract", d: "Why breaking the contract silently corrupts HashMap and HashSet behaviour. Write a class, break the contract deliberately, watch a lookup fail. Extremely common interview question.", k:[Y("equals and hashcode contract java explained","equals & hashCode")], f:"focus" },
+      { t: "String, StringBuilder, StringBuffer and the string pool", d: "Immutability, interning, why concatenation in a loop is O(N²), and thread-safety differences." },
+      { t: "Exception hierarchy", d: "Checked vs unchecked, try-with-resources, custom exceptions, finally vs return interaction. You'll reuse all of it in Spring's exception handling.", k:[Y("java exception handling complete tutorial","exceptions")] },
+      { t: "Records, sealed classes, var, enhanced switch, text blocks", d: "Modern Java 17 features. Records in particular will become your DTOs in Spring Boot.", k:[Y("java 17 new features records sealed classes switch expressions","modern Java")] },
+      { t: "Dates and times with java.time", d: "LocalDate, LocalDateTime, Instant, ZonedDateTime, Duration and Period, plus parsing and formatting. Every entity you write in Spring carries created/updated timestamps, and every API returns them — so know why the old Date/Calendar API was replaced, because legacy code still uses it.", k:[Y("java 8 date time api localdate localdatetime tutorial","java.time")] },
+      { t: "Annotations and reflection — how frameworks do their magic", d: "Write your own annotation with @Retention and @Target, then read it at runtime with reflection and act on it. Do this ONE evening before starting Spring and every annotation in Spring Boot stops being magic — it is also the honest answer when an interviewer asks how @Autowired actually works.", k:[Y("java custom annotation reflection tutorial explained","annotations & reflection")], f:"focus" }
+    ]},
+    { n: "Collections framework — the part interviews target", items: [
+      { t: "The full map of the framework", d: "List / Set / Queue / Map hierarchies and which implementation to reach for. Be able to draw this from memory.", k:[Y("java collections framework complete tutorial telusko","collections")] },
+      { t: "ArrayList vs LinkedList — with real reasoning", d: "Backing array and growth policy, random access vs insertion cost, and why LinkedList is almost never the right answer in practice." },
+      { t: "HashMap internals", d: "Buckets, hashing, collision chaining, treeification at 8 nodes, load factor 0.75, resize cost. The single most-asked Java internals question in Indian service-company interviews.", k:[Y("hashmap internal working java interview explained","HashMap internals")], f:"focus" },
+      { t: "TreeMap, LinkedHashMap, and ordering guarantees", d: "Sorted vs insertion-ordered vs unordered, and the LRU-cache-with-LinkedHashMap trick." },
+      { t: "Comparable vs Comparator", d: "Natural ordering versus external ordering, and comparator chaining with thenComparing. You already use this in DSA — now be able to explain it." },
+      { t: "Iterator, fail-fast behaviour and ConcurrentModificationException", d: "Why removing during a for-each throws, and the two correct ways to remove while iterating." },
+      { t: "Generics, wildcards and type erasure", d: "<T>, bounded types, ? extends / ? super (PECS), and why you can't create an array of a generic type." }
+    ]},
+    { n: "Functional Java", items: [
+      { t: "Lambdas and functional interfaces", d: "Function, Predicate, Consumer, Supplier, BiFunction, and writing your own @FunctionalInterface.", k:[Y("java 8 lambda expressions functional interfaces tutorial","lambdas")] },
+      { t: "Stream API end to end", d: "filter, map, flatMap, sorted, distinct, limit, and the terminal operations collect, reduce, count, anyMatch. Learn lazy evaluation and why a stream without a terminal op does nothing.", k:[Y("java 8 stream api complete tutorial with examples","streams")] },
+      { t: "Collectors in anger", d: "groupingBy, partitioningBy, joining, toMap, counting, averaging. This is what turns a 20-line loop into two lines in real Spring service code." },
+      { t: "Optional, used correctly", d: "orElse vs orElseGet vs orElseThrow, map/flatMap chaining, and why Optional as a field or parameter is an anti-pattern. Spring Data repositories return Optional, so you need this." }
+    ]},
+    { n: "Concurrency and the JVM", note:"Read-and-explain depth is enough here — Prime interviews ask conceptual questions, not lock-free algorithms.", items: [
+      { t: "Threads, Runnable, and the thread lifecycle", d: "Creating threads, states, join, sleep, daemon threads.", k:[Y("java multithreading complete tutorial for beginners","multithreading")] },
+      { t: "synchronized, volatile and the race-condition demo", d: "Write a counter that breaks under two threads, then fix it three ways. Understanding WHY it breaks is the interview answer." },
+      { t: "ExecutorService and thread pools", d: "Submitting tasks, Future, Callable, and shutdown. This is how real backends do concurrency, not raw threads." },
+      { t: "Concurrent collections", d: "ConcurrentHashMap vs synchronizedMap, CopyOnWriteArrayList, and the atomic classes." },
+      { t: "JVM memory model and garbage collection", d: "Heap vs stack, young/old generation, what GC actually collects, and what a memory leak looks like in Java. Then: what causes OutOfMemoryError vs StackOverflowError.", k:[Y("jvm architecture memory model garbage collection explained","JVM & GC")] }
+    ]}
+  ]
+},
+
+{
+  id: "spring", name: "Spring Boot", tag: "biggest gap",
+  blurb: "Your backend experience is Node/Express and Django REST, so the concepts transfer — but Spring's idioms (IoC, annotations, JPA, the bean lifecycle) don't. This is the heaviest track and the one that most changes your standing at TCS. Finish it with a deployed project.",
+  sections: [
+    { n: "Spring core — the mental model", note:"Don't skip to controllers. Every confusing Spring bug later traces back to not understanding beans.", items: [
+      { t: "Inversion of Control and dependency injection", d: "Why you stop calling 'new' and let the container build your objects. Compare with how you manually wired services in Express — the contrast makes it click fast.", k:[Y("spring boot tutorial for beginners telusko full course","Spring Boot full course"), Y("inversion of control dependency injection spring explained","IoC & DI")] },
+      { t: "Beans, @Component, @Service, @Repository, @Configuration", d: "What actually gets registered in the application context and how stereotype annotations differ only by intent." },
+      { t: "Constructor vs field injection, and why constructor wins", d: "Testability, immutability, and detecting circular dependencies at startup. Use constructor injection everywhere from day one." },
+      { t: "Bean scopes and lifecycle", d: "Singleton by default, prototype, request/session scopes, plus @PostConstruct and @PreDestroy." },
+      { t: "Spring Boot auto-configuration and starters", d: "What @SpringBootApplication expands into, how starters pull in sane defaults, and how to read the conditional auto-config report when something doesn't wire.", k:[Y("spring boot auto configuration internal working explained","auto-configuration")] },
+      { t: "application.properties / .yml, @Value, profiles", d: "Externalised config, @ConfigurationProperties for typed config, and dev/prod profiles — the same idea as your .env files, done properly." },
+      { t: "Project structure and Maven", d: "Controller / service / repository / model / dto / config layering, pom.xml, dependency management, and the build lifecycle.", k:[Y("maven tutorial for beginners java build tool","Maven basics")] }
+    ]},
+    { n: "Building REST endpoints", items: [
+      { t: "@RestController, request mappings and parameter binding", d: "@GetMapping/@PostMapping/@PutMapping/@DeleteMapping, @PathVariable, @RequestParam, @RequestBody.", k:[Y("spring boot rest api crud tutorial step by step","REST in Spring Boot")] },
+      { t: "ResponseEntity and correct status codes", d: "Returning 201 with a Location header on create, 204 on delete, 404 when absent — instead of returning 200 for everything." },
+      { t: "DTOs and mapping", d: "Never expose JPA entities directly. Request DTO, response DTO, and mapping by hand or with MapStruct. Java records are ideal here." },
+      { t: "Bean Validation", d: "@Valid with @NotNull, @Size, @Email, @Min, custom validators, and returning a clean field-error response.", k:[Y("spring boot validation @Valid custom validator tutorial","validation")] },
+      { t: "Global exception handling", d: "@RestControllerAdvice + @ExceptionHandler producing one consistent error body across the whole API. Build a custom ApiError class.", k:[Y("spring boot global exception handling controlleradvice","exception handling")], f:"focus" },
+      { t: "Jackson serialisation control", d: "@JsonProperty, @JsonIgnore, @JsonFormat for dates, null-inclusion policy, and handling LocalDateTime cleanly." },
+      { t: "OpenAPI / Swagger documentation", d: "Add springdoc-openapi and get interactive docs at /swagger-ui.html. Do this on every project — it's what makes an API look professional in a review.", k:[Y("springdoc openapi swagger spring boot 3 setup","Swagger setup")] }
+    ]},
+    { n: "Data layer — Spring Data JPA and Hibernate", note:"You know PostgreSQL and MySQL already, so this is about the ORM layer, not the database.", items: [
+      { t: "JPA, Hibernate and the persistence context", d: "What an ORM does, entity states (transient/managed/detached), and the first-level cache. Understanding 'managed' explains why a setter inside a transaction saves without calling save().", k:[Y("spring data jpa hibernate tutorial full course","Spring Data JPA")] },
+      { t: "Entities and mapping", d: "@Entity, @Table, @Id, @GeneratedValue strategies, @Column constraints, @Enumerated, and auditing with @CreatedDate." },
+      { t: "Relationships", d: "@OneToMany, @ManyToOne, @ManyToMany, @OneToOne — owning side, mappedBy, join tables, and cascade types. Model Campus Colab's users/notes/announcements in JPA as your exercise.", f:"focus" },
+      { t: "Repositories and derived queries", d: "JpaRepository, method-name queries (findByEmailAndActiveTrue), @Query with JPQL and native SQL, and projections." },
+      { t: "Pagination and sorting", d: "Pageable, Page vs Slice, and returning paginated API responses properly." },
+      { t: "Transactions", d: "@Transactional, propagation, readOnly, rollback rules, and why it silently does nothing when you call the method from inside the same class." },
+      { t: "Fetch types and the N+1 problem", d: "LAZY vs EAGER, LazyInitializationException, and fixing N+1 with join fetch or @EntityGraph. Enable SQL logging and count the queries — the moment you see 101 queries for 100 rows, this sticks forever.", k:[Y("hibernate n+1 problem explained solution spring boot","N+1 problem")], f:"focus" },
+      { t: "Database migrations with Flyway", d: "Versioned schema scripts instead of ddl-auto=update. This is what production actually uses and it's a strong thing to mention in an interview.", k:[Y("flyway database migration spring boot tutorial","Flyway")] }
+    ]},
+    { n: "Security", items: [
+      { t: "Spring Security fundamentals", d: "The filter chain, authentication vs authorisation, SecurityFilterChain configuration in the modern (non-WebSecurityConfigurerAdapter) style.", k:[Y("spring security 6 tutorial jwt authentication full course","Spring Security 6")] },
+      { t: "JWT authentication end to end", d: "Login endpoint issuing a token, a JWT filter validating it, UserDetailsService, and BCrypt password hashing. You already did JWT + RBAC in Campus Colab — rebuild exactly that in Spring and you'll own both stacks.", f:"focus" },
+      { t: "Role-based authorisation", d: "@PreAuthorize, hasRole vs hasAuthority, and method-level versus URL-level rules. Map your Admin/Faculty/Student roles across." },
+      { t: "CORS, CSRF and the sensible defaults", d: "Why your React app gets blocked, what to configure, and when disabling CSRF is legitimate (stateless JWT APIs) versus lazy." },
+      { t: "Refresh tokens and session strategy", d: "Access/refresh token pattern, storage trade-offs, and logout in a stateless API." }
+    ]},
+    { n: "Beyond CRUD", items: [
+      { t: "Caching with Redis", d: "@EnableCaching, @Cacheable/@CacheEvict, TTLs, and cache invalidation strategy. You already did Redis caching and rate-limiting at Spotmies in Node — porting that story to Spring makes it twice as strong in an interview.", k:[Y("spring boot redis caching tutorial cacheable","Redis caching")], f:"focus" },
+      { t: "Calling another service over HTTP", d: "RestClient (Spring 6) or WebClient, with timeouts, retries and a sane fallback when the other side is down. Backends are rarely alone, and 'we called an API without a timeout' is one of the most common real production incidents you will ever see.", k:[Y("spring boot restclient webclient tutorial timeout retry","RestClient / WebClient")], f:"focus" },
+      { t: "Microservices vocabulary", d: "Monolith vs microservices with the honest trade-offs, service discovery, API gateway, centralised config, circuit breaker with Resilience4j, and distributed tracing. Recognise-and-discuss level is enough — but TCS delivery projects are largely microservices, so you must be able to hold the conversation on day one.", k:[Y("microservices architecture explained spring boot beginners","microservices overview")] },
+      { t: "Messaging and queues, at concept level", d: "What Kafka or RabbitMQ is for, producer and consumer, and when an async queue is the right answer instead of a synchronous call — emails, reports, anything slow the user should not wait for. One tiny producer/consumer demo makes it real.", k:[Y("kafka spring boot tutorial for beginners producer consumer","Kafka + Spring")] },
+      { t: "Scheduling and async work", d: "@Scheduled cron jobs, @Async with a custom executor, and when to reach for a real queue instead." },
+      { t: "Logging and observability", d: "SLF4J with Logback, log levels, structured logging, correlation IDs, and Spring Boot Actuator health/metrics endpoints.", k:[Y("spring boot actuator logging best practices tutorial","Actuator & logging")] },
+      { t: "Testing", d: "JUnit 5 + Mockito unit tests for services, @WebMvcTest with MockMvc for controllers, @DataJpaTest for repositories, and @SpringBootTest for the full slice. Aim for meaningful tests on one project, not coverage theatre.", k:[Y("spring boot testing junit5 mockito mockmvc tutorial","Spring testing")], f:"focus" },
+      { t: "Dockerising a Spring Boot app", d: "Multi-stage Dockerfile, docker-compose with Postgres and Redis, and environment-based config. You already run Docker and GitHub Actions — reuse that pipeline here.", k:[Y("dockerize spring boot application docker compose postgres","Docker + Spring Boot")] },
+      { t: "Deploy it publicly", d: "Ship to Railway or an AWS EC2 instance, with a managed Postgres, HTTPS, and the Swagger URL public. A live Spring Boot API on your portfolio is worth more than three tutorials.", f:"build" }
+    ]},
+    { n: "Capstone — build one real Spring Boot application", note:"Suggested build: rebuild Campus Colab's backend in Spring Boot with a React front end. You already know the domain, so all your attention goes to the new stack.", items: [
+      { t: "Design the API contract first", d: "List every endpoint, method, request body, response body and status code in a README before writing code.", f:"build" },
+      { t: "Layered implementation with DTOs and validation", d: "Controller → service → repository, entities never leaked, all inputs validated, all errors going through one handler.", f:"build" },
+      { t: "Auth, roles, pagination, search and sorting", d: "JWT login, three roles with different permissions, paginated list endpoints with filter and sort parameters.", f:"build" },
+      { t: "Redis caching plus one scheduled job", d: "Cache the hot read endpoint, evict on write, and add a nightly cleanup or digest job.", f:"build" },
+      { t: "Tests, Swagger, Docker, CI, deploy", d: "Meaningful tests, published docs, containerised, built by GitHub Actions, deployed live, README with architecture diagram.", f:"build" }
+    ]}
+  ]
+},
+
+{
+  id: "sql", name: "SQL", tag: "depth over syntax",
+  blurb: "You've shipped with PostgreSQL and MySQL, so basic queries are not the gap. Joins under pressure, window functions, indexing and explain plans are. TCS interviews weight SQL and DBMS theory heavily.",
+  sections: [
+    { n: "Query fluency", items: [
+      { t: "SELECT, WHERE, ORDER BY, LIMIT and the logical execution order", d: "Know that the engine runs FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY. That single fact answers a dozen interview questions, including why you can't use a SELECT alias in WHERE.", k:[Y("sql full course for beginners with practice","SQL full course")], f:"focus" },
+      { t: "All the joins, including self and cross", d: "INNER, LEFT, RIGHT, FULL OUTER, SELF, CROSS — drawn as Venn diagrams and then written against a real two-table example. Be ready for 'what does a LEFT JOIN return when there's no match'.", k:[Y("sql joins explained with examples interview","joins")] },
+      { t: "GROUP BY, aggregates and HAVING", d: "COUNT/SUM/AVG/MIN/MAX, the WHERE vs HAVING distinction, and grouping by multiple columns." },
+      { t: "Subqueries and CTEs", d: "Scalar, correlated and IN/EXISTS subqueries, then WITH clauses for readability. Correlated subqueries are a favourite interview trap.", k:[Y("sql subquery correlated cte with clause tutorial","subqueries & CTEs")] },
+      { t: "Window functions", d: "ROW_NUMBER, RANK, DENSE_RANK, LAG/LEAD, running totals with SUM() OVER, and PARTITION BY. The 'find the second highest salary per department' family lives here.", k:[Y("sql window functions rank partition by tutorial","window functions")], f:"focus" },
+      { t: "Set operations and CASE", d: "UNION vs UNION ALL, INTERSECT, EXCEPT, and CASE WHEN for conditional aggregation (pivot-style reporting)." },
+      { t: "NULL behaviour", d: "Why NULL = NULL is not true, COALESCE, NULLIF, IS NULL, and how NULLs silently change COUNT and JOIN results." }
+    ]},
+    { n: "Design and internals — the DBMS interview", items: [
+      { t: "Keys and constraints", d: "Primary, foreign, unique, composite, candidate and surrogate keys; NOT NULL, CHECK, DEFAULT; and ON DELETE CASCADE behaviour." },
+      { t: "Normalisation 1NF → 3NF (and BCNF by name)", d: "Be able to take a messy denormalised table and normalise it live on a whiteboard, explaining the anomaly each step removes. Near-guaranteed TCS question.", k:[Y("normalization 1nf 2nf 3nf bcnf with example dbms","normalization")], f:"focus" },
+      { t: "Indexes", d: "B-tree indexes, clustered vs non-clustered, composite index column order, covering indexes, and the cost of an index on writes. Know when an index is NOT used (leading wildcard, function on the column).", k:[Y("database indexing explained b-tree clustered non clustered","indexing")], f:"focus" },
+      { t: "EXPLAIN / EXPLAIN ANALYZE", d: "Read a query plan, spot a sequential scan on a big table, add the right index, and measure the improvement. Do this on one of your own project databases — it becomes a great interview story.", k:[Y("explain analyze postgresql query plan tutorial","query plans")], f:"build" },
+      { t: "Transactions, ACID and isolation levels", d: "Atomicity through durability, then READ UNCOMMITTED → SERIALIZABLE, and the anomalies each prevents: dirty read, non-repeatable read, phantom read." },
+      { t: "Locking and deadlocks", d: "Shared vs exclusive locks, optimistic vs pessimistic concurrency, and how a deadlock forms and is resolved." },
+      { t: "Views, stored procedures, triggers", d: "What they are, when they help, and why heavy business logic in triggers is usually a bad idea." },
+      { t: "Scaling concepts", d: "Replication, sharding, connection pooling, and denormalisation as a deliberate trade-off. Recognise-and-discuss level is enough." }
+    ]},
+    { n: "Practice until it's reflex", items: [
+      { t: "Grind SQL problems", d: "Work through a structured SQL problem set until joins and window functions need no thinking. Target: 50+ solved.", k:[W("LeetCode SQL problems","https://leetcode.com/problemset/database/"), W("HackerRank SQL","https://www.hackerrank.com/domains/sql")], f:"focus" },
+      { t: "Write the queries behind your own projects", d: "For Smart Stock Management: top 10 products by revenue this month, month-over-month growth per category, stock about to run out. Real schema, real questions.", f:"build" },
+      { t: "Rehearse the ten classic interview queries", d: "Second-highest salary, Nth highest, duplicates in a table, delete duplicates keeping one, employees earning more than their manager, department-wise top earner, consecutive-day logins, running total. Write each from memory." }
+    ]}
+  ]
+},
+
+{
+  id: "rest", name: "REST APIs", tag: "design sense",
+  blurb: "You've built APIs in Express and Django REST, so this track is about the design vocabulary — the layer that separates 'it works' from 'it's well designed' in an interview.",
+  sections: [
+    { n: "Fundamentals", items: [
+      { t: "HTTP itself", d: "Methods and their semantics, safe vs idempotent, request/response anatomy, headers that matter, and the full status code map (2xx/3xx/4xx/5xx) with the ones you'll actually use: 200, 201, 204, 400, 401, 403, 404, 409, 422, 429, 500.", k:[Y("rest api design best practices tutorial","REST design")], f:"focus" },
+      { t: "Resource-oriented URL design", d: "Nouns not verbs, plural collections, nested resources, and query parameters for filtering rather than new endpoints. /users/12/orders?status=paid — not /getUserOrdersByStatus." },
+      { t: "Idempotency", d: "Why PUT and DELETE must be idempotent, why POST isn't, and how idempotency keys stop double-charging on a retried request." },
+      { t: "Pagination, filtering, sorting", d: "Offset vs cursor pagination and their trade-offs, and a consistent response envelope carrying page metadata." },
+      { t: "Consistent error responses", d: "One error shape everywhere: code, message, field errors, trace id. Design it once and apply it in your Spring Boot capstone." },
+      { t: "Versioning", d: "URL versioning vs header versioning, and what actually counts as a breaking change." }
+    ]},
+    { n: "Production concerns", items: [
+      { t: "Authentication and authorisation options", d: "Session cookies vs JWT vs API keys vs OAuth2 flows — when each is appropriate and the trade-offs you'd defend in an interview.", k:[Y("jwt vs session authentication explained oauth2 basics","auth approaches")] },
+      { t: "Rate limiting and throttling", d: "Token bucket vs fixed window, 429 responses and Retry-After. You implemented Redis rate limiting at Spotmies — make sure you can explain the algorithm you used.", f:"focus" },
+      { t: "Caching over HTTP", d: "Cache-Control, ETag, conditional requests with If-None-Match, and 304 responses — plus how that layers on top of your Redis cache." },
+      { t: "Documentation as a deliverable", d: "OpenAPI spec, Swagger UI, and a Postman collection you can hand to a front-end developer.", k:[W("Postman","https://www.postman.com/")] },
+      { t: "Testing an API properly", d: "Postman collections with environments and tests, plus automated integration tests in the build." },
+      { t: "REST vs GraphQL vs gRPC — one paragraph each", d: "Enough to answer 'why did you choose REST here?' with an actual reason." }
+    ]}
+  ]
+},
+
+{
+  id: "react", name: "React", tag: "revise + deepen",
+  blurb: "This is your strongest area, so it's the shortest track. Focus on interview-grade explanations and on wiring a React front end to your Spring Boot backend rather than relearning JSX.",
+  sections: [
+    { n: "Explain what you already do", items: [
+      { t: "Rendering, reconciliation and keys", d: "What actually happens on a state change, why the virtual DOM diff needs stable keys, and what breaks when you use an array index as a key.", k:[Y("react rendering reconciliation virtual dom explained","how React renders")] },
+      { t: "useState and useEffect pitfalls", d: "Stale closures, dependency arrays, cleanup functions, double-invocation in StrictMode, and when you shouldn't be using an effect at all.", k:[Y("useeffect complete guide dependencies cleanup react","useEffect deep dive")], f:"focus" },
+      { t: "useMemo, useCallback, React.memo", d: "What each memoises, when it genuinely helps, and why premature memoisation is its own bug source." },
+      { t: "useRef, useReducer, useContext", d: "Refs for DOM and mutable values that shouldn't trigger renders; reducer for complex state transitions; context for cross-cutting state and its re-render cost." },
+      { t: "Custom hooks", d: "Extract useAuth, useFetch, useDebounce. Being able to show a clean custom hook is a strong signal of real React experience." },
+      { t: "Controlled forms and validation", d: "Controlled vs uncontrolled inputs, and React Hook Form for anything non-trivial.", k:[Y("react hook form tutorial validation","React Hook Form")] }
+    ]},
+    { n: "Application-level concerns", items: [
+      { t: "Routing", d: "React Router: nested routes, route params, protected routes driven by your JWT roles, and redirect-after-login.", k:[Y("react router v6 tutorial protected routes","React Router")] },
+      { t: "Server state with TanStack Query", d: "Caching, loading and error states, refetch and invalidation. It replaces most of the useEffect-plus-fetch code you've written before.", k:[Y("tanstack react query tutorial for beginners","React Query")] },
+      { t: "Connect React to your Spring Boot API", d: "Axios instance with a base URL, JWT attached by an interceptor, 401 handling, CORS resolved, loading and error UI throughout.", f:"build" },
+      { t: "Performance", d: "Code splitting with lazy and Suspense, list virtualisation, bundle analysis, and avoiding unnecessary re-renders." },
+      { t: "Error boundaries and resilient UI", d: "Catching render errors, fallback UI, and empty/loading/error states designed rather than improvised." },
+      { t: "Testing basics", d: "React Testing Library: render, query by role, fire events, assert. Enough to write tests for two or three components confidently.", k:[Y("react testing library tutorial beginners","RTL basics")] }
+    ]}
+  ]
+},
+
+{
+  id: "git", name: "Git", tag: "tighten up",
+  blurb: "You already ship with GitHub Actions, so this is about the commands you avoid under pressure — rebase, conflict resolution, and undoing things safely.",
+  sections: [
+    { n: "Daily fluency", items: [
+      { t: "The three areas and what each command moves", d: "Working directory, staging area, repository — plus the remote. Every confusing Git moment resolves once this picture is clear.", k:[Y("git and github full course for beginners","Git full course")] },
+      { t: "Branching strategy", d: "feature/ and fix/ naming, short-lived branches, and why long-running branches produce painful merges." },
+      { t: "Merge vs rebase", d: "What each does to history, when rebasing is safe (your own unpushed branch) and when it's dangerous (shared branches). Practise both on a throwaway repo.", k:[Y("git merge vs rebase explained visually","merge vs rebase")], f:"focus" },
+      { t: "Resolving conflicts calmly", d: "Deliberately create a conflict, read the markers, resolve, continue. Do it five times and it stops being scary." },
+      { t: "Undoing things: reset, revert, restore, reflog", d: "soft/mixed/hard reset, revert for public history, restore for files, and reflog as the recovery net when you think work is lost.", f:"focus" },
+      { t: "Stash, cherry-pick, tags", d: "Park work in progress, move a single commit across branches, and tag releases." }
+    ]},
+    { n: "Working like a team member", items: [
+      { t: "Pull request workflow", d: "Fork or branch, open a PR, request review, address comments, squash and merge. Practise by opening PRs against your own repo — it's exactly what TCS will expect." },
+      { t: "Commit message conventions", d: "Conventional commits (feat:, fix:, refactor:, docs:) and writing a message that explains why, not what." },
+      { t: ".gitignore, secrets and history hygiene", d: "Never commit .env or keys, what to do if you already did (rotate first, then rewrite history), and keeping build artefacts out." },
+      { t: "CI on every push", d: "You already use GitHub Actions — extend it to run Maven build and tests on every PR to your Spring Boot repo.", f:"build" }
+    ]}
+  ]
+},
+
+{
+  id: "python", name: "Python track", tag: "secondary",
+  blurb: "Secondary stack for TCS. You've already shipped Django REST in Smart Stock Management, so the goal here is confident recall plus filling the two gaps: Flask and Python's own interview-level details. Working knowledge, not mastery.",
+  sections: [
+    { n: "Python the language", items: [
+      { t: "Idioms and data model", d: "List/dict/set comprehensions, unpacking, *args/**kwargs, slicing, enumerate/zip, f-strings, and truthiness rules.", k:[Y("python full course for beginners","Python refresher")] },
+      { t: "Functions, decorators and generators", d: "Closures, decorators (you meet them everywhere in Flask and Django), yield and lazy iteration, context managers with 'with'.", k:[Y("python decorators generators explained tutorial","decorators & generators")] },
+      { t: "OOP in Python vs Java", d: "self, dunder methods, properties, multiple inheritance and the MRO, and duck typing versus Java's interfaces. Interviewers like this comparison." },
+      { t: "Environments and packaging", d: "venv, pip, requirements.txt, and why a global install eventually breaks everything." },
+      { t: "Interview-level details", d: "Mutable default arguments, is vs ==, shallow vs deep copy, list vs tuple, and the GIL in one paragraph." }
+    ]},
+    { n: "Django and Django REST Framework", items: [
+      { t: "Django project anatomy", d: "Projects vs apps, settings, urls, the request/response cycle, and the MTV interpretation of MVC.", k:[Y("django rest framework full course for beginners","Django + DRF course")] },
+      { t: "Models and the ORM", d: "Model fields, migrations, relationships, QuerySets, select_related and prefetch_related (Django's answer to the N+1 problem), and the admin site for free CRUD." },
+      { t: "DRF core: serializers, views, routers", d: "Serializer vs ModelSerializer, APIView vs generics vs ViewSets, routers, and the pagination and filtering settings." },
+      { t: "DRF authentication and permissions", d: "Token and JWT auth, permission classes, and per-object permissions — then compare each piece to Spring Security so both stacks reinforce each other.", f:"focus" },
+      { t: "Refresh Smart Stock Management", d: "Reopen your own DRF project, re-read every file, and write a short README explaining the architecture. You will be asked about it in interviews.", f:"build" }
+    ]},
+    { n: "Flask", items: [
+      { t: "Minimal app, routing, request handling", d: "Routes, methods, request object, jsonify responses, and how much less it does for you than Django — which is the point.", k:[Y("flask rest api tutorial for beginners","Flask basics")] },
+      { t: "Blueprints and app factory pattern", d: "Structuring a Flask app past one file — the thing most tutorials never show." },
+      { t: "SQLAlchemy and Flask-Migrate", d: "Models, sessions, queries, relationships, and migrations. SQLAlchemy is closer to JPA than Django's ORM is, so this reinforces your Spring learning." },
+      { t: "Build one small Flask REST API", d: "Five endpoints, SQLAlchemy models, JWT auth, and error handling. A weekend's work that makes the skill real.", f:"build" }
+    ]}
+  ]
+},
+
+{
+  id: "prep", name: "Interview prep", tag: "final layer",
+  blurb: "TCS Prime technical rounds mix DSA, core CS theory, your projects, and the stack you claim on your resume. This track makes sure nothing on your CV is indefensible.",
+  sections: [
+    { n: "Own your own resume", note:"The fastest marks available. Every line on your CV is a question you can prepare perfectly.", items: [
+      { t: "Prepare the STASH story", d: "Why Node + TypeScript, how the URL validation works, and the 403 architecture fix explained clearly in three sentences — that fix is a genuinely strong engineering story, so rehearse it until it's crisp.", f:"focus" },
+      { t: "Prepare the Spotmies internship story", d: "What the pipeline did before and after, what exactly Redis cached, which keys, what TTL, how rate limiting worked, and what measurable thing improved. Have numbers ready.", f:"focus" },
+      { t: "Prepare Campus Colab and Smart Stock", d: "JWT and RBAC design decisions, the polling choice and why not WebSockets, plus why Random Forest beat the baseline and what features you used." },
+      { t: "Prepare the honest weak-point answers", d: "Where the projects would break at scale, what you'd redo, what you'd add with more time. Interviewers respect this far more than claiming everything is perfect." },
+      { t: "Rewrite the resume once Spring Boot lands", d: "Once the capstone is deployed, Java/Spring Boot moves to the front of your skills line, ahead of Node." }
+    ]},
+    { n: "Core CS theory TCS asks", items: [
+      { t: "OOP theory, crisply", d: "The four pillars with examples, overloading vs overriding, abstract vs interface, and polymorphism at compile time vs runtime." },
+      { t: "Operating systems", d: "Process vs thread, scheduling algorithms, deadlock and the four conditions, paging and virtual memory, and process synchronisation basics.", k:[Y("operating system interview questions for placements","OS for placements")] },
+      { t: "Computer networks", d: "OSI vs TCP/IP layers, TCP vs UDP, what happens when you type a URL and press enter, HTTP vs HTTPS and the TLS handshake at a high level, DNS.", k:[Y("computer networks interview questions placement","CN for placements")] },
+      { t: "DBMS theory", d: "Covered in the SQL track — make sure normalisation, ACID, isolation levels and indexing can be recited under pressure." }
+    ]},
+    { n: "Design and communication", items: [
+      { t: "Low-level design basics", d: "SOLID principles with an example each, plus the patterns you'll actually be asked about: Singleton, Factory, Builder, Strategy, Observer. Spring uses several of these internally, so learn them alongside Spring.", k:[Y("solid principles java explained with examples","SOLID"), Y("design patterns java singleton factory builder strategy","design patterns")], f:"focus" },
+      { t: "High-level design, lightweight", d: "Client → load balancer → app servers → cache → database, plus horizontal vs vertical scaling and where a queue belongs. Be able to sketch the architecture of your own capstone on a whiteboard.", k:[Y("system design basics for beginners placements","system design basics")] },
+      { t: "Explain your code out loud", d: "Record yourself solving a medium problem while narrating. Painful once, transformative after. Your problem-reading gap partly disappears the moment you start verbalising the restatement step." },
+      { t: "Mock interviews", d: "Pair with a friend or use a mock platform: 45 minutes, two problems, one project deep-dive. Do this repeatedly in the last stretch before joining." },
+      { t: "HR and behavioural answers", d: "Why TCS, where you see yourself, a conflict you handled, a failure you learned from, and how you learn new technology. Two minutes each, prepared but not memorised." }
+    ]}
+  ]
+},
+
+{
+  id: "craft", name: "Working engineer", tag: "day-one skills",
+  blurb: "What a delivery team assumes you already have on day one, and that no DSA sheet or tutorial playlist teaches: the terminal, the debugger, reading logs, and working inside a sprint. All of it is cheap to learn, and it is the difference between a first six months that feels easy and one that feels exposing.",
+  sections: [
+    { n: "The environment you will actually work in", note:"Learn these on your own machine now, while nothing is on fire. Nobody gets taught them later — you are simply expected to know.", items: [
+      { t: "Linux command line survival kit", d: "ssh into a box, move around with cd and ls, read a live log with tail -f, search it with grep, locate a file with find, check processes with ps and top, check disk with df, fix permissions with chmod, and edit a file in vim without panicking. You will be handed a server and a problem inside your first month.", k:[Y("linux command line basics tutorial for developers","Linux basics")], f:"focus" },
+      { t: "Read logs as a first-class debugging tool", d: "Find the FIRST exception rather than the last, read a Java stack trace bottom-up until you reach your own package, and follow one request end to end. Practise by deliberately breaking your own Spring Boot app and diagnosing it from the log alone.", f:"focus" },
+      { t: "Master your IDE debugger", d: "Breakpoints, step into / over / out, watches, evaluate-expression, and conditional breakpoints in IntelliJ. Most juniors debug with print statements for years. Learning the debugger properly is probably the single highest-leverage hour in this entire ledger.", k:[Y("intellij idea debugger tutorial breakpoints evaluate expression","IntelliJ debugger")], f:"focus" },
+      { t: "curl, Postman and reading a raw HTTP exchange", d: "Fire a request with headers and a body from the terminal, inspect the status and response headers, and reproduce a bug without the front end in the way. Plus the browser Network tab: what was sent, what came back, and how long it took." },
+      { t: "JSON, YAML and environment variables", d: "Read and write both by hand without a validator, know the YAML indentation traps, and understand how configuration and secrets reach an application through environment variables instead of hard-coded values." },
+      { t: "Know what your machine is doing", d: "Which port is in use and how to kill the process holding it, how much heap your app has, and how to check whether the database is actually reachable. Three commands that resolve a third of all 'it doesn't work' moments." }
+    ]},
+    { n: "Working inside a team", note:"This is where your reputation gets built. Technical skill gets you hired; this decides what happens after.", items: [
+      { t: "Agile in practice", d: "Sprints, standups, story points, backlog, retro, and tickets moving across a Jira board. Know what you are expected to say in a standup and how to raise a blocker early — TCS drops you into this in week one.", k:[Y("agile scrum for beginners sprint standup jira","Agile & Scrum")] },
+      { t: "Code review etiquette, both directions", d: "Small PRs, a description that explains why rather than what, responding to comments without defensiveness, and reviewing someone else's code usefully instead of rubber-stamping it." },
+      { t: "Estimate and report honestly", d: "Break a task down before you estimate it, add buffer, and flag slippage the day you notice rather than the day it is due. Being predictable is valued far more than being fast." },
+      { t: "Ask questions the senior way", d: "What I am trying to do, what I tried, what I expected, what actually happened, what I think is going on. Try for fifteen minutes first, then ask. Sitting silently stuck for a full day is the classic fresher mistake and it is noticed." },
+      { t: "Write documentation that saves you", d: "A README that lets a new person run the project in five minutes, one architecture paragraph, and a short note on why the key decisions were made. Apply it to your Spring Boot capstone.", f:"build" },
+      { t: "Keep a learning habit after joining", d: "One topic a month, something tiny built with it, and a line written down about what you learned. The people who grow fastest in a service company are the ones who keep building privately — not the ones waiting for the next assigned training." }
+    ]}
+  ]
+}
+];
+</script>
+<script>
+(function () {
+  const KEY = "prime-ledger-v1";
+  const BLANK = () => ({ checked: {}, notes: {}, log: [], closed: {}, hideDone: {}, active: null, updated: null });
+  let state = BLANK();
+  let active = DATA[0].id;
+  let saveTimer = null;
+  let canStore = true;
+
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const itemId = (t, si, ii) => t + "." + si + "." + ii;
+  const allItems = (tr) => tr.sections.flatMap((s, si) => s.items.map((it, ii) => itemId(tr.id, si, ii)));
+
+  /* ---------- storage ---------- */
+  function toast(msg) {
+    const el = $("#status");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove("show"), 1400);
+  }
+  // Progress lives in this browser's localStorage, keyed per origin.
+  // Same laptop + same browser + same URL = your ticks come back.
+  function storageWorks() {
+    try {
+      const probe = KEY + "::probe";
+      localStorage.setItem(probe, "1");
+      localStorage.removeItem(probe);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) state = Object.assign(BLANK(), JSON.parse(raw));
+    } catch (e) {
+      /* nothing saved yet, or the entry is unreadable — start clean rather than crash */
+    }
+    // Reopen on the track you were last looking at.
+    if (state.active && (state.active === "__log" || DATA.some((t) => t.id === state.active))) active = state.active;
+  }
+  function writeNow() {
+    if (!canStore) return false;
+    try {
+      state.updated = Date.now();
+      localStorage.setItem(KEY, JSON.stringify(state));
+      return true;
+    } catch (e) {
+      canStore = false;
+      $("#storageWarn").classList.remove("hidden");
+      return false;
+    }
+  }
+  function save(quiet) {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      saveTimer = null;
+      const ok = writeNow();
+      if (!ok) toast("Not saved — storage blocked");
+      else if (!quiet) toast("Saved");
+    }, 350);
+  }
+  // A tick made 300ms before you close the tab must not be lost to the debounce.
+  function flush() {
+    if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; writeNow(); }
+  }
+  function savedAgo() {
+    if (!state.updated) return "Nothing saved yet.";
+    const mins = Math.round((Date.now() - state.updated) / 60000);
+    if (mins < 1) return "Last saved: just now.";
+    if (mins < 60) return "Last saved: " + mins + " min ago.";
+    return "Last saved: " + new Date(state.updated).toLocaleString(undefined, { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }) + ".";
+  }
+
+  /* ---------- progress ---------- */
+  function trackStats(tr) {
+    const ids = allItems(tr);
+    const done = ids.filter((i) => state.checked[i]).length;
+    return { done, total: ids.length, pct: ids.length ? Math.round((done / ids.length) * 100) : 0, ids };
+  }
+  function renderLedger() {
+    let all = 0, allDone = 0;
+    $("#ledgerRows").innerHTML = DATA.map((tr) => {
+      const s = trackStats(tr);
+      all += s.total; allDone += s.done;
+      const segs = s.ids.map((id) => '<i class="seg' + (state.checked[id] ? " on" : "") + '"></i>').join("");
+      return '<button class="lrow" data-goto="' + tr.id + '"><span class="lname">' + esc(tr.name) +
+        '</span><span class="segs">' + segs + '</span><span class="lpct">' + s.pct + '%</span></button>';
+    }).join("");
+    const pct = all ? Math.round((allDone / all) * 100) : 0;
+    $("#totalPct").textContent = pct + "%";
+    $("#totalCount").textContent = allDone + " of " + all + " done";
+  }
+
+  /* ---------- tabs ---------- */
+  function renderTabs() {
+    const tabs = DATA.map((tr) => {
+      const s = trackStats(tr);
+      return '<button class="tab" role="tab" data-goto="' + tr.id + '" aria-selected="' + (active === tr.id) + '">' +
+        esc(tr.name) + '<span class="n">' + s.done + "/" + s.total + "</span></button>";
+    });
+    tabs.push('<button class="tab" role="tab" data-goto="__log" aria-selected="' + (active === "__log") + '">Study log<span class="n">' + state.log.length + "</span></button>");
+    $("#tabs").innerHTML = tabs.join("");
+  }
+
+  /* ---------- panel ---------- */
+  function itemHTML(tr, si, ii, it) {
+    const id = itemId(tr.id, si, ii);
+    const done = !!state.checked[id];
+    if (state.hideDone[tr.id] && done) return "";
+    const links = (it.k || []).map((l) => '<a class="lk" href="' + l.u + '" target="_blank" rel="noopener">' + esc(l.l) + "</a>").join("");
+    const flag = it.f === "focus" ? '<span class="flag">focus</span>' : it.f === "build" ? '<span class="flag build">build</span>' : "";
+    return '<div class="item' + (done ? " done" : "") + '">' +
+      '<input type="checkbox" data-id="' + id + '"' + (done ? " checked" : "") + ' aria-label="' + esc(it.t) + '">' +
+      '<div><div class="it">' + esc(it.t) + flag + "</div>" +
+      '<div class="id-txt">' + esc(it.d) + "</div>" +
+      (links ? '<div class="links">' + links + "</div>" : "") +
+      "</div></div>";
+  }
+
+  function renderTrack(tr) {
+    const s = trackStats(tr);
+    const blocks = tr.sections.map((sec, si) => {
+      const ids = sec.items.map((_, ii) => itemId(tr.id, si, ii));
+      const d = ids.filter((i) => state.checked[i]).length;
+      const closedKey = tr.id + "#" + si;
+      const isClosed = !!state.closed[closedKey];
+      const body = sec.items.map((it, ii) => itemHTML(tr, si, ii, it)).join("");
+      return '<section class="block' + (isClosed ? " closed" : "") + '">' +
+        '<div class="bhead" data-toggle="' + closedKey + '"><span class="bnum">' + String(si + 1).padStart(2, "0") + "</span>" +
+        '<span class="btitle">' + esc(sec.n) + '</span><span class="bcount">' + d + "/" + ids.length + '</span><span class="chev">▼</span></div>' +
+        (sec.note ? '<div class="bnote">' + esc(sec.note) + "</div>" : "") +
+        '<div class="items">' + (body || '<div class="item"><span></span><div class="id-txt">Everything here is finished. Turn off “Hide finished” to see it again.</div></div>') + "</div>" +
+        "</section>";
+    }).join("");
+
+    return '<div class="track-head"><div><h2>' + esc(tr.name) + "</h2><p>" + esc(tr.blurb) + "</p></div></div>" +
+      '<div class="bar"><span style="width:' + s.pct + '%"></span></div>' +
+      '<div class="toolbar">' +
+      '<button class="btn' + (state.hideDone[tr.id] ? " on" : "") + '" data-hide="' + tr.id + '">Hide finished</button>' +
+      '<button class="btn" data-expand="' + tr.id + '">Expand all</button>' +
+      '<button class="btn" data-collapse="' + tr.id + '">Collapse all</button>' +
+      '<span class="bcount" style="margin-left:auto">' + s.done + " of " + s.total + " · " + s.pct + "%</span></div>" +
+      blocks +
+      '<div class="flabel">Notes for this track</div>' +
+      '<textarea data-note="' + tr.id + '" placeholder="Doubts, links you liked, things to revisit…">' + esc(state.notes[tr.id] || "") + "</textarea>";
+  }
+
+  function renderLog() {
+    const entries = state.log.length
+      ? state.log.map((e, i) =>
+          '<div class="entry"><time>' + esc(e.d) + "</time><span>" + esc(e.t) + '</span><button data-del="' + i + '" aria-label="Delete entry">×</button></div>'
+        ).join("")
+      : '<div class="empty">No sessions logged yet. Add one line after each morning and evening block — what you covered, what confused you.</div>';
+    return '<div class="track-head"><div><h2>Study log</h2><p>One line per session. Reviewing this at the end of a month tells you the truth about your consistency far better than memory does.</p></div></div>' +
+      '<div class="bar"><span style="width:0%"></span></div>' +
+      '<div class="logbox"><input id="logIn" type="text" placeholder="e.g. Morning: monotonic stack template + 3 problems, largest rectangle still shaky"><button class="btn" id="logAdd">Add entry</button></div>' +
+      entries +
+      '<div class="flabel">Backup</div>' +
+      '<p class="empty" style="padding-top:0">Everything is stored in this browser only — it does not follow you to another laptop, and clearing browsing data wipes it. Export a file every few weeks. ' + esc(savedAgo()) + '</p>' +
+      '<div class="toolbar"><button class="btn" id="exportBtn">Export backup</button>' +
+      '<button class="btn" id="importBtn">Import backup</button>' +
+      '<input type="file" id="importFile" accept="application/json,.json" class="hidden"></div>' +
+      '<div class="flabel">Danger zone</div><button class="btn danger" id="resetAll">Erase all progress</button>';
+  }
+
+  function render() {
+    renderLedger();
+    renderTabs();
+    const tr = DATA.find((t) => t.id === active);
+    $("#panel").innerHTML = tr ? renderTrack(tr) : renderLog();
+  }
+
+  /* ---------- events ---------- */
+  document.addEventListener("click", (e) => {
+    const go = e.target.closest("[data-goto]");
+    if (go) { active = go.dataset.goto; state.active = active; save(true); render(); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+
+    const tog = e.target.closest("[data-toggle]");
+    if (tog) { const k = tog.dataset.toggle; state.closed[k] = !state.closed[k]; save(); render(); return; }
+
+    const hide = e.target.closest("[data-hide]");
+    if (hide) { const t = hide.dataset.hide; state.hideDone[t] = !state.hideDone[t]; save(); render(); return; }
+
+    const ex = e.target.closest("[data-expand]");
+    if (ex) { DATA.find(t => t.id === ex.dataset.expand).sections.forEach((_, si) => delete state.closed[ex.dataset.expand + "#" + si]); save(); render(); return; }
+
+    const col = e.target.closest("[data-collapse]");
+    if (col) { DATA.find(t => t.id === col.dataset.collapse).sections.forEach((_, si) => state.closed[col.dataset.collapse + "#" + si] = true); save(); render(); return; }
+
+    if (e.target.id === "logAdd") {
+      const inp = $("#logIn");
+      const v = inp.value.trim();
+      if (!v) { inp.focus(); return; }
+      const now = new Date();
+      state.log.unshift({ d: now.toLocaleDateString(undefined, { day: "2-digit", month: "short" }) + " · " + now.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }), t: v });
+      save(); render(); $("#logIn") && $("#logIn").focus();
+      return;
+    }
+    const del = e.target.closest("[data-del]");
+    if (del) { state.log.splice(Number(del.dataset.del), 1); save(); render(); return; }
+
+    if (e.target.id === "exportBtn") {
+      flush();
+      const name = "prime-ledger-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+      const url = URL.createObjectURL(new Blob([JSON.stringify(state, null, 2)], { type: "application/json" }));
+      const a = document.createElement("a");
+      a.href = url; a.download = name; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      toast("Backup downloaded");
+      return;
+    }
+    if (e.target.id === "importBtn") { $("#importFile").click(); return; }
+
+    if (e.target.id === "resetAll") {
+      if (confirm("Erase every tick, note and log entry? This cannot be undone.")) {
+        const wasActive = active;
+        state = BLANK();
+        state.active = wasActive;
+        writeNow(); render();
+      }
+    }
+  });
+
+  document.addEventListener("change", (e) => {
+    if (e.target.id === "importFile") {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const v = JSON.parse(reader.result);
+          if (!v || typeof v !== "object" || typeof v.checked !== "object") throw new Error("bad shape");
+          if (!confirm("Replace the progress in this browser with the backup file? Current ticks, notes and log will be overwritten.")) return;
+          state = Object.assign(BLANK(), v);
+          if (state.active && (state.active === "__log" || DATA.some((t) => t.id === state.active))) active = state.active;
+          writeNow(); render(); toast("Backup restored");
+        } catch (err) {
+          toast("That file isn't a valid backup");
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = "";
+      return;
+    }
+
+    const cb = e.target.closest("input[type=checkbox][data-id]");
+    if (!cb) return;
+    if (cb.checked) state.checked[cb.dataset.id] = 1; else delete state.checked[cb.dataset.id];
+    save();
+    const row = cb.closest(".item");
+    if (row) row.classList.toggle("done", cb.checked);
+    renderLedger(); renderTabs();
+    const tr = DATA.find((t) => t.id === active);
+    if (tr) {
+      const s = trackStats(tr);
+      const bar = document.querySelector(".bar span"); if (bar) bar.style.width = s.pct + "%";
+      const [si] = cb.dataset.id.split(".").slice(1);
+      const blocks = document.querySelectorAll(".block .bcount");
+      if (blocks[si]) {
+        const ids = tr.sections[si].items.map((_, ii) => itemId(tr.id, si, ii));
+        blocks[si].textContent = ids.filter((i) => state.checked[i]).length + "/" + ids.length;
+      }
+      const tot = document.querySelector(".toolbar .bcount");
+      if (tot) tot.textContent = s.done + " of " + s.total + " · " + s.pct + "%";
+      if (state.hideDone[tr.id] && cb.checked) render();
+    }
+  });
+
+  document.addEventListener("input", (e) => {
+    const ta = e.target.closest("textarea[data-note]");
+    if (!ta) return;
+    state.notes[ta.dataset.note] = ta.value;
+    save();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && e.target.id === "logIn") { e.preventDefault(); $("#logAdd").click(); }
+  });
+
+  // Save pending work when the tab is hidden, closed or backgrounded on mobile.
+  window.addEventListener("pagehide", flush);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); });
+
+  /* ---------- boot ---------- */
+  (function () {
+    canStore = storageWorks();
+    if (!canStore) $("#storageWarn").classList.remove("hidden");
+    load();
+    render();
+  })();
+})();
+</script>
+</body>
+</html>
