@@ -127,6 +127,7 @@
     stream: { name: "", custom: "", structure: "", passReq: "", notes: "", modules: [] },
     prefs: [],
     capstone: { title: "", tech: "", team: "", objective: "", problem: "", architecture: "", technologies: "", database: "", contribution: "", presentation: "", submission: "", final: "", lessons: "", tasks: [] },
+    guide: { hidden: false, revisionSeen: false, exported: 0 },
     legacy: null, updated: null
   });
   let state = BLANK();
@@ -193,6 +194,7 @@
       Object.keys(s.capstone).forEach((k) => { if (k !== "tasks") s.capstone[k] = str(c[k]); });
       if (Array.isArray(c.tasks)) s.capstone.tasks = c.tasks.filter(isObj).map((t) => ({ id: str(t.id || uid(), 40), type: TASK_TYPES.includes(t.type) ? t.type : "Development task", t: str(t.t, 300), owner: str(t.owner, 120), due: str(t.due, 10), status: STATUS_NAME[t.status] ? t.status : "ns", notes: str(t.notes) }));
     }
+    if (isObj(raw.guide)) s.guide = { hidden: !!raw.guide.hidden, revisionSeen: !!raw.guide.revisionSeen, exported: +raw.guide.exported || 0 };
     if (isObj(raw.legacy)) s.legacy = raw.legacy;
     s.updated = +raw.updated || null;
     return s;
@@ -457,6 +459,7 @@
 
     return `
       <div class="vhead"><div><h2>Training readiness</h2><p>Each phase is tracked separately; there is no single combined percentage. Every number comes from your own ticks, MCQ attempts, practice logs and the results you record.</p></div></div>
+      ${guideHTML()}
       ${cards}
       <div class="grid g3 phase-grid">${PHASES.map(phaseCard).join("")}</div>
       <div class="grid g2">
@@ -470,6 +473,44 @@
       </div>
       <div class="card"><h2>Research and training sources</h2><p class="muted" style="font-size:13.5px;margin:0">Infosys publishes the programme's broad structure (generic training, then stream-specific training, plus soft skills) but not a topic syllabus or pass rules. Topics here are labelled official, trainee-reported, fundamental or batch-dependent. Your batch's training instructions override everything on this page. <a href="#sources">See sources →</a></p></div>`;
   };
+
+
+  /* ================================================================ START-HERE GUIDE */
+  function guideSteps() {
+    const ticked = (p) => ITEMS.some((it) => it.phase === p && state.st[it.id]);
+    const anyAssess = (ph) => state.assess.some((r) => r.phase === ph);
+    return [
+      { g: 0, t: "Work through the Pre-joining checklist", d: "Open Pre-joining and expand a module (A1 Java coding first). Tick a topic once you can explain it and code it; use the status menu for In Progress or Needs Revision.", link: "#prep/coding", cta: "Open Pre-joining", done: ticked("A") },
+      { g: 0, t: "Write Java programs and log them", d: "Write each A1 program yourself, then add it to Java practice with your approach, mistakes and time taken. Mark ones to redo as “Revise again”.", link: "#coding", cta: "Open Java practice", done: state.coding.length > 0 },
+      { g: 0, t: "Solve the SQL Lab exercises", d: "Open an exercise, write the query, press Run & check. It runs in your browser and compares your result with the expected output.", link: "#sql", cta: "Open SQL Lab", done: EXS.some((e) => (state.sql[e.id] || {}).ok === "correct") },
+      { g: 0, t: "Practise MCQs daily", d: "Do 15–20 in Random practice, then Retry incorrect. Use Timed practice weekly to build exam speed. Save or flag questions to revisit.", link: "#mcq", cta: "Open MCQs", done: Object.keys(state.mcq.att).length > 0 },
+      { g: 0, t: "Record your self-tests", d: "After a timed MCQ set or a self-made mock, add it in Assessments (type “Mock”, phase Pre-joining) so weak topics show up in Revision.", link: "#assess", cta: "Open Assessments", done: anyAssess("A") },
+      { g: 1, t: "Enter your batch's pass marks", d: "When training starts, put the official pass requirement for each assessment type in Assessments → Your batch settings. Until then results show “Pass mark not set”.", link: "#assess", cta: "Open batch settings", done: Object.keys(state.assessCfg.pass).length > 0 },
+      { g: 1, t: "Log every class and assignment", d: "In the Daily tracker add one entry per session: topic, notes, the assignment and its deadline. Overdue work turns red and shows in the tab bar.", link: "#daily", cta: "Open Daily tracker", done: state.daily.length > 0 },
+      { g: 1, t: "Follow the Generic Foundation modules", d: "Tick B1 (Java) and B2 (DBMS/SQL) topics as classes cover them, and write class notes in each module's panel.", link: "#foundation/fa1", cta: "Open Generic Foundation", done: ticked("B") || !!(state.notes.fa1 || state.notes.fa2) },
+      { g: 1, t: "Record mocks, FA results and retests", d: "Add every mock and actual Java/DBMS assessment with marks, attempt number and weak topics. The percentage and pass/fail are worked out for you.", link: "#assess", cta: "Record an assessment", done: anyAssess("B") },
+      { g: 2, t: "Set your stream and add its syllabus", d: "In My stream pick the stream you were given, add a module per course unit and paste its topics (one per line).", link: "#stream", cta: "Open My stream", done: streamTopics().length > 0 },
+      { g: 2, t: "Record stream assessments", d: "Add FA1/FA2 (or whatever your stream uses) under phase “Stream training”, with the pass rule from your instructions.", link: "#assess", cta: "Open Assessments", done: anyAssess("C") },
+      { g: 2, t: "Track the capstone project", d: "Fill in the project brief and your contribution, then add tasks, reviews, tests, the presentation and submission as they come.", link: "#capstone", cta: "Open Capstone", done: !!state.capstone.title || state.capstone.tasks.length > 0 },
+      { g: 3, t: "Check Revision every week", d: "It collects wrong MCQs, failed or low scores, overdue assignments and flagged topics. Filter by Pre-joining, Generic Java, Generic DBMS, Stream or Capstone.", link: "#revision", cta: "Open Revision", done: state.guide.revisionSeen },
+      { g: 3, t: "Export a backup", d: "Progress lives only in this browser. Download a backup from Sources & data every week or two, and before clearing browser data or changing laptops.", link: "#sources", cta: "Open Sources & data", done: !!state.guide.exported }
+    ];
+  }
+  function guideHTML() {
+    const steps = guideSteps();
+    const done = steps.filter((x) => x.done).length;
+    if (state.guide.hidden) {
+      return `<div class="card guide-mini"><b>Start here</b><span class="muted" style="font-size:13px">${done} of ${steps.length} steps done</span>${bar(pct(done, steps.length), done === steps.length ? "green" : "")}<button class="btn sm" data-act="guide-toggle">Show steps</button></div>`;
+    }
+    const heads = ["Now · before joining", "After joining · Generic Foundation", "After stream allocation", "Every week"];
+    let n = 0;
+    const cols = heads.map((h, gi) => `<div class="gcol"><h3>${h}</h3><ol>${steps.filter((x) => x.g === gi).map((x) => { n++; return `<li class="gstep${x.done ? " done" : ""}"><span class="gnum" aria-label="${x.done ? "Done" : "Step " + n}">${x.done ? "✓" : n}</span><div><b>${esc(x.t)}</b><p>${esc(x.d)}</p><a href="${x.link}">${esc(x.cta)} →</a></div></li>`; }).join("")}</ol></div>`).join("");
+    return `<div class="card guide">
+      <div class="guide-top"><h2>Start here: how to use this page · ${done}/${steps.length} done</h2>${bar(pct(done, steps.length), done === steps.length ? "green" : "")}<button class="btn sm" data-act="guide-toggle">Hide steps</button></div>
+      <p class="muted" style="font-size:13px;margin:-4px 0 12px">Follow the steps in order. Each one ticks itself once you've done it on this page. Before joining, focus on the first column; the other columns open up as training progresses.</p>
+      <div class="guide-grid">${cols}</div>
+    </div>`;
+  }
 
   /* ================================================================ SYLLABUS (phases A and B) */
   const filt = { q: "", status: "all", pri: "all", cls: "all" };
@@ -1344,6 +1385,7 @@
     return W.sort((a, b) => b.sev - a.sev);
   }
   VIEW_FN.revision = function () {
+    if (!state.guide.revisionSeen) { state.guide.revisionSeen = true; save(); }
     revArea = REV_AREAS.some((x) => x[0] === route.arg) ? route.arg : "all";
     const weak = weakAreas(revArea);
     const inArea = (it) => revArea === "all" || (revArea === "prep" && it.phase === "A") || (revArea === "gjava" && it.mod.key === "fa1") || (revArea === "gdbms" && it.mod.key === "fa2");
@@ -1405,7 +1447,7 @@
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
-  function exportData() { flush(); download("infosys-training-" + slug(user) + "-" + today() + ".json", { app: NS, schema: SCHEMA, user, exported: new Date().toISOString(), state }); toast("Backup downloaded"); }
+  function exportData() { state.guide.exported = Date.now(); writeNow(); download("infosys-training-" + slug(user) + "-" + today() + ".json", { app: NS, schema: SCHEMA, user, exported: new Date().toISOString(), state }); toast("Backup downloaded"); }
   function importData(file) {
     const fr = new FileReader();
     fr.onload = () => {
@@ -1433,6 +1475,7 @@
     const act = b.dataset.act, id = b.dataset.id;
     switch (act) {
       case "dismiss-migration": migratedNow = null; renderView(); return;
+      case "guide-toggle": state.guide.hidden = !state.guide.hidden; writeNow(); renderView(); return;
       case "mod-toggle": {
         const k = b.dataset.mod; const sec = b.closest(".mod");
         if (filtering()) { sec.classList.toggle("open"); b.setAttribute("aria-expanded", sec.classList.contains("open")); return; }
