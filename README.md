@@ -1,4 +1,4 @@
-# Readiness Ledger
+# Preparation Plan
 
 A single-file study tracker for pre-joining prep: DSA, Java, Spring Boot, SQL, REST, React, Git, Python, interview prep and day-one working-engineer skills. 11 tracks, 223 items. No build step, no dependencies, no backend.
 
@@ -36,6 +36,23 @@ Clearing browsing data / "cookies and site data" for that domain erases the ledg
 **Study log tab → Backup → Export backup** downloads a `.json` file with everything in it. Do this every few weeks, and before clearing browser data or switching laptops. **Import backup** on the new browser restores it.
 
 If you open the page in incognito or with site data blocked, an amber warning appears at the top — in that mode nothing survives a refresh.
+
+## Plans
+
+The switcher at the top moves between three independent plans:
+
+| Tab | What it is | Stored under (per user) |
+|---|---|---|
+| **Onboarding Training** | The original pre-joining ledger | `prime-ledger-v1-<name>` |
+| **Deloitte NLA** | 331 sub-topics across six modules, a 2026 pattern overview, a "needs attention" summary, module notes and a study log | `deloitte-nla-v1-<name>` |
+| **Infosys R2** | A 332-item Java coding syllabus (six modules, five study phases), Easy/Medium/Hard/Complex progress, pattern-wise progress, a four-slot mock tracker with history and post-test analysis, and a revision tracker | `infosys-r2-v1-<name>` |
+
+- The tab each person had open last is stored in `prep-view-v1-<name>`.
+- No plan reads or writes another plan's key, so adding a plan never touches existing progress. The storage key names still say `prime-ledger` so existing data keeps loading.
+- Deloitte and Infosys each have their own **Export / Import backup** buttons at the bottom of their tab. The Study log backup covers only the Onboarding Training tab.
+- Deleting a profile from the "Continue as…" list removes that person's data from every plan.
+- Deloitte content lives in `NLA_MODULES` and Infosys content in `INF_MODULES`. Their item ids come from the item text (`module.section.slug`), so adding or reordering items is safe. Renaming an item clears only that item's tick.
+- Assessment patterns shown in the Deloitte and Infosys tabs are reported candidate and third-party information, not official specifications. Each tab says so.
 
 ## Local use
 
