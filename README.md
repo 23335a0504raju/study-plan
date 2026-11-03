@@ -54,6 +54,22 @@ The switcher at the top moves between three independent plans:
 - Deloitte content lives in `NLA_MODULES` and Infosys content in `INF_MODULES`. Their item ids come from the item text (`module.section.slug`), so adding or reordering items is safe. Renaming an item clears only that item's tick.
 - Assessment patterns shown in the Deloitte and Infosys tabs are reported candidate and third-party information, not official specifications. Each tab says so.
 
+## Infosys internal training page (`/infosys`)
+
+A separate page for someone **already selected** as an Infosys Systems Engineer, preparing for internal Foundation Program training (not recruitment, not SP/DSE, not the R2 coding tab). It has three phases: **A** pre-joining preparation (Java coding, OOP, core Java, DBMS, SQL, MCQs), **B** Generic Foundation Training (FA1-style Java and FA2-style DBMS/SQL workspaces, OS/IT, SE & web, professional skills) and **C** the assigned technology stream (a user-built syllabus) plus the capstone. Alongside them are an internal assessment tracker (pass marks are configured by you, never hard-coded), a daily class/assignment tracker with weekly summaries, a revision dashboard, an MCQ engine, a SQL Lab and a Java practice log.
+
+| File | What it holds |
+|---|---|
+| `infosys/index.html` | Page shell and styles |
+| `infosys/se-content.js` | Phases, A/B modules (one checkbox per topic), v1→v2 `ALIASES`, stream examples, assessment types, reported benchmarks (research note only), sources |
+| `infosys/se-mcq.js` | MCQ bank: 4 main categories (OOP, Java, DBMS, SQL) + "Foundation extras". Append new questions with new ids; never reuse an id |
+| `infosys/se-sql.js` | **Generated** SQL Lab data. Edit `scripts/gen_infosys_sql.py` and run `python scripts/gen_infosys_sql.py infosys/se-sql.js`, which re-computes expected outputs by running each reference solution in SQLite |
+| `infosys/se-app.js` | Router, state, migration, rendering |
+
+- **Routing:** `vercel.json` rewrites `/infosys` and `/infosys/` to `infosys/index.html`. Views are hash routes (`#prep/oop`, `#foundation/fa1`, `#assess`, `#daily`, `#stream`, …), so back/forward and refresh work. Old links (`#syllabus/…`, `#interview`) redirect. Scripts load from absolute `/infosys/…` paths, so serve over HTTP.
+- **Storage:** `infosys_se_preparation_v1-<name>`, with a schema version inside (`v: 2`). On first load of old v1 data, the raw JSON is copied to `…-<name>__v1-backup`. Matching topic ticks move to the new syllabus; MCQ, SQL Lab and Java practice history stay as they are; anything without a home (old recruitment topics, interview answers) goes to `state.legacy`. Both can be downloaded from **Sources & data**. Nothing reads or writes any other plan's key.
+- **SQL Lab** runs SQLite 3.39 (sql.js from cdnjs). Oracle-only syntax (PL/SQL, ROWNUM, MINUS) won't run there, and the page says so.
+
 ## Local use
 
 Just double-click `index.html`. It works offline and saves normally, but note that a `file://` page has its own storage separate from the deployed site — so use one or the other as your real ledger, and move between them with export/import.

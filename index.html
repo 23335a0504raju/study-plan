@@ -529,6 +529,7 @@
     <button class="prog" role="tab" data-plan-view="tcs" aria-selected="true">Onboarding Training</button>
     <button class="prog" role="tab" data-plan-view="nla" aria-selected="false">Deloitte NLA<span class="n" id="nlaProgPct"></span></button>
     <button class="prog" role="tab" data-plan-view="inf" aria-selected="false">Infosys R2<span class="n" id="infProgPct"></span></button>
+    <a class="prog" href="/infosys" title="Infosys internal training (Systems Engineer): opens its own page" style="text-decoration:none">Infosys SE ↗</a>
   </nav>
   <header class="top">
     <div class="v-tcs">
@@ -2927,6 +2928,7 @@ const DATA = [
   function deleteProfile(name) {
     try { localStorage.removeItem(KEY_PREFIX + name); } catch(e) {}
     if (window.Plans) window.Plans.forgetUser(name);   // also drop that user's Deloitte / Infosys data
+    try { localStorage.removeItem("infosys_se_preparation_v1-" + name); } catch(e) {}   // and the /infosys page's data
     saveProfiles(getProfiles().filter(p => p.name !== name));
   }
 
