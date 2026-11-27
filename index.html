@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Preparation Plan</title>
-<meta name="description" content="Preparation plan: pre-joining stack readiness, Deloitte NLA syllabus and Infosys R2 coding practice, with per-user progress tracking.">
+<meta name="description" content="Preparation plan: pre-joining stack readiness, Deloitte NLA syllabus and the Infosys 20 December coding plan, with per-user progress tracking.">
 <meta name="theme-color" content="#EDEFEA">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B5E55'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' stroke='%23fff' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -188,8 +188,8 @@
   .prog[aria-selected="true"]{background:var(--ink);color:#fff}
   .prog .n{font-family:"JetBrains Mono",monospace;font-size:11px;opacity:.7}
   .prog:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-  body[data-view="nla"] .v-tcs, body[data-view="inf"] .v-tcs, body[data-view="d20"] .v-tcs,
-  body:not([data-view="nla"]) .v-nla, body:not([data-view="inf"]) .v-inf, body:not([data-view="d20"]) .v-d20{display:none !important}
+  body[data-view="nla"] .v-tcs, body[data-view="d20"] .v-tcs,
+  body:not([data-view="nla"]) .v-nla, body:not([data-view="d20"]) .v-d20{display:none !important}
 
   /* ---------- Deloitte NLA view ---------- */
   .nla-info{background:var(--teal-soft);border:1px solid #BCD8D1;color:var(--ink);border-radius:var(--radius);padding:11px 14px;font-size:13.5px;margin:18px 0 0}
@@ -267,67 +267,23 @@
   .mnotes{padding:4px 18px 18px}
   .mnotes .flabel{margin-top:16px}
 
-  /* ---------- Infosys R2 view ---------- */
-  .flag.p-vhigh{color:#fff;background:var(--rust);border-color:var(--rust)}
+  /* ---------- difficulty flags, form fields and tag buttons ---------- */
   .flag.d-easy{color:var(--green);border-color:var(--green)}
   .flag.d-medium{color:var(--amber);border-color:var(--amber)}
   .flag.d-hard{color:var(--rust);border-color:var(--rust)}
-  .flag.d-complex{color:#fff;background:var(--ink);border-color:var(--ink)}
-  .nla-grid.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr);margin-top:-10px}
   .mrow.static{cursor:default}
   .mrow.static:hover .lname{color:inherit}
   .target{font-size:13px;margin:12px 0 0;padding:9px 11px;background:var(--teal-soft);border-radius:6px;color:var(--ink)}
-  .phase{border-top:1px solid var(--line)}
-  .phase:first-of-type{border-top:0}
-  .phead{display:grid;grid-template-columns:minmax(0,1fr) 92px 14px;gap:10px;align-items:center;width:100%;background:none;border:0;padding:10px 0;font:inherit;color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
-  .phead:hover .pt{color:var(--teal)}
-  .phead:focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:4px}
-  #infOverview table.pattern th, #infOverview table.pattern td{padding-right:12px;vertical-align:top}
-  #infOverview table.pattern td:first-child{white-space:nowrap}
-  .phead .mbar{display:block;margin-top:2px}
-  .pt{display:block;font-weight:700;font-size:13.5px}
-  .pd{display:block;font-size:12px;color:var(--ink-2);margin:1px 0 6px;line-height:1.4}
-  .phase:not(.open) .chev{transform:rotate(-90deg)}
-  .pbody{padding:0 0 10px 12px;border-left:2px solid var(--teal-soft);margin-left:2px}
-  .pbody .mrow{grid-template-columns:minmax(0,1fr) 70px 74px;margin-bottom:6px}
-  .pbody .lname{font-weight:500;font-size:12.5px}
-  .inf-gap{margin-top:34px}
-  .trend{display:flex;align-items:flex-end;gap:6px;height:96px;padding-top:6px;border-bottom:1px solid var(--line);overflow-x:auto}
-  .trend .tb{flex:1 0 22px;max-width:40px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
-  .trend .tb i{display:block;width:100%;background:var(--teal);border-radius:3px 3px 0 0;min-height:2px}
-  .trend .tb b{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:600;color:var(--ink-2)}
-  .trend-x{display:flex;gap:6px;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-3);margin-top:4px}
-  .trend-x span{flex:1 0 22px;max-width:40px;text-align:center}
   .tally{display:flex;flex-wrap:wrap;gap:6px}
   .tally .chip b{color:var(--ink);font-weight:600}
-  .newmock{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:16px 0}
-  .newmock .fld{width:160px}
   .fld label{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
   .fin{width:100%;font:inherit;font-size:13.5px;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink);min-height:36px;-webkit-appearance:none;appearance:none}
   select.fin{background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 14px) 15px,calc(100% - 9px) 15px;background-size:5px 5px;background-repeat:no-repeat;padding-right:24px}
   .fin:focus{outline:2px solid var(--teal);outline-offset:-1px;border-color:var(--teal)}
-  .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .fgrid .wide{grid-column:1 / -1}
-  .mockmeta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:10px;align-items:end;padding:14px 18px;border-bottom:1px solid var(--line)}
-  .timer{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:600;color:var(--teal);min-height:36px;display:flex;align-items:center}
-  .timer.up{color:var(--rust)}
-  .slots{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 18px}
-  .slot{border:1px solid var(--line);border-radius:var(--radius);padding:12px;background:var(--surface-2);min-width:0}
-  .slot-h{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-  .slot-h b{font-family:"JetBrains Mono",monospace;font-size:13px}
-  .slot-h .tgt{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-3)}
-  .slot textarea{min-height:58px;font-size:13px;padding:8px 10px}
   .tags{display:flex;flex-wrap:wrap;gap:5px}
   .tagbtn{font-family:"JetBrains Mono",monospace;font-size:10.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:3px 8px;border-radius:5px;cursor:pointer;min-height:28px;-webkit-tap-highlight-color:transparent}
   .tagbtn:hover{border-color:var(--rust);color:var(--rust)}
   .tagbtn.on{background:var(--rust);border-color:var(--rust);color:#fff}
-  .revform{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto;gap:8px;margin-bottom:10px}
-  .revrow{display:grid;grid-template-columns:26px minmax(0,1fr) 30px;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
-  .revrow .rt{font-weight:600;font-size:14px}
-  .revrow .rm{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-3)}
-  .revrow.done .rt{text-decoration:line-through;color:var(--ink-3);font-weight:500}
-  .revrow button{background:none;border:0;color:var(--ink-3);cursor:pointer;font-size:16px;min-width:30px;min-height:30px}
-  .revrow button:hover{color:var(--rust)}
 
   /* =============================================
      RESPONSIVE — tablet (max 768px)
@@ -347,8 +303,7 @@
     .toolbar{gap:7px}
     .btn{font-size:12px;padding:6px 11px;min-height:34px}
     .entry{grid-template-columns:90px 1fr 30px;gap:8px}
-    .nla-grid, .nla-grid.even{grid-template-columns:1fr}
-    .slots{grid-template-columns:1fr}
+    .nla-grid{grid-template-columns:1fr}
     .sitems, .sitems.single{grid-template-columns:minmax(0,1fr)}
   }
 
@@ -459,14 +414,6 @@
     .prog .n{display:none}
     .prog{padding:7px 4px;font-size:12px}
 
-    /* Infosys R2 view */
-    .nla-grid.even{margin-top:-8px}
-    .mockmeta{grid-template-columns:1fr 1fr;padding:12px}
-    .slots{padding:12px;gap:10px}
-    .newmock .fld{width:calc(50% - 5px)}
-    .newmock .btn{width:100%}
-    .revform{grid-template-columns:1fr}
-    .phead{grid-template-columns:minmax(0,1fr) 84px 14px}
   }
 
   /* =============================================
@@ -495,7 +442,6 @@
   }
   @media (min-width:1600px){
     .sitems{grid-template-columns:repeat(4,minmax(0,1fr))}
-    .slots{grid-template-columns:repeat(4,minmax(0,1fr))}
   }
   @media (min-width:1900px){
     #ledgerRows{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -527,17 +473,16 @@
 
 <div class="wrap">
   <nav class="programs" id="programs" role="tablist" aria-label="Preparation plan">
-    <button class="prog" role="tab" data-plan-view="d20" aria-selected="false">20 Dec Plan<span class="n" id="d20ProgPct"></span></button>
     <button class="prog" role="tab" data-plan-view="tcs" aria-selected="true">Onboarding Training</button>
     <button class="prog" role="tab" data-plan-view="nla" aria-selected="false">Deloitte NLA<span class="n" id="nlaProgPct"></span></button>
-    <button class="prog" role="tab" data-plan-view="inf" aria-selected="false">Infosys R2<span class="n" id="infProgPct"></span></button>
+    <button class="prog" role="tab" data-plan-view="d20" aria-selected="false">Infosys 20 Dec<span class="n" id="d20ProgPct"></span></button>
     <a class="prog" href="/infosys" title="Infosys internal training (Systems Engineer): opens its own page" style="text-decoration:none">Infosys SE ↗</a>
   </nav>
   <header class="top">
     <div class="v-d20">
-      <div class="eyebrow">Preparation plan · Infosys in-person coding round</div>
-      <h1>20 December Plan</h1>
-      <p class="sub">Day-by-day Java plan, 28 November to 20 December. Goal: at least two problems passing every test case.</p>
+      <div class="eyebrow">Preparation plan · Infosys SP / DSE</div>
+      <h1>Infosys Coding Round · 20 Dec</h1>
+      <p class="sub">Do one day at a time, in Java. Goal: at least two problems passing every test case.</p>
     </div>
     <div class="v-tcs">
       <div class="eyebrow">Preparation plan · Pre-joining build-up</div>
@@ -549,15 +494,10 @@
       <h1>Deloitte NLA</h1>
       <p class="sub">Topic-by-topic syllabus for the Deloitte National Level Assessment: aptitude, reasoning, verbal, technical MCQs, Java coding and interviews. Tracked separately from your other plans.</p>
     </div>
-    <div class="v-inf">
-      <div class="eyebrow">Preparation plan · Infosys SP / DSE</div>
-      <h1>Infosys R2 – In-Person Coding</h1>
-      <p class="sub">Master DSA patterns, algorithmic problem-solving and optimization for the Infosys four-question coding assessment.</p>
-    </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
       <div class="totals v-d20">
         <div class="big" id="d20TotalPct">0%</div>
-        <div class="cap" id="d20TotalCount">0 of 0 must problems</div>
+        <div class="cap" id="d20TotalCount">0 of 0 main problems solved</div>
       </div>
       <div class="totals v-tcs">
         <div class="big" id="totalPct">0%</div>
@@ -566,10 +506,6 @@
       <div class="totals v-nla">
         <div class="big" id="nlaTotalPct">0%</div>
         <div class="cap" id="nlaTotalCount">0 of 0 topics done</div>
-      </div>
-      <div class="totals v-inf">
-        <div class="big" id="infTotalPct">0%</div>
-        <div class="cap" id="infTotalCount">0 of 0 items done</div>
       </div>
       <button class="user-chip hidden" id="userChip" title="Switch user" aria-label="Switch user">
         <span class="avatar" id="userAvatar">?</span>
@@ -581,46 +517,82 @@
 
   <div class="warn hidden" id="storageWarn"><b>Progress can't be saved in this browser.</b> Private/incognito mode or blocked site data will make every tick disappear on refresh. Open the page in a normal window, or allow site data for this address.</div>
 
-  <!-- ===== 20 DEC PLAN (independent state, rendered by dec20/plan-app.js) ===== -->
+  <!-- ===== INFOSYS 20 DEC (independent state, rendered by dec20/plan-app.js) ===== -->
   <main id="d20View" class="v-d20">
-    <div class="nla-grid">
-      <div class="card" id="d20Today"></div>
+    <nav class="tracks" id="d20Tabs" role="tablist" aria-label="Infosys plan screens">
+      <button class="tab" role="tab" data-d20-tab="today" aria-selected="true">Today</button>
+      <button class="tab" role="tab" data-d20-tab="plan" aria-selected="false">Full plan</button>
+      <button class="tab" role="tab" data-d20-tab="quiz" aria-selected="false">Pattern quiz</button>
+      <button class="tab" role="tab" data-d20-tab="progress" aria-selected="false">My progress</button>
+      <button class="tab" role="tab" data-d20-tab="guide" aria-selected="false">Guide</button>
+    </nav>
+
+    <div class="d20-cols" data-d20-panel="today">
+      <div id="d20Today"></div>
+      <aside id="d20Side"></aside>
+    </div>
+
+    <div class="d20-narrow d20-stack hidden" data-d20-panel="plan">
+      <div id="d20Plan"></div>
+    </div>
+
+    <div class="d20-narrow hidden" data-d20-panel="quiz">
+      <div class="d20-banner"><b>Practise spotting the pattern.</b> No coding here: read the situation, name the technique and one reason, then check.</div>
+      <div class="card" id="d20Drill"></div>
+    </div>
+
+    <div class="d20-narrow d20-stack hidden" data-d20-panel="progress">
       <div class="card" id="d20Progress"></div>
-    </div>
-    <div class="nla-grid even">
-      <div class="card" id="d20Queue"></div>
       <div class="card" id="d20Checks"></div>
+      <div class="card" id="d20Queue"></div>
+      <div class="card" id="d20Mocks"></div>
+      <div class="card" id="d20Errors"></div>
     </div>
-    <div class="track-head"><div><h2>Day by day</h2><p>Must problems first, stretch only if time remains, stdin problems typed as full programs. Today opens by itself. Pattern cards and Java templates are in the <a href="dec20/Infosys_20Dec_Prep_Plan.pdf" target="_blank" rel="noopener">plan PDF</a>.</p></div></div>
-    <div id="d20Days"></div>
-    <div class="track-head inf-gap"><div><h2>Practise and review</h2><p>Name the pattern before you reveal it. Log every failure.</p></div></div>
-    <div class="card d20-ref" id="d20Drill"></div>
-    <div class="card d20-ref" id="d20Mocks"></div>
-    <div class="card d20-ref" id="d20Errors"></div>
-    <details class="card d20-ref"><summary>Daily routine and the stuck rule</summary>
-      <table class="pattern"><thead><tr><th>Weekday (4 h)</th><th>Activity</th></tr></thead><tbody>
-        <tr><td>Morning, 60 min</td><td>One template from blank (15) · one redo problem (30) · five drill items (15)</td></tr>
-        <tr><td>Evening, 40 min</td><td>Learn the day's idea and dry-run one example</td></tr>
-        <tr><td>Evening, 90 min</td><td>Two must problems, 45 minutes each, no hints</td></tr>
-        <tr><td>Evening, 30 min</td><td>Third must problem or the stdin problem</td></tr>
-        <tr><td>Evening, 20 min</td><td>Error log</td></tr>
-        <tr><td>Weekend, 6 h</td><td>Two 2.5 h blocks + 1 h review</td></tr>
-        <tr><td>Stuck, minute 20</td><td>Write the brute force and look for repeated work</td></tr>
-        <tr><td>Stuck, minute 25</td><td>Read only the topic tag or first hint</td></tr>
-        <tr><td>Stuck, minute 40</td><td>Read the idea, close it, code from blank, then press “Needed help”</td></tr>
-      </tbody></table>
-    </details>
-    <details class="card d20-ref"><summary>Exam-day plan (3 hours)</summary>
-      <table class="pattern"><thead><tr><th>Time</th><th>Action</th></tr></thead><tbody>
-        <tr><td>0:00–0:15</td><td>Read every question; pick the order by what you understand</td></tr>
-        <tr><td>0:15–0:55</td><td>Easiest problem: every test passes before moving on</td></tr>
-        <tr><td>0:55–2:10</td><td>Second problem: 15 min on paper first; brute force for partial cases if stuck at 1:25</td></tr>
-        <tr><td>2:10–2:45</td><td>Third problem: brute force or special cases</td></tr>
-        <tr><td>2:45–3:00</td><td>No rewrites; recheck edge cases and final submissions</td></tr>
-      </tbody></table>
-      <p class="fine">Duration, question count and scoring are not stated in the invitation. These timings assume the 3-hour format reported by candidates.</p>
-    </details>
-    <div id="d20Backup"></div>
+
+    <div class="d20-narrow d20-stack d20-guide hidden" data-d20-panel="guide">
+      <div class="card"><h2>How to use this</h2>
+        <ol>
+          <li>Open <b>Today</b> and follow the numbered steps from top to bottom.</li>
+          <li>Tick a problem only when every test case passes. If you needed help, press <b>I needed help</b> and solve it again on the date shown.</li>
+          <li>After each mock, open <b>My progress</b>, record the result and answer “Am I on track?”.</li>
+        </ol>
+        <dl>
+          <dt>Main problems</dt><dd>The plan. Do these every day.</dd>
+          <dt>Write a full program</dt><dd>CSES tasks where your code reads the input itself.</dd>
+          <dt>Extra</dt><dd>Only when the rest is finished.</dd>
+          <dt>Timed test</dt><dd>Diagnostic and mock days. The pattern is hidden on purpose.</dd>
+        </dl>
+        <p class="target">Pattern notes, Java templates and edge-case lists are in the <a href="dec20/Infosys_20Dec_Prep_Plan.pdf" target="_blank" rel="noopener">plan PDF</a>.</p>
+      </div>
+      <div class="card"><h2>Daily routine</h2>
+        <table class="pattern"><thead><tr><th>Weekday (4 h)</th><th>What to do</th></tr></thead><tbody>
+          <tr><td>Morning, 60 min</td><td>One template from memory (15) · one old problem again (30) · five quiz questions (15)</td></tr>
+          <tr><td>Evening, 40 min</td><td>Learn the day's idea and work one example by hand</td></tr>
+          <tr><td>Evening, 90 min</td><td>Two main problems, 45 minutes each, no hints</td></tr>
+          <tr><td>Evening, 30 min</td><td>Third main problem or the full program</td></tr>
+          <tr><td>Evening, 20 min</td><td>Mistake log</td></tr>
+          <tr><td>Weekend, 6 h</td><td>Two blocks of 2.5 h and 1 h of review</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card"><h2>When you are stuck</h2>
+        <table class="pattern"><thead><tr><th>At minute</th><th>Do this</th></tr></thead><tbody>
+          <tr><td>20</td><td>Write the brute force and look for repeated work</td></tr>
+          <tr><td>25</td><td>Read only the topic tag or the first hint</td></tr>
+          <tr><td>40</td><td>Read the idea, close it, code from a blank file, then press “I needed help”</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card"><h2>Exam-day plan (3 hours)</h2>
+        <table class="pattern"><thead><tr><th>Time</th><th>What to do</th></tr></thead><tbody>
+          <tr><td>0:00–0:15</td><td>Read every question; start with the one you understand best</td></tr>
+          <tr><td>0:15–0:55</td><td>Easiest problem: every test passes before moving on</td></tr>
+          <tr><td>0:55–2:10</td><td>Second problem: 15 minutes on paper first; if stuck at 1:25, submit a brute force for partial cases</td></tr>
+          <tr><td>2:10–2:45</td><td>Third problem: brute force or special cases</td></tr>
+          <tr><td>2:45–3:00</td><td>No rewrites; check edge cases and final submissions</td></tr>
+        </tbody></table>
+        <p class="fine">Your invitation does not state the duration, number of questions or scoring. These timings assume the 3-hour format reported by candidates.</p>
+      </div>
+      <div class="card" id="d20Backup"></div>
+    </div>
   </main>
 
   <div class="ledger v-tcs">
@@ -645,28 +617,6 @@
     <div id="nlaLog"></div>
   </main>
 
-  <!-- ===== INFOSYS R2 (independent state, rendered by the Infosys script) ===== -->
-  <main id="infView" class="v-inf">
-    <div class="nla-grid">
-      <div class="card" id="infOverview"></div>
-      <div class="card" id="infProgress"></div>
-    </div>
-    <div class="nla-grid even">
-      <div class="card" id="infPhases"></div>
-      <div class="card" id="infPatterns"></div>
-    </div>
-    <div class="track-head"><div><h2>Coding syllabus</h2><p>Six modules in Java, one checkbox per practical task. Each problem task carries a difficulty so the Easy / Medium / Hard / Complex counts above stay accurate.</p></div></div>
-    <div class="toolbar" id="infToolbar"></div>
-    <div class="legend"><span><span class="flag d-easy">easy</span>Q1 level</span><span><span class="flag d-medium">medium</span>Q2 level</span><span><span class="flag d-hard">hard</span>Q3 level</span><span><span class="flag d-complex">complex</span>Q4 level</span><span style="color:var(--ink-3)">Rows without a difficulty are concepts or analysis habits, not problems.</span></div>
-    <div id="infModules"></div>
-    <div class="track-head inf-gap"><div><h2>Mock assessments</h2><p>Four question slots per mock (Q1 easy → Q4 complex). Record every attempt; the dashboard and post-test analysis update as you type.</p></div></div>
-    <div class="card" id="infMockDash"></div>
-    <div id="infMocks"></div>
-    <div class="track-head inf-gap"><div><h2>Revision tracker</h2><p>Problems to re-solve from scratch. Add them by hand or straight from a mock question.</p></div></div>
-    <div class="card" id="infRevision"></div>
-    <div id="infBackup"></div>
-    <datalist id="infTopics"></datalist>
-  </main>
 </div>
 <div class="status" id="status">Saved</div>
 <script>
@@ -1149,18 +1099,19 @@ const DATA = [
 </script>
 <script>
 /* =====================================================================
-   PLAN SWITCHER — decides which plan is on screen (tcs / nla / inf / d20), per user.
+   PLAN SWITCHER — decides which plan is on screen (tcs / nla / d20), per user.
    Stored under "prep-view-v1-<name>". Each plan module registers itself with
    setUser / flush / forgetUser; the onboarding script calls Plans.setUser on login.
    ===================================================================== */
 (function () {
   const VIEW_PREFIX = "prep-view-v1-";
-  const VIEWS = { tcs: "Onboarding Training", nla: "Deloitte NLA", inf: "Infosys R2", d20: "20 Dec Plan" };
+  const VIEWS = { tcs: "Onboarding Training", nla: "Deloitte NLA", d20: "Infosys 20 Dec" };
   const plans = {};
   let user = null, view = "tcs";
   function readView() {
     try {
       const v = localStorage.getItem(VIEW_PREFIX + user);
+      if (v === "inf") return "d20"; // the former Infosys R2 tab
       if (v && VIEWS[v]) return v;
       // The first Deloitte build kept the open tab inside its own state.
       const old = JSON.parse(localStorage.getItem("deloitte-nla-v1-" + user) || "null");
@@ -1855,1086 +1806,6 @@ const DATA = [
     flush,
     forgetUser(name) { try { localStorage.removeItem(KEY_PREFIX + String(name).trim()); } catch (e) {} },
     _debug: { ids: ALL_IDS, modules: NLA_MODULES, state: () => state }
-  });
-})();
-</script>
-<script>
-/* =====================================================================
-   INFOSYS R2 — IN-PERSON CODING. Independent from every other plan.
-   - Own data (INF_MODULES), own state, own key per user: "infosys-r2-v1-<name>".
-   - Checklist ids are text-based ("module.section.slug"), like Deloitte.
-   - Mock records and the revision list live in the same per-user state.
-   - DOM hooks use data-inf-* attributes / inf* ids only.
-   ===================================================================== */
-(function () {
-  "use strict";
-  const KEY_PREFIX = "infosys-r2-v1-";
-  const PROBE_KEY = "infosys-r2-probe";
-
-  const PRI = {
-    vhigh:      { label: "very high",  cls: "p-vhigh" },
-    high:       { label: "high",       cls: "p-high" },
-    additional: { label: "additional", cls: "p-additional" }
-  };
-  const LV = ["easy", "medium", "hard", "complex"];
-  const LV_NAME = { easy: "Easy", medium: "Medium", hard: "Hard", complex: "Complex" };
-  const SLOT_TARGET = [20, 40, 50, 70];   // practice pacing for a 180-minute mock, not an official split
-  const STATUS = [["not-started", "Not Started"], ["attempted", "Attempted"], ["partial", "Partially Solved"], ["full", "Fully Solved"], ["revise", "Needs Revision"]];
-  const SOL = [["none", "Not submitted"], ["accepted", "Accepted"], ["wrong", "Wrong answer"], ["tle", "Time limit exceeded"], ["runtime", "Runtime error"], ["compile", "Compilation error"]];
-  const TAGS = [["tle", "TLE"], ["logic", "Logic error"], ["edge", "Edge cases"], ["input", "Input handling"], ["incomplete", "Incomplete"], ["optimized", "Optimised later"]];
-
-  const PATTERN_ROWS = [
-    ["Question 1", "easy", "Basic implementation and problem-solving"],
-    ["Question 2", "medium", "Intermediate DSA and algorithmic patterns"],
-    ["Question 3", "hard", "Advanced algorithms and dynamic programming"],
-    ["Question 4", "complex", "Optimization and advanced problem-solving"]
-  ];
-  const SOURCES = [
-    W("Official · Infosys Power Programmers", "https://www.infosys.com/careers/power-programmers.html"),
-    W("Candidate experience · Medium, Sep 2026", "https://medium.com/@spatil270403/infosys-sp-interview-experience-2026-oa-technical-interview-7e234efc1fab"),
-    W("Candidate experience · LinkedIn", "https://www.linkedin.com/posts/om-sahare06_infosys-in-person-coding-assessment-experience-activity-7502663433612591105-11BG"),
-    W("Candidate reports · Reddit, Sep 2026", "https://www.reddit.com/r/infosys/comments/1w9hzua/infosys_round_2_offcampus_inperson_assessment_6/")
-  ];
-
-  const PHASES = [
-    { n: "Phase 1 – Foundation", d: "Java fundamentals, arrays, strings, sorting, searching, hashing, basic mathematics." },
-    { n: "Phase 2 – Core Patterns", d: "Prefix sum, two pointers, sliding window, subarrays, greedy algorithms." },
-    { n: "Phase 3 – Advanced Problem Solving", d: "Dynamic programming: 1D, 2D, grid, subsequence, state transition and partition DP." },
-    { n: "Phase 4 – Additional DSA", d: "Stack and queue, linked lists, trees, graphs, backtracking, bit manipulation." },
-    { n: "Phase 5 – Assessment Preparation", d: "Timed Q1–Q4 practice, full four-question mocks, post-mock analysis, revision of weak areas." }
-  ];
-
-  // P(title, practical task, difficulty|null → section default, links)
-  const P = (t, d, lv, k) => ({ t, d, lv, k });
-  const L = LC;
-
-  const INF_MODULES = [
-  {
-    id: "java", n: "Java Coding Fundamentals", short: "Java", pri: "high",
-    note: "Everything in Java. The goal is to never lose time to syntax, input parsing or overflow during the assessment.",
-    sections: [
-      { id: "basics", n: "Java Basics", pri: "high", ph: 1, lv: "easy", items: [
-        P("Variables and data types", "Declare one of each primitive; print Integer.MAX_VALUE and Long.MAX_VALUE and watch an int overflow wrap around."),
-        P("Primitive and non-primitive types", "Predict == vs equals() on String and Integer, including the Integer 127 vs 128 cache trap."),
-        P("Type casting", "Widening vs narrowing: (int) 3.99, (char) (c + 1), char - '0' for digits, and casting to long before multiplying."),
-        P("Operators and precedence", "Predict then run: i++ + ++i, a / b * c with ints, -5 % 3, >> vs >>>, and && short-circuit side effects."),
-        P("Conditional statements", "Leap year, triangle validity and a switch on String; rewrite one nested if-else as early returns."),
-        P("For loops", "Sum of digits, reverse a number, multiplication table and the nth term of a series."),
-        P("While and do-while loops", "Digit count with while; an input menu with do-while that always runs once."),
-        P("Nested loops", "Print pyramid, diamond, Floyd's triangle, Pascal's triangle and a hollow square; state each one's complexity."),
-        P("Break and continue", "First duplicate with break, skip multiples of 3 with continue, and a labelled break out of a 2D search."),
-        P("Methods and parameters", "isPrime, gcd and reverse as static methods; show pass-by-value with an int vs an int[]."),
-        P("Return values", "Return min and max together using an int[] or a small record class."),
-        P("Recursion fundamentals", "Factorial, power, digit sum, print 1..N and N..1, reverse an array — base case first, then draw the call tree.")
-      ]},
-      { id: "arrays", n: "Java Arrays", pri: "high", ph: 1, lv: "easy", items: [
-        P("Array declaration and initialization", "new int[n], array literals, default values, Arrays.fill, and long[] for large sums."),
-        P("Array traversal", "Index loop vs for-each, backwards traversal, and every second element."),
-        P("Array input and output", "Read n and n numbers with BufferedReader; print space-separated with a StringBuilder and no trailing-space bug."),
-        P("One-dimensional arrays", "Running sum, count of evens/odds, and the index of the maximum in one pass.", null, [L("running-sum-of-1d-array")]),
-        P("Two-dimensional arrays", "Read an n × m grid; row and column sums, transpose, and both diagonal sums.", null, [L("transpose-matrix")]),
-        P("Jagged arrays", "Build Pascal's triangle as an int[][] whose rows have different lengths.", null, [L("pascals-triangle")]),
-        P("Array copying", "Arrays.copyOf, copyOfRange, System.arraycopy and clone(); show why b = a is not a copy."),
-        P("Sorting arrays", "Arrays.sort on int[], on Integer[] in descending order, and on int[][] by the first column."),
-        P("Array manipulation", "Insert at an index, delete at an index, and move zeros to the end in place.", null, [L("move-zeroes")]),
-        P("Passing arrays to methods", "One method that edits the array in place and one that returns a new array; predict both outputs.")
-      ]},
-      { id: "strings", n: "Java Strings", pri: "high", ph: 1, lv: "easy", items: [
-        P("String creation", "Literal vs new String(), the string pool, and == vs equals() output prediction."),
-        P("String immutability", "Show that s += c in a loop is O(n²); replace it with StringBuilder and time both for n = 100000."),
-        P("String methods", "charAt, substring, indexOf, contains, replace, trim, toCharArray, String.valueOf and compareTo — one line each."),
-        P("StringBuilder", "append, insert, reverse, setCharAt and deleteCharAt; reverse the words of a sentence.", null, [L("reverse-words-in-a-string")]),
-        P("Character manipulation", "Character.isDigit / isLetter / toUpperCase, c - 'a' as an index, and toggling case."),
-        P("String splitting", "split(\" \") vs split(\"\\\\s+\") on messy input; trim first; parse numbers from a comma-separated line."),
-        P("String comparison", "equals, equalsIgnoreCase and compareTo; sort strings by length, then lexicographically."),
-        P("Character arrays", "int[26] frequency for an anagram check; sort a char[] and rebuild the String.", null, [L("valid-anagram")]),
-        P("Efficient string manipulation", "Compress aaabb → a3b2, and remove adjacent duplicates using a StringBuilder as a stack.", null, [L("remove-all-adjacent-duplicates-in-string")])
-      ]},
-      { id: "coll", n: "Java Collections", pri: "high", ph: 1, lv: "easy", items: [
-        P("ArrayList", "add / get / set; the remove(int) vs remove(Object) trap with Integer; remove safely while iterating with an Iterator."),
-        P("HashMap", "getOrDefault, merge, putIfAbsent and entrySet iteration; count word frequencies."),
-        P("HashSet", "Remove duplicates, test membership, and intersect two sets with retainAll."),
-        P("LinkedList", "Use it as a list and as a deque (addFirst / addLast / pollFirst); know why ArrayList usually wins."),
-        P("Stack", "Use ArrayDeque push / pop / peek instead of java.util.Stack; check balanced brackets.", null, [L("valid-parentheses")]),
-        P("Queue", "ArrayDeque offer / poll / peek; simulate a ticket counter queue."),
-        P("PriorityQueue", "Min-heap, max-heap with Collections.reverseOrder(), a heap of int[] with a comparator, and the k largest elements.", "medium", [L("kth-largest-element-in-an-array")]),
-        P("Collections sorting", "Collections.sort, list.sort(null), and sorting a List<int[]> by two keys."),
-        P("Comparator and Comparable", "Comparator.comparing(...).thenComparing(...); use Integer.compare instead of a - b to avoid overflow."),
-        P("Choosing the appropriate collection", "Write one rule each: lookup → HashMap/HashSet, ordered keys → TreeMap, repeated min/max → PriorityQueue, LIFO/FIFO → ArrayDeque.")
-      ]},
-      { id: "skills", n: "Java Problem-Solving Skills", pri: "high", ph: 1, lv: "easy", items: [
-        P("Fast and correct input handling", "A reader that pulls tokens across any line breaks and survives blank lines."),
-        P("BufferedReader", "Read line by line and handle readLine() returning null at end of input."),
-        P("StringTokenizer", "Wrap it in a FastReader class with next(), nextInt() and nextLong()."),
-        P("StringBuilder for output", "Collect output in one StringBuilder and print once; compare with println in a loop for 10⁵ lines."),
-        P("Parsing integer and long values", "Integer.parseInt vs Long.parseLong; see what happens when 3000000000 is parsed as an int."),
-        P("Handling multiple test cases", "Read T, solve each case, and reset every data structure between cases."),
-        P("Preventing integer overflow", "Find and fix overflow in a * b, a sum of 10⁵ values of 10⁹, and mid = (l + r) / 2."),
-        P("Using long for large calculations", "1L * a * b, long accumulators, and % 1_000_000_007 applied at every step."),
-        P("Writing clean methods", "Split one solution into read / solve / print methods with clear names."),
-        P("Debugging Java code", "Fix a wrong solution with targeted prints and a hand trace; write 5 edge cases before rerunning."),
-        P("Understanding compilation errors", "Fix: missing return, incompatible types, unreachable code, uninitialised variable, non-static from static context."),
-        P("Java template from memory", "Write your full contest template (imports, FastReader, main, StringBuilder output) in under 3 minutes.")
-      ]}
-    ]
-  },
-  {
-    id: "dsa", n: "Core DSA and Problem-Solving Patterns", short: "Core DSA", pri: "high",
-    sections: [
-      { id: "arr", n: "Arrays and Basic Implementation", pri: "high", ph: 1, pat: "Arrays", lv: "easy", items: [
-        P("Maximum and minimum elements", "Max and min in one pass; then the version with the fewest comparisons (process pairs)."),
-        P("Second-largest element", "One pass, no sorting; handle duplicates and the case where it doesn't exist.", null, [L("third-maximum-number")]),
-        P("Array reversal", "In place with two pointers; then reverse only the range [l, r].", null, [L("reverse-string")]),
-        P("Array rotation", "Rotate right by k with the three-reversal trick; handle k > n.", "medium", [L("rotate-array")]),
-        P("Frequency counting", "Count with int[] for small values and HashMap otherwise; print in first-occurrence order.", null, [L("majority-element")]),
-        P("Duplicate detection", "With a HashSet, with sorting, and in O(1) extra space when values are in 1..n (index marking).", "medium", [L("find-all-duplicates-in-an-array")]),
-        P("Missing number", "Sum formula with long, then XOR; then find the missing and the repeating number together.", null, [L("missing-number")]),
-        P("Finding unique elements", "The element that appears once while others appear twice (XOR); all elements with frequency 1.", null, [L("single-number")]),
-        P("Array intersection", "With HashMap counts, and with two pointers on sorted arrays.", null, [L("intersection-of-two-arrays-ii")]),
-        P("Array union", "Union of two sorted arrays without duplicates using two pointers."),
-        P("Rearranging array elements", "Alternate positive and negative numbers; segregate even and odd in place.", "medium", [L("rearrange-array-elements-by-sign")]),
-        P("Sorting-based array problems", "Sort first, then answer: merge overlapping intervals and the minimum-difference pairs.", "medium", [L("merge-intervals"), L("minimum-absolute-difference")]),
-        P("Subarray generation", "Print all subarrays, then compute every subarray sum in O(n²) without a third loop."),
-        P("Contiguous subarray problems", "Maximum subarray with Kadane's algorithm, then maximum product subarray.", "medium", [L("maximum-subarray"), L("maximum-product-subarray")])
-      ]},
-      { id: "prefix", n: "Prefix Sum and Difference Arrays", pri: "high", ph: 2, pat: "Prefix sum", lv: "medium", items: [
-        P("Prefix sum basics", "Implement pre[i + 1] = pre[i] + a[i] with long and explain the off-by-one convention.", "easy", [L("running-sum-of-1d-array")]),
-        P("Prefix sum array construction", "Build 1D and 2D prefix arrays and verify them against brute force on random input.", null, [L("range-sum-query-2d-immutable")]),
-        P("Range sum queries", "Answer Q queries sum(l, r) in O(1) each after O(n) preprocessing.", "easy", [L("range-sum-query-immutable")]),
-        P("Subarray sum calculations", "Count subarrays whose sum is divisible by k using prefix remainders.", null, [L("subarray-sums-divisible-by-k")]),
-        P("Prefix and suffix sums", "Pivot index; product of array except self without division.", null, [L("find-pivot-index"), L("product-of-array-except-self")]),
-        P("Prefix minimum and maximum", "Best time to buy and sell stock with a running minimum; trapping rain water with prefix and suffix maxima.", null, [L("best-time-to-buy-and-sell-stock"), L("trapping-rain-water")]),
-        P("Prefix sum with frequency maps", "Longest subarray with equal 0s and 1s (treat 0 as −1).", null, [L("contiguous-array")]),
-        P("Difference arrays", "Apply many range increments in O(1) each, then rebuild with one prefix pass.", null, [L("corporate-flight-bookings")]),
-        P("Range update problems", "Car pooling capacity check with a difference array.", null, [L("car-pooling")]),
-        P("Subarray minimum and maximum differences", "Sum of (max − min) over all subarrays: brute force first, then the faster approach.", null, [L("sum-of-subarray-ranges")]),
-        P("Optimizing repeated range calculations", "Rewrite an O(n·q) solution as O(n + q) and time both at n = q = 10⁵."),
-        P("Timed prefix-sum problem", "Solve one unseen prefix-sum problem in 25 minutes, edge cases included.", null, [L("count-number-of-nice-subarrays")])
-      ]},
-      { id: "twoptr", n: "Two Pointers", pri: "high", ph: 2, pat: "Two pointers", lv: "medium", items: [
-        P("Opposite-end pointers", "Container with most water; valid palindrome.", null, [L("container-with-most-water"), L("valid-palindrome")]),
-        P("Same-direction pointers", "Remove element and move zeroes with a slow write pointer and a fast read pointer.", "easy", [L("remove-element")]),
-        P("Pair sum problems", "Pair with a target sum in a sorted array; count all pairs with sum < target.", "easy", [L("two-sum-ii-input-array-is-sorted")]),
-        P("Three-sum fundamentals", "Sort, fix one element, two-pointer the rest, and skip duplicates correctly.", null, [L("3sum")]),
-        P("Removing duplicates", "Keep at most one copy, then at most two copies, in place.", null, [L("remove-duplicates-from-sorted-array-ii")]),
-        P("Sorted array problems", "Squares of a sorted array; merge two sorted arrays from the back.", "easy", [L("squares-of-a-sorted-array"), L("merge-sorted-array")]),
-        P("Valid subset problems", "Count subsequences where min + max ≤ target (sort, two pointers, powers of 2 mod 1e9+7).", null, [L("number-of-subsequences-that-satisfy-the-given-sum-condition")]),
-        P("Maximum and minimum pair problems", "Boats to save people; max number of k-sum pairs.", null, [L("boats-to-save-people"), L("max-number-of-k-sum-pairs")]),
-        P("Two-pointer optimization", "3Sum closest; reduce an O(n²) pair search to O(n log n).", null, [L("3sum-closest")])
-      ]},
-      { id: "window", n: "Sliding Window", pri: "high", ph: 2, pat: "Sliding window", lv: "medium", items: [
-        P("Fixed-size sliding windows", "Maximum average of k consecutive elements; most vowels in a window of size k.", "easy", [L("maximum-average-subarray-i"), L("maximum-number-of-vowels-in-a-substring-of-given-length")]),
-        P("Variable-size sliding windows", "Write the grow-right / shrink-left template and annotate the invariant it keeps."),
-        P("Maximum sum subarray", "Maximum sum of a length-k window whose elements are all distinct.", null, [L("maximum-sum-of-distinct-subarrays-with-length-k")]),
-        P("Minimum length subarray", "Smallest subarray with sum ≥ target.", null, [L("minimum-size-subarray-sum")]),
-        P("Longest valid subarray", "Longest run of 1s after flipping at most k zeros.", null, [L("max-consecutive-ones-iii")]),
-        P("Distinct element windows", "Longest substring without repeats; subarrays with exactly k distinct = atMost(k) − atMost(k − 1).", "hard", [L("longest-substring-without-repeating-characters"), L("subarrays-with-k-different-integers")]),
-        P("Frequency-based windows", "Find all anagrams of p in s; permutation in string.", null, [L("find-all-anagrams-in-a-string"), L("permutation-in-string")]),
-        P("Sliding window with HashMap", "Fruit into baskets; longest repeating character replacement.", null, [L("fruit-into-baskets"), L("longest-repeating-character-replacement")]),
-        P("Sliding window with two pointers", "Minimum window substring.", "hard", [L("minimum-window-substring")]),
-        P("Window optimization problems", "Sliding window maximum in O(n) with a deque of indices.", "hard", [L("sliding-window-maximum")])
-      ]},
-      { id: "sort", n: "Sorting and Searching", pri: "high", ph: 1, pat: "Sorting & searching", lv: "easy", items: [
-        P("Bubble sort", "Implement with early exit; show that the swap count equals the number of inversions."),
-        P("Selection sort", "Implement it; explain why it does at most n − 1 swaps and is not stable."),
-        P("Insertion sort", "Implement it; show the O(n) best case on already-sorted input."),
-        P("Merge sort", "Implement top-down; then count inversions during the merge step.", "medium", [L("sort-an-array")]),
-        P("Quick sort", "Lomuto partition; then quickselect for the kth largest element.", "medium", [L("kth-largest-element-in-an-array")]),
-        P("Counting sort fundamentals", "Sort values from a small range in O(n + k); relative sort array.", null, [L("relative-sort-array")]),
-        P("Linear search", "First and last index of a value; search an unsorted 2D grid."),
-        P("Binary search", "Iterative template with lo + (hi − lo) / 2; argue why it always terminates.", null, [L("binary-search")]),
-        P("Binary search on answer", "Koko eating bananas; ship packages within D days — write feasible(x) first.", "medium", [L("koko-eating-bananas"), L("capacity-to-ship-packages-within-d-days")]),
-        P("Lower and upper bounds", "First and last position of a target; count occurrences in O(log n).", "medium", [L("find-first-and-last-position-of-element-in-sorted-array")]),
-        P("Search in rotated arrays", "Search for a target; find the minimum.", "medium", [L("search-in-rotated-sorted-array"), L("find-minimum-in-rotated-sorted-array")]),
-        P("Sorting with custom comparators", "Largest number from an array; sort by frequency, then by value.", "medium", [L("largest-number"), L("sort-array-by-increasing-frequency")])
-      ]},
-      { id: "hash", n: "Hashing", pri: "high", ph: 1, pat: "Hashing", lv: "medium", items: [
-        P("HashMap fundamentals", "Two Sum with a value → index map.", "easy", [L("two-sum")]),
-        P("HashSet fundamentals", "Happy number cycle detection; contains duplicate.", "easy", [L("happy-number")]),
-        P("Frequency maps", "Ransom note and valid anagram with int[26] and with a HashMap.", "easy", [L("ransom-note")]),
-        P("Counting occurrences", "Unique number of occurrences; first element that occurs k times.", "easy", [L("unique-number-of-occurrences")]),
-        P("Pair sum using hashing", "Count pairs with difference k; count pairs whose sum is divisible by k.", null, [L("k-diff-pairs-in-an-array")]),
-        P("Prefix sum with HashMap", "Subarray with sum a multiple of k (store the first index of each remainder).", null, [L("continuous-subarray-sum")]),
-        P("Duplicate detection", "Duplicate within distance k using a map of last positions.", "easy", [L("contains-duplicate-ii")]),
-        P("Grouping elements", "Group anagrams using a sorted key or a count key.", null, [L("group-anagrams")]),
-        P("Subarray sum equals K", "Prefix sum + HashMap seeded with map.put(0, 1); explain why the seed is needed.", null, [L("subarray-sum-equals-k")]),
-        P("Hash-based optimization", "Longest consecutive sequence in O(n).", null, [L("longest-consecutive-sequence")])
-      ]},
-      { id: "math", n: "Mathematical Problem Solving", pri: "high", ph: 1, pat: "Mathematics", lv: "easy", items: [
-        P("GCD and LCM", "Euclid recursively and iteratively; LCM as a / gcd * b to avoid overflow; GCD of an array.", null, [L("find-greatest-common-divisor-of-array")]),
-        P("Prime numbers", "√n primality check, then the Sieve of Eratosthenes up to 10⁶.", null, [L("count-primes")]),
-        P("Prime factorization", "Trial division up to √n with powers; count divisors from the factorization.", "medium", [L("ugly-number")]),
-        P("Divisibility", "Count numbers in [1, n] divisible by a or b using inclusion–exclusion."),
-        P("Modular arithmetic", "(a + b) % m and (a * b) % m with long; fix negative remainders with ((x % m) + m) % m.", "medium"),
-        P("Remainder properties", "Count pairs whose sum is divisible by k using remainder buckets.", "medium", [L("pairs-of-songs-with-total-durations-divisible-by-60")]),
-        P("Fast exponentiation", "Iterative binary exponentiation pow(a, b) % m in O(log b).", "medium", [L("powx-n")]),
-        P("Combinations and permutations", "nCr with Pascal's triangle, then with factorials and a modular inverse (Fermat).", "medium", [L("pascals-triangle")]),
-        P("Number properties", "Armstrong, perfect, palindrome and power-of-two (n & (n − 1)) checks.", null, [L("power-of-two")]),
-        P("Mathematical sequences", "Sum of an AP and a GP in O(1); nth Tribonacci iteratively.", null, [L("n-th-tribonacci-number")]),
-        P("Integer overflow", "Reverse an integer and return 0 on overflow without using long.", "medium", [L("reverse-integer")]),
-        P("Optimization of mathematical calculations", "Replace loops with formulas: sum 1..n, count multiples, integer square root by binary search.", null, [L("sqrtx")])
-      ]}
-    ]
-  },
-  {
-    id: "greedy", n: "Greedy Algorithms and Optimization", short: "Greedy", pri: "high",
-    sections: [
-      { id: "fund", n: "Greedy Fundamentals", pri: "high", ph: 2, pat: "Greedy", lv: "medium", items: [
-        P("Greedy strategy", "Assign cookies: sort both arrays, give each child the smallest cookie that works, and write why that's safe.", "easy", [L("assign-cookies")]),
-        P("Local versus global optimum", "Show greedy change failing for coins {1, 3, 4} and amount 6, and explain why."),
-        P("Greedy choice property", "Lemonade change: state the greedy choice and why it never hurts.", "easy", [L("lemonade-change")]),
-        P("Exchange argument basics", "Two-city scheduling: justify sorting by cost difference with an exchange argument.", null, [L("two-city-scheduling")]),
-        P("Sorting-based greedy", "Maximum units on a truck; minimum cost of candies with the free-third discount.", "easy", [L("maximum-units-on-a-truck"), L("minimum-cost-of-buying-candies-with-discount")]),
-        P("Greedy selection problems", "Maximize the array sum after k negations.", "easy", [L("maximize-sum-of-array-after-k-negations")]),
-        P("Interval-based greedy problems", "Non-overlapping intervals and minimum arrows to burst balloons (sort by end).", null, [L("non-overlapping-intervals"), L("minimum-number-of-arrows-to-burst-balloons")])
-      ]},
-      { id: "types", n: "Greedy Problem Types", pri: "high", ph: 2, pat: "Greedy", lv: "medium", items: [
-        P("Activity selection", "Sort by finish time, pick compatible activities, and return both the count and the chosen list."),
-        P("Fractional knapsack", "Sort by value/weight with a Comparator on double, take fractions, and print with two decimals."),
-        P("Job sequencing", "Deadlines and profits: sort by profit and fill the latest free slot (array first, then DSU)."),
-        P("Minimum number of operations", "Broken calculator by working backwards from the target.", null, [L("broken-calculator")]),
-        P("Minimum cost problems", "Minimum cost to move chips; connect sticks with a PriorityQueue.", "easy", [L("minimum-cost-to-move-chips-to-the-same-position")]),
-        P("Maximum score problems", "Maximum points from cards taken from either end (window on the complement).", null, [L("maximum-points-you-can-obtain-from-cards")]),
-        P("Resource allocation", "Gas station in one pass with a running tank and start reset.", null, [L("gas-station")]),
-        P("Scheduling problems", "Task scheduler with cooldown using the count-based formula.", null, [L("task-scheduler")]),
-        P("Array selection problems", "Largest perimeter triangle; minimum subsequence in non-increasing order.", "easy", [L("largest-perimeter-triangle"), L("minimum-subsequence-in-non-increasing-order")]),
-        P("Subset optimization", "Maximum bags filled to capacity (sort by remaining space).", null, [L("maximum-bags-with-full-capacity-of-rocks")]),
-        P("Greedy with constraints", "Candy distribution with a left pass and a right pass.", "hard", [L("candy")]),
-        P("Greedy with sorting and two pointers", "Bag of tokens; boats to save people.", null, [L("bag-of-tokens")])
-      ]},
-      { id: "adv", n: "Advanced Greedy Practice", pri: "high", ph: 2, pat: "Greedy", lv: "hard", items: [
-        P("Refuelling and resource management variations", "Minimum refuelling stops with a max-heap of stations already passed.", null, [L("minimum-number-of-refueling-stops")]),
-        P("Stock and transaction-related greedy problems", "Stock II: add every positive day-to-day difference, and prove why it's optimal.", "medium", [L("best-time-to-buy-and-sell-stock-ii")]),
-        P("Minimum or maximum operations", "Minimum deletions to make character frequencies unique.", "medium", [L("minimum-deletions-to-make-character-frequencies-unique")]),
-        P("Greedy with priority queues", "Last stone weight; then IPO with two heaps.", null, [L("last-stone-weight"), L("ipo")]),
-        P("Greedy combined with prefix sums", "Jump game II using reach ranges, like a level-by-level BFS.", "medium", [L("jump-game-ii")]),
-        P("Greedy versus dynamic programming decisions", "Solve coin change greedily and with DP on 5 inputs; write the rule for when greedy is invalid.", "medium", [L("coin-change")])
-      ]}
-    ]
-  },
-  {
-    id: "dp", n: "Dynamic Programming", short: "DP", pri: "vhigh",
-    note: "The heaviest module. Questions 3 and 4 in reported experiences lean on DP. For every problem: recursion → memoization → tabulation → space optimisation.",
-    sections: [
-      { id: "fund", n: "DP Fundamentals", pri: "vhigh", ph: 3, pat: "Dynamic programming", lv: null, items: [
-        P("Understanding overlapping subproblems", "Draw the recursion tree for fib(6), count the repeated calls, and time naive fib(45)."),
-        P("Optimal substructure", "Explain why shortest path has it and longest simple path does not."),
-        P("Recursion and DP", "Write the plain recursive climbing-stairs solution first — every DP starts here."),
-        P("Memoization", "Add a long[] memo filled with −1 to the recursive solution and compare call counts."),
-        P("Tabulation", "Convert the same problem to a bottom-up loop and check the fill order."),
-        P("State definition", "For 5 problems, write what dp[i] or dp[i][j] means in one sentence before coding."),
-        P("State transitions", "Write the house robber and LIS recurrences on paper, then code them."),
-        P("Base cases", "List base cases and out-of-range handling for a grid DP; test 1 × 1 and 1 × n grids."),
-        P("Recurrence relations", "Derive recurrences for tribonacci, unique paths and coin-change ways."),
-        P("Space optimization", "Reduce a 1D DP to two variables and a 2D DP to a single row."),
-        P("Time complexity of DP", "Compute states × transition cost for 5 DPs you've solved."),
-        P("Converting recursion to iteration", "Rewrite a memoized 2D solution iteratively with the correct loop order.")
-      ]},
-      { id: "one", n: "One-Dimensional DP", pri: "vhigh", ph: 3, pat: "Dynamic programming", lv: "medium", items: [
-        P("Fibonacci variations", "Fibonacci and tribonacci in O(1) space; nth term mod 1e9+7.", "easy", [L("fibonacci-number")]),
-        P("Climbing stairs", "1 or 2 steps, then 1..k steps; count ways mod 1e9+7.", "easy", [L("climbing-stairs")]),
-        P("House robber", "Linear street, then circular street.", null, [L("house-robber"), L("house-robber-ii")]),
-        P("Maximum sum without adjacent elements", "Return the sum and reconstruct the chosen indices."),
-        P("Minimum cost climbing stairs", "dp[i] = cost[i] + min(dp[i − 1], dp[i − 2]); then O(1) space.", "easy", [L("min-cost-climbing-stairs")]),
-        P("Maximum subarray variations", "Kadane written as DP; maximum circular subarray sum.", null, [L("maximum-sum-circular-subarray")]),
-        P("Minimum operations problems", "Minimum steps to reduce n to 1 (÷2, ÷3, −1); 2 keys keyboard.", null, [L("2-keys-keyboard")]),
-        P("DP on sequences", "Decode ways; delete and earn.", null, [L("decode-ways"), L("delete-and-earn")]),
-        P("Perfect squares", "Minimum number of squares summing to n: dp over 1..n with inner loop over squares.", null, [L("perfect-squares")]),
-        P("Jump game with DP", "Solve jump game with DP first, then compare with the greedy solution.", null, [L("jump-game")]),
-        P("Integer break", "Maximum product after splitting n; check the DP against the math shortcut.", null, [L("integer-break")]),
-        P("Minimum cost for tickets", "1-, 7- and 30-day passes: dp over days with look-back.", null, [L("minimum-cost-for-tickets")])
-      ]},
-      { id: "two", n: "Two-Dimensional DP", pri: "vhigh", ph: 3, pat: "Dynamic programming", lv: "medium", items: [
-        P("2D DP state representation", "Write dp[i][j]'s meaning for 3 grid problems and choose n + 1 vs n sizing."),
-        P("Grid traversal", "Count right/down paths: recursion → memo → table."),
-        P("Unique paths", "Table, then one-row space optimisation, then the nCr formula.", null, [L("unique-paths")]),
-        P("Minimum path sum", "In-place table, then a 1D array.", null, [L("minimum-path-sum")]),
-        P("Maximum path sum", "Collect maximum value moving right/down and print the path by backtracking the table."),
-        P("Grid obstacle problems", "Unique paths with obstacles, including an obstacle at the start.", null, [L("unique-paths-ii")]),
-        P("Matrix DP", "Maximal square; count square submatrices of all ones.", null, [L("maximal-square"), L("count-square-submatrices-with-all-ones")]),
-        P("DP with multiple conditions", "Dungeon game, filled from the bottom-right corner.", "hard", [L("dungeon-game")]),
-        P("Triangle", "Bottom-up over rows in O(n) extra space.", null, [L("triangle")]),
-        P("Minimum falling path sum", "Each cell looks at three cells in the row above.", null, [L("minimum-falling-path-sum")]),
-        P("Out of boundary paths", "Add a move-count dimension: dp[moves][r][c] mod 1e9+7.", "hard", [L("out-of-boundary-paths")])
-      ]},
-      { id: "knap", n: "Knapsack and Subset DP", pri: "vhigh", ph: 3, pat: "Dynamic programming", lv: "medium", items: [
-        P("0/1 knapsack", "2D table, then 1D with a backwards capacity loop — explain why it must go backwards."),
-        P("Unbounded knapsack", "Same with a forward loop; then rod cutting."),
-        P("Subset sum", "Boolean dp over sums; reconstruct one valid subset."),
-        P("Equal partition", "Reduce to subset sum with target total / 2.", null, [L("partition-equal-subset-sum")]),
-        P("Target sum", "Convert to subset sum with (total + target) / 2; handle parity and negatives.", null, [L("target-sum")]),
-        P("Coin change", "Minimum coins; return −1 when impossible.", null, [L("coin-change")]),
-        P("Minimum coin problems", "Coin change II (number of ways) — coins in the outer loop, and why order matters.", null, [L("coin-change-ii")]),
-        P("Counting valid subsets", "Count subsets with sum k mod 1e9+7, including arrays that contain zeros.", "hard"),
-        P("Last stone weight II", "Recast as a minimum subset-sum difference.", null, [L("last-stone-weight-ii")]),
-        P("Ones and zeroes", "Knapsack with two capacities: dp[zeros][ones].", null, [L("ones-and-zeroes")]),
-        P("Minimum subset sum difference", "Split an array into two subsets with the smallest difference of sums.", "hard")
-      ]},
-      { id: "str", n: "String and Sequence DP", pri: "vhigh", ph: 3, pat: "Dynamic programming", lv: "hard", items: [
-        P("Longest common subsequence", "Table, then print the actual LCS by backtracking.", "medium", [L("longest-common-subsequence")]),
-        P("Longest increasing subsequence", "O(n²) DP, then O(n log n) with binary search; print one LIS.", "medium", [L("longest-increasing-subsequence")]),
-        P("Longest common substring", "dp[i][j] = dp[i − 1][j − 1] + 1 only on a match; track the maximum.", "medium", [L("maximum-length-of-repeated-subarray")]),
-        P("Edit distance", "Insert / delete / replace table; then one-row space optimisation.", null, [L("edit-distance")]),
-        P("String matching variations", "Wildcard matching with ? and *.", null, [L("wildcard-matching")]),
-        P("Subsequence problems", "Is subsequence (two pointers vs DP); number of distinct subsequences.", null, [L("is-subsequence"), L("distinct-subsequences")]),
-        P("Alternating parity subsequences", "Longest subsequence with consistent adjacent-sum parity: dp indexed by the last element's parity.", "medium", [L("find-the-maximum-length-of-valid-subsequence-i")]),
-        P("DP with character constraints", "Count vowel permutations; strings without k equal consecutive characters.", null, [L("count-vowels-permutation")]),
-        P("Word break", "dp[i] = some j < i with dp[j] and s[j..i) in the dictionary.", "medium", [L("word-break")]),
-        P("Palindromic DP", "Palindromic substrings count; longest palindromic subsequence.", "medium", [L("palindromic-substrings"), L("longest-palindromic-subsequence")]),
-        P("Shortest common supersequence", "Build the answer string from the LCS table.", null, [L("shortest-common-supersequence")])
-      ]},
-      { id: "adv", n: "Advanced DP", pri: "vhigh", ph: 3, pat: "Dynamic programming", lv: "complex", items: [
-        P("Partition DP", "Partition array for maximum sum; palindrome partitioning II.", null, [L("partition-array-for-maximum-sum"), L("palindrome-partitioning-ii")]),
-        P("Interval DP fundamentals", "Matrix chain multiplication; burst balloons (choose the last balloon).", null, [L("burst-balloons")]),
-        P("DP with multiple states", "dp[i][state] where the state is holding / not holding, or the last colour used."),
-        P("State transition optimization", "Turn an O(n²) transition into O(n) with a running best value.", null, [L("best-sightseeing-pair")]),
-        P("DP with previous choices", "Count fence colourings where no 3 adjacent posts match, tracking the last two choices."),
-        P("Stock buy and sell variations", "Stock I and II as a hold / free state machine.", "hard", [L("best-time-to-buy-and-sell-stock")]),
-        P("DP with transaction limits", "Stock III and IV with dp[k][hold].", null, [L("best-time-to-buy-and-sell-stock-iii"), L("best-time-to-buy-and-sell-stock-iv")]),
-        P("DP with cooldown constraints", "Stock with cooldown and with transaction fee using three states.", null, [L("best-time-to-buy-and-sell-stock-with-cooldown"), L("best-time-to-buy-and-sell-stock-with-transaction-fee")]),
-        P("Non-overlapping subsequences", "Maximum sum of two non-overlapping subarrays using prefix-best and suffix-best arrays.", null, [L("maximum-sum-of-two-non-overlapping-subarrays")]),
-        P("Three-partition optimization", "Maximum sum of 3 non-overlapping subarrays of length k with left-best and right-best arrays.", null, [L("maximum-sum-of-3-non-overlapping-subarrays")]),
-        P("Grid DP with constraints", "Cherry pickup: two walkers moving together, dp[step][r1][r2].", null, [L("cherry-pickup")]),
-        P("DP with memoization optimization", "Pack multi-part keys into a long for HashMap memo vs arrays; avoid StackOverflowError at n = 10⁵."),
-        P("Space-optimized DP", "Rewrite LCS and 0/1 knapsack in O(n) space and confirm identical output.", "hard"),
-        P("Game / minimax DP", "Stone game as interval DP: dp[i][j] = best score difference.", "hard", [L("stone-game")])
-      ]},
-      { id: "analysis", n: "DP Problem Analysis", pri: "vhigh", ph: 3, pat: "Dynamic programming", lv: null, items: [
-        P("Identifying the state", "For 10 solved DPs, write the state in one sentence without looking."),
-        P("Identifying transitions", "List every choice available at a state; each choice is one transition."),
-        P("Defining boundaries", "Write the base cases and the answer cell before coding."),
-        P("Avoiding redundant states", "Drop a dimension that can be derived from the others; verify with an example."),
-        P("Detecting overlapping subproblems", "Spot when plain recursion revisits the same (i, j) pair."),
-        P("Avoiding TLE", "Estimate states × transitions against roughly 10⁸ simple operations before writing code."),
-        P("Optimizing memory", "Check the memory of int[5001][5001] (about 100 MB) and replace it with rolling rows."),
-        P("Recognizing when greedy is insufficient", "Find counterexamples for three tempting greedy ideas on DP problems."),
-        P("Choosing memoization versus tabulation", "Rule of thumb: memo for sparse or awkward states, tabulation for dense states or deep recursion.")
-      ]},
-      { id: "drill", n: "DP Timed Drills", pri: "vhigh", ph: 3, pat: "Dynamic programming", lv: "hard", items: [
-        P("Three 1D DP problems in 45 minutes", "Unseen problems, closed-book, Java, edge cases tested."),
-        P("Two grid DP problems in 45 minutes", "Include one with obstacles or extra conditions."),
-        P("One knapsack variant in 25 minutes", "From a blank file, including input parsing."),
-        P("One string DP in 30 minutes", "LCS / edit distance family; print the reconstructed answer too."),
-        P("One unseen complex DP in 60 minutes", "Multi-state or partition DP; brute force first if stuck, then optimise.", "complex"),
-        P("Re-solve 5 DP problems from your revision list", "Without notes, within 30 minutes each.")
-      ]}
-    ]
-  },
-  {
-    id: "adv", n: "Advanced DSA and Complex Problems", short: "Advanced DSA", pri: "high",
-    sections: [
-      { id: "stack", n: "Stack and Queue", pri: "high", ph: 4, pat: "Stack & queue", lv: "medium", items: [
-        P("Stack implementation", "Array-based stack class with push, pop, peek and overflow checks.", "easy"),
-        P("Queue implementation", "Circular-array queue.", null, [L("design-circular-queue")]),
-        P("Deque", "ArrayDeque as both stack and queue; design a circular deque.", null, [L("design-circular-deque")]),
-        P("Monotonic stack", "Daily temperatures; write the next-greater / next-smaller template.", null, [L("daily-temperatures")]),
-        P("Next greater element", "Circular next greater element by iterating 2n times.", null, [L("next-greater-element-ii")]),
-        P("Previous smaller element", "Previous smaller for each index, then largest rectangle in histogram.", "hard", [L("largest-rectangle-in-histogram")]),
-        P("Balanced parentheses", "Valid parentheses; minimum additions to make the string valid.", "easy", [L("valid-parentheses"), L("minimum-add-to-make-parentheses-valid")]),
-        P("Minimum stack", "O(1) getMin with a second stack or stored pairs.", null, [L("min-stack")]),
-        P("Sliding window maximum", "Monotonic deque storing indices.", "hard", [L("sliding-window-maximum")])
-      ]},
-      { id: "ll", n: "Linked Lists", pri: "additional", ph: 4, pat: "Linked lists", lv: "medium", items: [
-        P("Singly linked lists", "Own Node class: insert at head, tail and index; delete by value.", null, [L("design-linked-list")]),
-        P("Doubly linked lists", "Browser history; then LRU cache with a HashMap and a doubly linked list.", null, [L("design-browser-history"), L("lru-cache")]),
-        P("Reversing linked lists", "Iterative and recursive; then reverse a sublist.", null, [L("reverse-linked-list"), L("reverse-linked-list-ii")]),
-        P("Detecting cycles", "Floyd's algorithm, then return the node where the cycle starts.", null, [L("linked-list-cycle-ii")]),
-        P("Finding middle elements", "Slow and fast pointers; handle even lengths.", "easy", [L("middle-of-the-linked-list")]),
-        P("Merging sorted linked lists", "Merge two with a dummy node; merge k with a PriorityQueue.", "hard", [L("merge-two-sorted-lists"), L("merge-k-sorted-lists")])
-      ]},
-      { id: "trees", n: "Trees", pri: "high", ph: 4, pat: "Trees", lv: "medium", items: [
-        P("Binary tree fundamentals", "TreeNode class; build a tree from a level-order array that contains nulls."),
-        P("Tree traversal", "Recursive DFS template; count nodes, sum values and find the maximum depth.", "easy", [L("maximum-depth-of-binary-tree")]),
-        P("Inorder traversal", "Recursive, then iterative with an explicit stack.", "easy", [L("binary-tree-inorder-traversal")]),
-        P("Preorder traversal", "Recursive and iterative.", "easy", [L("binary-tree-preorder-traversal")]),
-        P("Postorder traversal", "Iterative with two stacks.", "easy", [L("binary-tree-postorder-traversal")]),
-        P("Level order traversal", "BFS with the queue size per level; right side view.", null, [L("binary-tree-level-order-traversal"), L("binary-tree-right-side-view")]),
-        P("Binary search trees", "Insert, search, and validate with min / max bounds.", null, [L("validate-binary-search-tree"), L("insert-into-a-binary-search-tree")]),
-        P("Tree height", "Height and a balanced-tree check in one pass.", "easy", [L("balanced-binary-tree")]),
-        P("Basic tree DP", "Diameter of a binary tree; house robber III with (rob, skip) pairs.", null, [L("diameter-of-binary-tree"), L("house-robber-iii")])
-      ]},
-      { id: "graphs", n: "Graph Fundamentals", pri: "additional", ph: 4, pat: "Graphs", lv: "medium", items: [
-        P("Graph representation", "Read n, m and an edge list into List<List<Integer>>; directed vs undirected."),
-        P("Adjacency lists", "Does a path exist between two nodes?", "easy", [L("find-if-path-exists-in-graph")]),
-        P("Adjacency matrices", "Number of provinces from an n × n matrix.", null, [L("number-of-provinces")]),
-        P("BFS", "Rotting oranges with multi-source BFS.", null, [L("rotting-oranges")]),
-        P("DFS", "Number of islands recursively, then iteratively to avoid stack overflow.", null, [L("number-of-islands")]),
-        P("Connected components", "Count components with DFS and with a DSU (path compression + union by size).", null, [L("redundant-connection")]),
-        P("Shortest path fundamentals", "BFS on an unweighted grid; Dijkstra with PriorityQueue<int[]>.", "hard", [L("shortest-path-in-binary-matrix"), L("network-delay-time")]),
-        P("Grid traversal", "Flood fill with dr / dc direction arrays and bounds checks.", "easy", [L("flood-fill")]),
-        P("Visited-state tracking", "Course schedule cycle detection with three-colour state.", null, [L("course-schedule")])
-      ]},
-      { id: "tech", n: "Advanced Problem-Solving", pri: "additional", ph: 4, pat: "Advanced techniques", lv: "hard", items: [
-        P("Backtracking", "Subsets, permutations, combination sum: choose → explore → un-choose.", "medium", [L("subsets"), L("permutations"), L("combination-sum")]),
-        P("Basic bit manipulation", "Single number, counting bits, and check / set / clear the kth bit.", "easy", [L("single-number"), L("counting-bits")]),
-        P("Bitmask fundamentals", "Enumerate subsets with masks 0..2ⁿ − 1; partition into k equal-sum subsets.", null, [L("partition-to-k-equal-sum-subsets")]),
-        P("Recursion with pruning", "N-Queens with column and diagonal sets.", null, [L("n-queens")]),
-        P("PriorityQueue optimization", "Top k frequent elements; k closest points to the origin.", "medium", [L("top-k-frequent-elements"), L("k-closest-points-to-origin")]),
-        P("Binary search on answer", "Split array largest sum — minimise the maximum.", null, [L("split-array-largest-sum")]),
-        P("Multi-dimensional state problems", "Shortest path with k obstacle eliminations: BFS over (r, c, k).", "complex", [L("shortest-path-in-a-grid-with-obstacles-elimination")]),
-        P("Greedy and DP combinations", "Video stitching solved both greedily and with DP.", "medium", [L("video-stitching")]),
-        P("Mathematical optimization problems", "Ugly number II with three pointers.", "medium", [L("ugly-number-ii")])
-      ]}
-    ]
-  },
-  {
-    id: "mock", n: "Assessment Practice and Mock Tests", short: "Assessment", pri: "vhigh",
-    note: "Simulates the four-question format. Log each full mock in the Mock assessments tracker below the syllabus.",
-    sections: [
-      { id: "q1", n: "Question 1 – Easy", pri: "vhigh", ph: 5, lv: "easy", items: [
-        P("Array implementation questions", "5 easy array implementation problems, at most 15 minutes each."),
-        P("Basic mathematical problems", "5 digit / divisor / GCD problems, at most 15 minutes each."),
-        P("Prefix sum fundamentals", "3 easy range-sum problems, at most 15 minutes each."),
-        P("Frequency counting", "3 frequency-map problems, at most 15 minutes each."),
-        P("Simple greedy problems", "3 sort-then-pick problems, at most 15 minutes each."),
-        P("Matrix traversal", "Spiral, diagonal and boundary traversals, at most 15 minutes each.", null, [L("spiral-matrix")]),
-        P("Basic sorting and searching", "3 easy binary search or sorting problems, at most 15 minutes each.")
-      ]},
-      { id: "q2", n: "Question 2 – Medium", pri: "vhigh", ph: 5, lv: "medium", items: [
-        P("Sorting and two pointers", "3 medium problems, at most 30 minutes each."),
-        P("Sliding window", "3 medium problems, at most 30 minutes each."),
-        P("Prefix sum with constraints", "3 medium problems (modulo, negatives, 2D), at most 30 minutes each."),
-        P("Valid subset problems", "3 counting-valid-subsets problems, at most 30 minutes each."),
-        P("Greedy optimization", "3 medium greedy problems with a written proof sketch, at most 30 minutes each."),
-        P("HashMap-based problems", "3 medium hashing problems, at most 30 minutes each."),
-        P("Mathematical implementation", "3 problems needing modular arithmetic or number theory, at most 30 minutes each."),
-        P("Subarray optimization", "3 subarray max/min/count problems, at most 30 minutes each.")
-      ]},
-      { id: "q3", n: "Question 3 – Hard", pri: "vhigh", ph: 5, lv: "hard", items: [
-        P("One-dimensional dynamic programming", "3 hard 1D DP problems, at most 45 minutes each."),
-        P("Two-dimensional dynamic programming", "3 hard 2D DP problems, at most 45 minutes each."),
-        P("String DP", "3 string DP problems, at most 45 minutes each."),
-        P("Grid DP", "3 grid DP problems with extra constraints, at most 45 minutes each."),
-        P("Greedy with complex constraints", "3 greedy problems that need a heap or sorting by two keys, at most 45 minutes each."),
-        P("Subsequence problems", "3 subsequence counting / longest problems, at most 45 minutes each."),
-        P("State transition problems", "3 state-machine DP problems, at most 45 minutes each."),
-        P("DP combined with arrays", "3 problems mixing prefix sums or sorting with DP, at most 45 minutes each.")
-      ]},
-      { id: "q4", n: "Question 4 – Complex", pri: "vhigh", ph: 5, lv: "complex", items: [
-        P("Advanced dynamic programming", "2 complex DP problems, at most 60 minutes each — brute force first, then optimise."),
-        P("Partition DP", "2 partition / interval DP problems, at most 60 minutes each."),
-        P("Non-overlapping subsequences", "2 non-overlapping subarray / subsequence problems, at most 60 minutes each."),
-        P("Multi-state DP", "2 problems needing three or more DP dimensions, at most 60 minutes each."),
-        P("Optimization with large constraints", "2 problems with n up to 10⁵–10⁶ that force O(n log n) or better."),
-        P("Complex greedy problems", "2 greedy problems needing a priority queue plus sorting, at most 60 minutes each."),
-        P("DP with mathematical constraints", "2 DP problems with modulo counting or divisibility states."),
-        P("Advanced array and sequence optimization", "2 problems combining prefix sums, binary search and DP.")
-      ]},
-      { id: "full", n: "Full-Length Mock Assessments", pri: "vhigh", ph: 5, lv: null, items: [
-        P("Set up exam conditions", "Plain editor, no autocomplete or internet, Java template ready, 180-minute timer."),
-        P("Full mock 1", "Q1–Q4 in one sitting; record it in the Mock assessments tracker."),
-        P("Full mock 2", "Change the order you attempt questions if Q1 took too long last time."),
-        P("Full mock 3", "Aim for complete solutions on Q1–Q3 and a partial attempt on Q4."),
-        P("Full mock 4", "Focus on fewer wrong submissions: test edge cases before running."),
-        P("Full mock 5", "Use strict pacing: Q1 20, Q2 40, Q3 50, Q4 70 minutes."),
-        P("Full mock 6 (final week)", "Exam-day rehearsal: same start time, same breaks, same setup.")
-      ]},
-      { id: "post", n: "Post-Test Analysis", pri: "vhigh", ph: 5, lv: null, items: [
-        P("Identify weak DSA patterns", "After each mock, check the weak-pattern list in the mock dashboard and schedule practice."),
-        P("Identify problems taking too much time", "Compare each question's time against the pacing target for its slot."),
-        P("Track TLE errors", "Tag TLE in the tracker and rewrite each solution at a lower complexity."),
-        P("Track logical errors", "Tag logic errors and write the failing input that exposed each one."),
-        P("Track incorrect edge-case handling", "Keep a checklist: empty input, n = 1, all equal, negatives, maximum values, overflow."),
-        P("Track incorrect input handling", "Tag input errors and fix your template so they can't recur."),
-        P("Track incomplete solutions", "Note where you stopped and what was missing."),
-        P("Track optimization improvements", "Tag solutions you later optimised and record the before/after complexity."),
-        P("Maintain a revision list", "Add every unsolved or partially solved problem to the Revision tracker and re-solve it within 7 days.")
-      ]}
-    ]
-  }
-  ];
-
-  /* ---------- normalise ---------- */
-  const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-  INF_MODULES.forEach((m) => m.sections.forEach((s, si) => {
-    s.key = m.id + "." + s.id;
-    s.letter = String.fromCharCode(65 + si);
-    s.mod = m;
-    s.items = s.items.map((it) => {
-      const o = typeof it === "string" ? { t: it } : it;
-      if (o.lv === undefined || o.lv === null) o.lv = s.lv || null;
-      o.id = s.key + "." + slug(o.t);
-      return o;
-    });
-  }));
-  const ALL_SECTIONS = INF_MODULES.flatMap((m) => m.sections);
-  const ALL_ITEMS = ALL_SECTIONS.flatMap((s) => s.items);
-  const ALL_IDS = ALL_ITEMS.map((i) => i.id);
-  const PATTERNS = [];
-  ALL_SECTIONS.forEach((s) => { if (s.pat && !PATTERNS.includes(s.pat)) PATTERNS.push(s.pat); });
-
-  /* ---------- state ---------- */
-  const BLANK = () => ({ v: 1, checked: {}, open: {}, closed: {}, phOpen: {}, notes: {}, revNotes: "", hideDone: false, filter: "all",
-    mocks: [], openMock: null, defaultDuration: 180, revision: [], updated: null });
-  let state = BLANK();
-  let user = null, canStore = true, saveTimer = null;
-
-  const $ = (s) => document.querySelector(s);
-  const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  const str = (x) => typeof x === "string" ? x : (typeof x === "number" && isFinite(x) ? String(x) : "");
-  const obj = (x) => (x && typeof x === "object" && !Array.isArray(x)) ? x : {};
-  const clampDur = (n) => { n = Math.round(Number(n)); return isFinite(n) && n >= 10 && n <= 600 ? n : 180; };
-  const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-  const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
-
-  function toast(msg) {
-    const el = $("#status"); if (!el) return;
-    el.textContent = msg; el.classList.add("show");
-    clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("show"), 1400);
-  }
-  function warnStorage() { const w = $("#storageWarn"); if (w) w.classList.remove("hidden"); }
-  function storageWorks() { try { localStorage.setItem(PROBE_KEY, "1"); localStorage.removeItem(PROBE_KEY); return true; } catch (e) { return false; } }
-
-  function blankSlot(i) {
-    return { title: "", topic: "", lv: LV[i], time: "", status: "not-started", passed: "", total: "", sol: "none", tc: "", sc: "", mistakes: "", learned: "", tags: {} };
-  }
-  function normSlot(s, i) {
-    s = obj(s);
-    const b = blankSlot(i);
-    ["title", "topic", "time", "passed", "total", "tc", "sc", "mistakes", "learned"].forEach((k) => { b[k] = str(s[k]); });
-    if (LV.includes(s.lv)) b.lv = s.lv;
-    if (STATUS.some((x) => x[0] === s.status)) b.status = s.status;
-    if (SOL.some((x) => x[0] === s.sol)) b.sol = s.sol;
-    const t = obj(s.tags); TAGS.forEach(([k]) => { if (t[k]) b.tags[k] = true; });
-    return b;
-  }
-  function newMock(date, duration) {
-    return { id: uid(), date: date || today(), duration: clampDur(duration), startedAt: null, notes: "", slots: [0, 1, 2, 3].map(blankSlot) };
-  }
-  function normMock(m) {
-    m = obj(m);
-    const out = newMock(str(m.date) || today(), m.duration);
-    out.id = str(m.id) || uid();
-    out.startedAt = typeof m.startedAt === "number" ? m.startedAt : null;
-    out.notes = str(m.notes);
-    const sl = Array.isArray(m.slots) ? m.slots : [];
-    out.slots = [0, 1, 2, 3].map((i) => normSlot(sl[i], i));
-    return out;
-  }
-  function sanitize(v) {
-    const s = BLANK();
-    if (!v || typeof v !== "object") return s;
-    s.checked = obj(v.checked); s.open = obj(v.open); s.closed = obj(v.closed); s.phOpen = obj(v.phOpen); s.notes = obj(v.notes);
-    s.revNotes = str(v.revNotes);
-    s.hideDone = !!v.hideDone;
-    s.filter = (v.filter === "all" || LV.includes(v.filter)) ? v.filter : "all";
-    s.mocks = Array.isArray(v.mocks) ? v.mocks.map(normMock) : [];
-    s.openMock = s.mocks.some((m) => m.id === v.openMock) ? v.openMock : null;
-    s.defaultDuration = clampDur(v.defaultDuration);
-    s.revision = Array.isArray(v.revision) ? v.revision.filter((r) => r && typeof r.t === "string").map((r) => ({
-      id: str(r.id) || uid(), t: r.t, topic: str(r.topic), src: str(r.src), done: !!r.done, added: typeof r.added === "number" ? r.added : Date.now()
-    })) : [];
-    s.updated = typeof v.updated === "number" ? v.updated : null;
-    return s;
-  }
-  function load() {
-    state = BLANK();
-    if (!canStore || !user) return;
-    try { const raw = localStorage.getItem(KEY_PREFIX + user); if (raw) state = sanitize(JSON.parse(raw)); }
-    catch (e) { state = BLANK(); }
-  }
-  function touchProfile() {
-    try {
-      let arr = JSON.parse(localStorage.getItem("prime-ledger-profiles") || "[]");
-      if (!Array.isArray(arr)) arr = [];
-      const p = arr.find((x) => x && x.name === user);
-      if (p) p.updated = Date.now(); else arr.unshift({ name: user, updated: Date.now(), pct: 0 });
-      arr.sort((a, b) => b.updated - a.updated);
-      localStorage.setItem("prime-ledger-profiles", JSON.stringify(arr));
-    } catch (e) {}
-  }
-  function writeNow() {
-    if (!canStore || !user) return false;
-    try { state.updated = Date.now(); localStorage.setItem(KEY_PREFIX + user, JSON.stringify(state)); touchProfile(); return true; }
-    catch (e) { canStore = false; warnStorage(); return false; }
-  }
-  function save(quiet) {
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => {
-      saveTimer = null;
-      const ok = writeNow();
-      if (!ok) toast("Not saved — storage blocked"); else if (!quiet) toast("Saved");
-    }, 350);
-  }
-  function flush() { if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; writeNow(); } }
-
-  /* ---------- stats ---------- */
-  function stat(items) {
-    const total = items.length, done = items.filter((i) => state.checked[i.id]).length;
-    return { done, total, pending: total - done, pct: total ? Math.round(done / total * 100) : 0 };
-  }
-  const modItems = (m) => m.sections.flatMap((s) => s.items);
-  const problems = () => ALL_ITEMS.filter((i) => i.lv);
-  function mockStats(mk) {
-    let full = 0, partial = 0, attempted = 0, passed = 0, total = 0, time = 0;
-    mk.slots.forEach((s) => {
-      if (s.status === "full") full++;
-      else if (s.status === "partial") partial++;
-      if (s.status !== "not-started") attempted++;
-      const t = Number(s.total), p = Number(s.passed);
-      if (t > 0) { total += t; passed += Math.min(Math.max(isFinite(p) ? p : 0, 0), t); }
-      time += Number(s.time) > 0 ? Number(s.time) : 0;
-    });
-    return { full, partial, attempted, passPct: total ? Math.round(passed / total * 100) : null, time };
-  }
-
-  /* ---------- small render helpers ---------- */
-  const lvFlag = (lv) => lv ? '<span class="flag d-' + lv + '">' + lv + "</span>" : "";
-  const bar = (pct, cls) => '<span class="mbar"><span style="width:' + pct + '%"></span></span>';
-  const box = (v, l) => '<div class="stat"><div class="v">' + v + '</div><div class="l">' + l + "</div></div>";
-  const opts = (list, val) => list.map(([k, l]) => '<option value="' + k + '"' + (k === val ? " selected" : "") + ">" + esc(l) + "</option>").join("");
-
-  function renderHeader() {
-    const s = stat(ALL_ITEMS);
-    $("#infTotalPct").textContent = s.pct + "%";
-    $("#infTotalCount").textContent = s.done + " of " + s.total + " items done";
-    $("#infProgPct").textContent = user ? s.pct + "%" : "";
-  }
-
-  function renderOverview() {
-    const rows = PATTERN_ROWS.map((r) => "<tr><td>" + r[0] + "</td><td>" + lvFlag(r[1]) + "</td><td>" + esc(r[2]) + "</td></tr>").join("");
-    $("#infOverview").innerHTML =
-      "<h2>Assessment overview</h2>" +
-      '<table class="pattern"><thead><tr><th>Question</th><th>Difficulty</th><th>Main objective</th></tr></thead><tbody>' + rows + "</tbody></table>" +
-      '<div class="chips"><span class="chip">Total questions: 4</span><span class="chip">Default mock: 180 min</span><span class="chip">Language: Java</span><span class="chip">Easy → Medium → Hard → Complex</span></div>' +
-      '<p class="id-txt" style="font-size:12.5px;margin-top:10px">Reported duration: approximately 3 hours in some September 2026 candidate experiences. Suggested practice pacing: Q1 20 · Q2 40 · Q3 50 · Q4 70 min.</p>' +
-      '<p class="target"><b>Practice target:</b> aim to solve at least three questions completely while developing the ability to attempt the complex question. This is a practice goal, not a qualifying cutoff.</p>' +
-      '<p class="fine">Assessment information is based on reported Infosys SP/DSE candidate experiences. The actual question count, duration, difficulty distribution, selection criteria and assessment structure can vary between hiring drives. This is a preparation reference, not an official Infosys assessment specification.</p>' +
-      "<h3>References</h3>" +
-      '<div class="links">' + SOURCES.map((l) => '<a class="lk" href="' + l.u + '" target="_blank" rel="noopener">' + esc(l.l) + "</a>").join("") + "</div>" +
-      '<p class="id-txt" style="font-size:12px;margin-top:8px">Candidate-reported questions are examples of the style, not guaranteed repeats.</p>';
-  }
-
-  function renderProgress() {
-    const all = stat(ALL_ITEMS), pr = stat(problems());
-    const diff = LV.map((lv) => {
-      const s = stat(ALL_ITEMS.filter((i) => i.lv === lv));
-      return '<div class="mrow static' + (s.pending === 0 ? " complete" : "") + '"><span class="lname">' + lvFlag(lv) + " " + LV_NAME[lv] + "</span>" + bar(s.pct) +
-        '<span class="lpct">' + s.done + "/" + s.total + " · " + s.pct + "%</span></div>";
-    }).join("");
-    const mods = INF_MODULES.map((m, mi) => {
-      const s = stat(modItems(m));
-      return '<button class="mrow' + (s.pending === 0 ? " complete" : "") + '" data-inf-jump="' + m.id + '" title="Open ' + esc(m.n) + '"><span class="lname">M' + (mi + 1) + " · " + esc(m.short) + "</span>" + bar(s.pct) +
-        '<span class="lpct">' + s.done + "/" + s.total + " · " + s.pct + "%</span></button>";
-    }).join("");
-    const last = state.mocks[state.mocks.length - 1];
-    const ms = last ? mockStats(last) : null;
-    $("#infProgress").innerHTML =
-      "<h2>Progress — completed items ÷ total items</h2>" +
-      '<div class="stats">' + box(all.pct + "%", "Overall") +
-        box(all.done + '<span style="font-size:13px;color:var(--ink-3)">/' + all.total + "</span>", "Items done") +
-        box(pr.done, "Problems done") + box(pr.pending, "Problems pending") + "</div>" +
-      '<p class="id-txt" style="font-size:12.5px;margin:6px 0 4px">Mocks: <b>' + state.mocks.length + "</b>" +
-        (ms ? " · latest: <b>" + ms.full + "/4 fully solved</b>, " + ms.partial + " partial" + (ms.passPct != null ? ", " + ms.passPct + "% tests passed" : "") : " · none recorded yet") + "</p>" +
-      "<h3>By difficulty (problems)</h3>" + diff +
-      "<h3>By module</h3>" + mods;
-  }
-
-  function renderPhases() {
-    $("#infPhases").innerHTML = "<h2>Study phases — suggested order</h2>" + PHASES.map((ph, pi) => {
-      const secs = ALL_SECTIONS.filter((s) => s.ph === pi + 1);
-      const s = stat(secs.flatMap((x) => x.items));
-      const open = !!state.phOpen[pi];
-      return '<div class="phase' + (open ? " open" : "") + '"><button class="phead" data-inf-phase="' + pi + '" aria-expanded="' + open + '">' +
-        '<span><span class="pt">' + esc(ph.n) + '</span><span class="pd">' + esc(ph.d) + "</span>" + bar(s.pct) + "</span>" +
-        '<span class="lpct" data-inf-phcount="' + pi + '">' + s.done + "/" + s.total + " · " + s.pct + '%</span><span class="chev">▼</span></button>' +
-        (open ? '<div class="pbody">' + secs.map((sec) => {
-          const t = stat(sec.items);
-          return '<button class="mrow" data-inf-goto-sec="' + sec.key + '"><span class="lname">' + esc(sec.mod.short) + " · " + esc(sec.n) + "</span>" + bar(t.pct) +
-            '<span class="lpct">' + t.done + "/" + t.total + "</span></button>";
-        }).join("") + "</div>" : "") + "</div>";
-    }).join("");
-  }
-
-  function renderPatterns() {
-    $("#infPatterns").innerHTML = "<h2>DSA pattern-wise completion</h2>" + PATTERNS.map((p) => {
-      const secs = ALL_SECTIONS.filter((s) => s.pat === p);
-      const s = stat(secs.flatMap((x) => x.items));
-      return '<button class="mrow' + (s.pending === 0 ? " complete" : "") + '" data-inf-goto-sec="' + secs[0].key + '"><span class="lname">' + esc(p) + "</span>" + bar(s.pct) +
-        '<span class="lpct">' + s.done + "/" + s.total + " · " + s.pct + "%</span></button>";
-    }).join("");
-  }
-
-  function renderToolbar() {
-    const f = (val, label) => '<button class="btn' + (state.filter === val ? " on" : "") + '" data-inf-filter="' + val + '">' + label + "</button>";
-    $("#infToolbar").innerHTML = f("all", "All") + LV.map((lv) => f(lv, LV_NAME[lv])).join("") +
-      '<button class="btn' + (state.hideDone ? " on" : "") + '" data-inf-hide>Hide finished</button>' +
-      '<button class="btn" data-inf-expand>Expand all</button><button class="btn" data-inf-collapse>Collapse all</button>';
-  }
-
-  function itemHTML(it) {
-    const done = !!state.checked[it.id];
-    if (state.hideDone && done) return "";
-    if (state.filter !== "all" && it.lv !== state.filter) return "";
-    const links = (it.k || []).map((l) => '<a class="lk" href="' + l.u + '" target="_blank" rel="noopener">' + esc(l.l) + "</a>").join("");
-    return '<div class="item' + (done ? " done" : "") + '">' +
-      '<input type="checkbox" data-inf-id="' + it.id + '"' + (done ? " checked" : "") + ' aria-label="' + esc(it.t) + '">' +
-      '<div><div class="it">' + esc(it.t) + lvFlag(it.lv) + "</div>" +
-      (it.d ? '<div class="id-txt">' + esc(it.d) + "</div>" : "") +
-      (links ? '<div class="links">' + links + "</div>" : "") + "</div></div>";
-  }
-  function sectionHTML(sec) {
-    if (state.filter !== "all" && !sec.items.some((i) => i.lv === state.filter)) return "";
-    const s = stat(sec.items), closed = !!state.closed[sec.key];
-    const body = sec.items.map(itemHTML).join("");
-    return '<div class="nsub' + (closed ? " closed" : "") + '" id="inf-sec-' + sec.key + '">' +
-      '<div class="shead" data-inf-toggle-sec="' + sec.key + '" role="button" tabindex="0" aria-expanded="' + !closed + '">' +
-      '<span class="sletter">' + sec.letter + '</span><span class="stitle">' + esc(sec.n) + "</span>" +
-      '<span class="flag ' + PRI[sec.pri].cls + '">' + PRI[sec.pri].label + "</span>" +
-      '<span class="bcount" data-inf-scount="' + sec.key + '">' + s.done + "/" + s.total + '</span><span class="chev">▼</span></div>' +
-      '<div class="sitems single">' + (body || '<div class="item compact"><span></span><div class="id-txt">Everything shown here is finished. Turn off “Hide finished” to see it again.</div></div>') + "</div></div>";
-  }
-  function moduleHTML(m, mi) {
-    const secs = m.sections.map(sectionHTML).join("");
-    if (!secs) return "";
-    const s = stat(modItems(m)), open = !!state.open[m.id];
-    const phases = [...new Set(m.sections.map((x) => x.ph))].map((p) => "Phase " + p).join(" / ");
-    return '<section class="block mod' + (open ? " open" : "") + (s.pending === 0 ? " complete" : "") + '" id="inf-mod-' + m.id + '" data-inf-mod="' + m.id + '">' +
-      '<div class="mhead" data-inf-toggle-mod="' + m.id + '" role="button" tabindex="0" aria-expanded="' + open + '">' +
-      '<span class="bnum">M' + (mi + 1) + "</span>" +
-      '<span class="mwrap"><span class="mtitle">' + esc(m.n) + '</span><span class="mmeta">' + PRI[m.pri].label + " priority · " + phases + " · Java</span></span>" +
-      '<span class="sflag done">complete</span>' +
-      '<span class="bcount" data-inf-mcount="' + m.id + '">' + s.done + "/" + s.total + " · " + s.pct + '%</span><span class="chev">▼</span>' +
-      '<span class="mprog" data-inf-mprog="' + m.id + '" style="width:' + s.pct + '%"></span></div>' +
-      '<div class="mbody">' + (m.note ? '<div class="bnote">' + esc(m.note) + "</div>" : "") + secs +
-      '<div class="mnotes"><div class="flabel">Revision notes for ' + esc(m.short) + "</div>" +
-      '<textarea data-inf-note="' + m.id + '" placeholder="Templates, tricks, mistakes to avoid…">' + esc(state.notes[m.id] || "") + "</textarea></div>" +
-      "</div></section>";
-  }
-  function renderModules() {
-    $("#infModules").innerHTML = INF_MODULES.map(moduleHTML).join("") || '<section class="block"><div class="bnote">Nothing matches this filter.</div></section>';
-  }
-
-  /* ---------- mocks ---------- */
-  function renderMockDash() {
-    const n = state.mocks.length;
-    const stats = state.mocks.map(mockStats);
-    const best = stats.reduce((a, s) => Math.max(a, s.full), 0);
-    const pcts = stats.map((s) => s.passPct).filter((x) => x != null);
-    const avg = pcts.length ? Math.round(pcts.reduce((a, b) => a + b, 0) / pcts.length) : null;
-    const full = stats.reduce((a, s) => a + s.full, 0), partial = stats.reduce((a, s) => a + s.partial, 0);
-    const slots = state.mocks.flatMap((m) => m.slots.map((s, i) => ({ s, i })));
-    const tag = TAGS.map(([k, l]) => ({ l, c: slots.filter((x) => x.s.tags[k]).length }));
-    const sol = SOL.filter((x) => x[0] !== "none").map(([k, l]) => ({ l, c: slots.filter((x) => x.s.sol === k).length }));
-    const slow = slots.filter((x) => Number(x.s.time) > SLOT_TARGET[x.i]).length;
-    const weak = {};
-    slots.forEach(({ s }) => {
-      const t = s.topic.trim();
-      if (t && s.status !== "full" && s.status !== "not-started") { const k = t.toLowerCase(); weak[k] = weak[k] || { t, c: 0 }; weak[k].c++; }
-    });
-    const weakList = Object.values(weak).sort((a, b) => b.c - a.c).slice(0, 6);
-    const trend = n
-      ? '<div class="trend">' + state.mocks.map((m, i) => {
-          const s = stats[i], h = s.passPct == null ? 0 : s.passPct;
-          return '<div class="tb" title="Mock #' + (i + 1) + ": " + (s.passPct == null ? "no test counts" : s.passPct + "% tests") + ", " + s.full + '/4 fully solved"><b>' + s.full + "/4</b><i style=\"height:" + Math.max(h, 2) + '%"></i></div>';
-        }).join("") + '</div><div class="trend-x">' + state.mocks.map((_, i) => "<span>#" + (i + 1) + "</span>").join("") + "</div>" +
-        '<p class="id-txt" style="font-size:12px;margin-top:6px">Bar height = tests passed %; label = questions fully solved.</p>'
-      : '<p class="empty" style="padding:4px 0">No mocks yet. Start one below — the trend appears from the first record.</p>';
-    const chips = (arr) => arr.map((x) => '<span class="chip">' + esc(x.l) + " <b>" + x.c + "</b></span>").join("");
-    $("#infMockDash").innerHTML =
-      "<h2>Mock dashboard</h2>" +
-      '<div class="stats">' + box(n, "Mocks taken") + box(best + "/4", "Best fully solved") + box(avg == null ? "—" : avg + "%", "Avg tests passed") +
-        box(full + '<span style="font-size:13px;color:var(--ink-3)"> / ' + partial + "</span>", "Fully / partially solved") + "</div>" +
-      "<h3>Improvement over time</h3>" + trend +
-      "<h3>Post-test analysis</h3>" +
-      '<div class="tally">' + chips(tag) + '<span class="chip">Over pacing target <b>' + slow + "</b></span></div>" +
-      '<div class="tally" style="margin-top:6px">' + chips(sol) + "</div>" +
-      '<p class="id-txt" style="font-size:12.5px;margin-top:10px"><b>Weak patterns</b> (attempted but not fully solved): ' +
-        (weakList.length ? weakList.map((w) => esc(w.t) + " ×" + w.c).join(" · ") : "none recorded yet") + "</p>";
-  }
-
-  function timerText(m) {
-    if (!m.startedAt) return { t: "Not started", up: false };
-    const left = m.startedAt + m.duration * 60000 - Date.now();
-    if (left <= 0) return { t: "Time up", up: true };
-    const sec = Math.floor(left / 1000);
-    return { t: Math.floor(sec / 3600) + ":" + String(Math.floor(sec / 60) % 60).padStart(2, "0") + ":" + String(sec % 60).padStart(2, "0") + " left", up: false };
-  }
-  function mockSummary(m) {
-    const s = mockStats(m);
-    return s.full + "/4 full · " + s.partial + " partial" + (s.passPct != null ? " · " + s.passPct + "%" : "");
-  }
-  function slotHTML(m, s, i) {
-    const a = 'data-inf-mock="' + m.id + '" data-inf-slot="' + i + '"';
-    const field = (label, f, type, extra, wide) => '<div class="fld' + (wide ? " wide" : "") + '"><label>' + label + '</label><input class="fin" type="' + type + '" ' + a + ' data-inf-f="' + f + '" value="' + esc(s[f]) + '"' + (extra || "") + "></div>";
-    return '<div class="slot">' +
-      '<div class="slot-h"><b>Q' + (i + 1) + '</b><select class="fin" style="width:auto;min-height:30px;padding-top:3px;padding-bottom:3px" ' + a + ' data-inf-f="lv" aria-label="Difficulty">' + opts(LV.map((l) => [l, LV_NAME[l]]), s.lv) + "</select>" +
-        '<span class="tgt">target ' + SLOT_TARGET[i] + " min</span></div>" +
-      '<div class="fgrid">' +
-        field("Problem title", "title", "text", ' placeholder="e.g. Max sum of 3 non-overlapping subarrays"', true) +
-        field("Main DSA topic", "topic", "text", ' list="infTopics" placeholder="e.g. Partition DP"', true) +
-        field("Time taken (min)", "time", "number", ' min="0" inputmode="numeric"') +
-        '<div class="fld"><label>Attempt status</label><select class="fin" ' + a + ' data-inf-f="status">' + opts(STATUS, s.status) + "</select></div>" +
-        field("Tests passed", "passed", "number", ' min="0" inputmode="numeric"') +
-        field("Total tests", "total", "number", ' min="0" inputmode="numeric"') +
-        '<div class="fld wide"><label>Solution status</label><select class="fin" ' + a + ' data-inf-f="sol">' + opts(SOL, s.sol) + "</select></div>" +
-        field("Time complexity", "tc", "text", ' placeholder="O(n log n)"') +
-        field("Space complexity", "sc", "text", ' placeholder="O(n)"') +
-        '<div class="fld wide"><label>Issues</label><div class="tags">' + TAGS.map(([k, l]) => '<button type="button" class="tagbtn' + (s.tags[k] ? " on" : "") + '" ' + a + ' data-inf-tag="' + k + '" aria-pressed="' + !!s.tags[k] + '">' + l + "</button>").join("") + "</div></div>" +
-        '<div class="fld wide"><label>Mistakes made</label><textarea class="fin" ' + a + ' data-inf-f="mistakes">' + esc(s.mistakes) + "</textarea></div>" +
-        '<div class="fld wide"><label>What I learned</label><textarea class="fin" ' + a + ' data-inf-f="learned">' + esc(s.learned) + "</textarea></div>" +
-        '<div class="wide"><button class="btn" ' + a + " data-inf-to-rev>+ Add to revision list</button></div>" +
-      "</div></div>";
-  }
-  function mockHTML(m, idx) {
-    const open = state.openMock === m.id;
-    const tt = timerText(m);
-    return '<section class="block mod' + (open ? " open" : "") + '" id="inf-mock-' + m.id + '">' +
-      '<div class="mhead" data-inf-mock-toggle="' + m.id + '" role="button" tabindex="0" aria-expanded="' + open + '">' +
-      '<span class="bnum">#' + (idx + 1) + "</span>" +
-      '<span class="mwrap"><span class="mtitle">Mock assessment #' + (idx + 1) + '</span><span class="mmeta" data-inf-mockmeta="' + m.id + '">' + esc(m.date) + " · " + m.duration + " min</span></span>" +
-      '<span class="bcount" data-inf-mocksum="' + m.id + '">' + mockSummary(m) + '</span><span class="chev">▼</span></div>' +
-      '<div class="mbody">' + (open ?
-        '<div class="mockmeta">' +
-          '<div class="fld"><label>Date</label><input class="fin" type="date" data-inf-mock="' + m.id + '" data-inf-mf="date" value="' + esc(m.date) + '"></div>' +
-          '<div class="fld"><label>Duration (min)</label><input class="fin" type="number" min="10" max="600" data-inf-mock="' + m.id + '" data-inf-mf="duration" value="' + m.duration + '"></div>' +
-          '<div class="fld"><label>Timer</label><div class="timer' + (tt.up ? " up" : "") + '" data-inf-timer="' + m.id + '">' + tt.t + "</div></div>" +
-          '<div><button class="btn" data-inf-timer-btn="' + m.id + '">' + (m.startedAt ? "Stop timer" : "Start timer") + "</button></div>" +
-        "</div>" +
-        '<div class="slots">' + m.slots.map((s, i) => slotHTML(m, s, i)).join("") + "</div>" +
-        '<div class="mnotes"><div class="flabel">Mock notes</div><textarea data-inf-mock="' + m.id + '" data-inf-mf="notes" placeholder="Order of attempts, where time went, what to change next time…">' + esc(m.notes) + "</textarea>" +
-        '<div style="margin-top:12px"><button class="btn danger" data-inf-mock-del="' + m.id + '">Delete this mock</button></div></div>'
-        : "") + "</div></section>";
-  }
-  function renderMocks() {
-    renderMockDash();
-    const list = state.mocks.map((m, i) => ({ m, i })).reverse();
-    $("#infMocks").innerHTML =
-      '<div class="newmock">' +
-        '<div class="fld"><label for="infNewDate">Date</label><input class="fin" type="date" id="infNewDate" value="' + today() + '"></div>' +
-        '<div class="fld"><label for="infNewDur">Duration (min)</label><input class="fin" type="number" min="10" max="600" id="infNewDur" value="' + state.defaultDuration + '"></div>' +
-        '<button class="btn" id="infNewMock">+ Start new mock (Q1–Q4)</button>' +
-      "</div>" +
-      (list.length ? '<div class="flabel">Mock history — newest first</div>' + list.map(({ m, i }) => mockHTML(m, i)).join("") : "");
-  }
-  function findMock(id) { return state.mocks.find((m) => m.id === id); }
-  function refreshMockLine(m) {
-    const el = document.querySelector('[data-inf-mocksum="' + m.id + '"]'); if (el) el.textContent = mockSummary(m);
-    const mt = document.querySelector('[data-inf-mockmeta="' + m.id + '"]'); if (mt) mt.textContent = m.date + " · " + m.duration + " min";
-  }
-
-  /* ---------- revision ---------- */
-  function renderRevision() {
-    const pending = state.revision.filter((r) => !r.done).length;
-    const rows = state.revision.slice().sort((a, b) => (a.done - b.done) || (b.added - a.added)).map((r) =>
-      '<div class="revrow' + (r.done ? " done" : "") + '"><input type="checkbox" data-inf-rev="' + r.id + '"' + (r.done ? " checked" : "") + ' aria-label="Re-solved: ' + esc(r.t) + '">' +
-      '<div><div class="rt">' + esc(r.t) + "</div>" +
-      '<div class="rm">' + [r.topic, r.src, new Date(r.added).toLocaleDateString(undefined, { day: "2-digit", month: "short" })].filter(Boolean).map(esc).join(" · ") + "</div></div>" +
-      '<button data-inf-rev-del="' + r.id + '" aria-label="Remove">×</button></div>').join("");
-    $("#infRevision").innerHTML =
-      "<h2>Revision list — " + pending + " pending · " + (state.revision.length - pending) + " re-solved</h2>" +
-      '<div class="revform"><input class="fin" id="infRevT" type="text" placeholder="Problem to re-solve, e.g. Burst balloons">' +
-      '<input class="fin" id="infRevTopic" type="text" list="infTopics" placeholder="Topic">' +
-      '<button class="btn" id="infRevAdd">Add</button></div>' +
-      (rows || '<div class="empty">Nothing to revise yet. Add problems you failed or solved slowly.</div>') +
-      '<div class="flabel">General revision notes</div><textarea data-inf-revnotes placeholder="Patterns to drill this week, recurring mistakes, templates to memorise…">' + esc(state.revNotes) + "</textarea>";
-  }
-  function addRevision(t, topic, src) {
-    t = String(t || "").trim(); if (!t) return false;
-    state.revision.push({ id: uid(), t, topic: String(topic || "").trim(), src: src || "", done: false, added: Date.now() });
-    return true;
-  }
-
-  /* ---------- backup ---------- */
-  function renderBackup() {
-    $("#infBackup").innerHTML =
-      '<div class="flabel">Infosys backup</div>' +
-      '<p class="empty" style="padding-top:0">Checklist, mocks, revision list and notes for ' + esc(user) + ", saved in this browser separately from your other plans.</p>" +
-      '<div class="toolbar"><button class="btn" id="infExport">Export Infosys backup</button><button class="btn" id="infImport">Import Infosys backup</button>' +
-      '<input type="file" id="infImportFile" accept="application/json,.json" class="hidden"></div>' +
-      '<div class="flabel">Danger zone</div><button class="btn danger" id="infReset">Erase Infosys progress</button>';
-  }
-
-  function render() {
-    if (!user) return;
-    $("#infTopics").innerHTML = PATTERNS.concat(["Java implementation", "Matrix", "Partition DP", "Interval DP", "Grid DP", "String DP", "Knapsack", "Bit manipulation", "Backtracking"])
-      .map((p) => '<option value="' + esc(p) + '">').join("");
-    renderHeader(); renderOverview(); renderProgress(); renderPhases(); renderPatterns();
-    renderToolbar(); renderModules(); renderMocks(); renderRevision(); renderBackup();
-  }
-  function refreshCounts() {
-    renderHeader(); renderProgress(); renderPhases(); renderPatterns();
-    INF_MODULES.forEach((m) => {
-      const s = stat(modItems(m));
-      const c = document.querySelector('[data-inf-mcount="' + m.id + '"]'); if (c) c.textContent = s.done + "/" + s.total + " · " + s.pct + "%";
-      const p = document.querySelector('[data-inf-mprog="' + m.id + '"]'); if (p) p.style.width = s.pct + "%";
-      const b = document.querySelector('[data-inf-mod="' + m.id + '"]'); if (b) b.classList.toggle("complete", s.pending === 0);
-      m.sections.forEach((sec) => { const el = document.querySelector('[data-inf-scount="' + sec.key + '"]'); if (el) { const t = stat(sec.items); el.textContent = t.done + "/" + t.total; } });
-    });
-  }
-  function gotoSection(key) {
-    const sec = ALL_SECTIONS.find((s) => s.key === key); if (!sec) return;
-    state.open[sec.mod.id] = true; delete state.closed[key];
-    if (state.filter !== "all" && !sec.items.some((i) => i.lv === state.filter)) { state.filter = "all"; renderToolbar(); }
-    save(true); renderModules();
-    const el = document.getElementById("inf-sec-" + key); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  /* ---------- events ---------- */
-  document.addEventListener("click", (e) => {
-    if (!user) return;
-    const t = e.target;
-    const tm = t.closest("[data-inf-toggle-mod]");
-    if (tm) { const k = tm.dataset.infToggleMod; if (state.open[k]) delete state.open[k]; else state.open[k] = true; save(true); renderModules(); return; }
-    const ts = t.closest("[data-inf-toggle-sec]");
-    if (ts) { const k = ts.dataset.infToggleSec; if (state.closed[k]) delete state.closed[k]; else state.closed[k] = true; save(true); renderModules(); return; }
-    const jump = t.closest("[data-inf-jump]");
-    if (jump) { gotoSection(INF_MODULES.find((m) => m.id === jump.dataset.infJump).sections[0].key); return; }
-    const gs = t.closest("[data-inf-goto-sec]");
-    if (gs) { gotoSection(gs.dataset.infGotoSec); return; }
-    const ph = t.closest("[data-inf-phase]");
-    if (ph) { const k = ph.dataset.infPhase; if (state.phOpen[k]) delete state.phOpen[k]; else state.phOpen[k] = true; save(true); renderPhases(); return; }
-    const flt = t.closest("[data-inf-filter]");
-    if (flt) { state.filter = flt.dataset.infFilter; save(true); renderToolbar(); renderModules(); return; }
-    if (t.closest("[data-inf-hide]")) { state.hideDone = !state.hideDone; save(true); renderToolbar(); renderModules(); return; }
-    if (t.closest("[data-inf-expand]")) { INF_MODULES.forEach((m) => { state.open[m.id] = true; m.sections.forEach((s) => delete state.closed[s.key]); }); save(true); renderModules(); return; }
-    if (t.closest("[data-inf-collapse]")) { state.open = {}; save(true); renderModules(); return; }
-
-    if (t.id === "infNewMock") {
-      const dur = clampDur($("#infNewDur").value);
-      state.defaultDuration = dur;
-      const m = newMock($("#infNewDate").value || today(), dur);
-      state.mocks.push(m); state.openMock = m.id;
-      save(); renderMocks(); renderProgress();
-      const el = document.getElementById("inf-mock-" + m.id); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      return;
-    }
-    const mt = t.closest("[data-inf-mock-toggle]");
-    if (mt) { const id = mt.dataset.infMockToggle; state.openMock = state.openMock === id ? null : id; save(true); renderMocks(); return; }
-    const tb = t.closest("[data-inf-timer-btn]");
-    if (tb) { const m = findMock(tb.dataset.infTimerBtn); if (m) { m.startedAt = m.startedAt ? null : Date.now(); save(); renderMocks(); } return; }
-    const md = t.closest("[data-inf-mock-del]");
-    if (md) {
-      if (confirm("Delete this mock record? This cannot be undone.")) {
-        state.mocks = state.mocks.filter((m) => m.id !== md.dataset.infMockDel); state.openMock = null;
-        save(); renderMocks(); renderProgress();
-      }
-      return;
-    }
-    const tg = t.closest("[data-inf-tag]");
-    if (tg) {
-      const m = findMock(tg.dataset.infMock); if (!m) return;
-      const s = m.slots[Number(tg.dataset.infSlot)], k = tg.dataset.infTag;
-      if (s.tags[k]) delete s.tags[k]; else s.tags[k] = true;
-      tg.classList.toggle("on", !!s.tags[k]); tg.setAttribute("aria-pressed", String(!!s.tags[k]));
-      save(true); renderMockDash();
-      return;
-    }
-    const tr = t.closest("[data-inf-to-rev]");
-    if (tr) {
-      const idx = state.mocks.findIndex((m) => m.id === tr.dataset.infMock); if (idx < 0) return;
-      const si = Number(tr.dataset.infSlot), s = state.mocks[idx].slots[si];
-      if (addRevision(s.title || ("Mock #" + (idx + 1) + " Q" + (si + 1)), s.topic, "Mock #" + (idx + 1) + " Q" + (si + 1))) { save(); renderRevision(); toast("Added to revision list"); }
-      return;
-    }
-    if (t.id === "infRevAdd") {
-      const inp = $("#infRevT");
-      if (addRevision(inp.value, $("#infRevTopic").value, "manual")) { save(); renderRevision(); const n = $("#infRevT"); if (n) n.focus(); }
-      else inp.focus();
-      return;
-    }
-    const rd = t.closest("[data-inf-rev-del]");
-    if (rd) { state.revision = state.revision.filter((r) => r.id !== rd.dataset.infRevDel); save(); renderRevision(); return; }
-
-    if (t.id === "infExport") {
-      flush();
-      const payload = { app: "infosys-r2", version: 1, user, exported: new Date().toISOString(), data: state };
-      const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
-      const a = document.createElement("a");
-      a.href = url; a.download = "infosys-r2-backup-" + new Date().toISOString().slice(0, 10) + ".json"; a.click();
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-      toast("Infosys backup downloaded");
-      return;
-    }
-    if (t.id === "infImport") { $("#infImportFile").click(); return; }
-    if (t.id === "infReset") {
-      if (confirm("Erase every Infosys R2 tick, mock, revision item and note for " + user + "? Your other plans are not affected. This cannot be undone.")) {
-        state = BLANK(); writeNow(); render(); toast("Infosys progress erased");
-      }
-    }
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && (e.target.id === "infRevT" || e.target.id === "infRevTopic")) { e.preventDefault(); $("#infRevAdd").click(); return; }
-    if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("[data-inf-toggle-mod],[data-inf-toggle-sec],[data-inf-mock-toggle]")) { e.preventDefault(); e.target.click(); }
-  });
-
-  document.addEventListener("input", (e) => {
-    if (!user) return;
-    const el = e.target;
-    if (!el.matches) return;
-    if (el.matches("[data-inf-f]")) {
-      const m = findMock(el.dataset.infMock); if (!m) return;
-      m.slots[Number(el.dataset.infSlot)][el.dataset.infF] = el.value;
-      save(true); refreshMockLine(m); renderMockDash(); renderProgress();
-      return;
-    }
-    if (el.matches("[data-inf-mf]")) {
-      const m = findMock(el.dataset.infMock); if (!m) return;
-      const f = el.dataset.infMf;
-      if (f === "duration") { if (el.value !== "") m.duration = clampDur(el.value); }
-      else m[f] = el.value;
-      save(true); refreshMockLine(m);
-      return;
-    }
-    if (el.matches("textarea[data-inf-note]")) { state.notes[el.dataset.infNote] = el.value; save(true); return; }
-    if (el.matches("textarea[data-inf-revnotes]")) { state.revNotes = el.value; save(true); return; }
-    if (el.id === "infNewDur" && el.value !== "") { state.defaultDuration = clampDur(el.value); save(true); }
-  });
-
-  document.addEventListener("change", (e) => {
-    const el = e.target;
-    if (el.id === "infImportFile") {
-      const file = el.files && el.files[0]; if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        try {
-          const v = JSON.parse(reader.result);
-          if (!v || v.app !== "infosys-r2" || !v.data || typeof v.data.checked !== "object") throw new Error("bad shape");
-          if (!confirm("Replace " + user + "'s Infosys R2 progress with this backup? Your other plans are not affected.")) return;
-          state = sanitize(v.data); writeNow(); render(); toast("Infosys backup restored");
-        } catch (err) { toast("That file isn't an Infosys R2 backup"); }
-      };
-      reader.readAsText(file); el.value = "";
-      return;
-    }
-    if (!user || !el.matches) return;
-    if (el.matches("input[type=checkbox][data-inf-id]")) {
-      if (el.checked) state.checked[el.dataset.infId] = 1; else delete state.checked[el.dataset.infId];
-      save();
-      const row = el.closest(".item"); if (row) row.classList.toggle("done", el.checked);
-      if (state.hideDone && el.checked) renderModules();
-      refreshCounts();
-      return;
-    }
-    if (el.matches("input[type=checkbox][data-inf-rev]")) {
-      const r = state.revision.find((x) => x.id === el.dataset.infRev); if (!r) return;
-      r.done = el.checked; save(); renderRevision();
-    }
-  });
-
-  // Live countdown for running mock timers (only touches the timer text).
-  setInterval(() => {
-    document.querySelectorAll("[data-inf-timer]").forEach((el) => {
-      const m = findMock(el.dataset.infTimer); if (!m) return;
-      const tt = timerText(m); el.textContent = tt.t; el.classList.toggle("up", tt.up);
-    });
-  }, 1000);
-
-  window.addEventListener("pagehide", flush);
-  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); });
-
-  window.Plans.register("inf", {
-    setUser(name) {
-      flush();
-      user = name ? String(name).trim() : null;
-      canStore = storageWorks();
-      if (!canStore) warnStorage();
-      load(); render();
-    },
-    flush,
-    forgetUser(name) { try { localStorage.removeItem(KEY_PREFIX + String(name).trim()); } catch (e) {} },
-    _debug: { ids: ALL_IDS, items: ALL_ITEMS, modules: INF_MODULES, state: () => state }
   });
 })();
 </script>

@@ -39,25 +39,25 @@ If you open the page in incognito or with site data blocked, an amber warning ap
 
 ## Plans
 
-The switcher at the top moves between four independent plans:
+The switcher at the top moves between three independent plans:
 
 | Tab | What it is | Stored under (per user) |
 |---|---|---|
-| **20 Dec Plan** | Day-by-day plan (28 Nov – 20 Dec 2026) for the Infosys in-person coding round: today view, redo queue, checkpoints, pattern drill, mock and error logs, plan PDF. Content in `dec20/plan-data.js`, rendering in `dec20/plan-app.js` | `dec20-plan-v1-<name>` |
 | **Onboarding Training** | The original pre-joining ledger | `prime-ledger-v1-<name>` |
 | **Deloitte NLA** | 331 sub-topics across six modules, a 2026 pattern overview, a "needs attention" summary, module notes and a study log | `deloitte-nla-v1-<name>` |
-| **Infosys R2** | A 332-item Java coding syllabus (six modules, five study phases), Easy/Medium/Hard/Complex progress, pattern-wise progress, a four-slot mock tracker with history and post-test analysis, and a revision tracker | `infosys-r2-v1-<name>` |
+| **Infosys 20 Dec** | Plan for the Infosys in-person coding round (28 Nov – 20 Dec 2026) with five screens: Today (numbered steps), Full plan, Pattern quiz, My progress and Guide, plus the plan PDF. Content in `dec20/plan-data.js`, rendering in `dec20/plan-app.js` | `dec20-plan-v1-<name>` |
 
 - The tab each person had open last is stored in `prep-view-v1-<name>`.
 - No plan reads or writes another plan's key, so adding a plan never touches existing progress. The storage key names still say `prime-ledger` so existing data keeps loading.
-- Deloitte, Infosys R2 and 20 Dec Plan each have their own **Export / Import backup** buttons at the bottom of their tab. The Study log backup covers only the Onboarding Training tab.
+- Deloitte and Infosys 20 Dec each have their own **Export / Import backup** buttons at the bottom of their tab. The Study log backup covers only the Onboarding Training tab.
 - Deleting a profile from the "Continue as…" list removes that person's data from every plan.
-- Deloitte content lives in `NLA_MODULES` and Infosys content in `INF_MODULES`. Their item ids come from the item text (`module.section.slug`), so adding or reordering items is safe. Renaming an item clears only that item's tick.
+- The earlier **Infosys R2** tab was replaced by Infosys 20 Dec. A saved R2 tab choice opens the new tab. Old R2 data (`infosys-r2-v1-<name>`) is left in the browser untouched and is removed only if that profile is deleted.
+- Deloitte content lives in `NLA_MODULES`. Its item ids come from the item text (`module.section.slug`), so adding or reordering items is safe. Renaming an item clears only that item's tick.
 - Assessment patterns shown in the Deloitte and Infosys tabs are reported candidate and third-party information, not official specifications. Each tab says so.
 
 ## Infosys internal training page (`/infosys`)
 
-A separate page for someone **already selected** as an Infosys Systems Engineer, preparing for internal Foundation Program training (not recruitment, not SP/DSE, not the R2 coding tab). It has three phases: **A** pre-joining preparation (Java coding, OOP, core Java, DBMS, SQL, MCQs), **B** Generic Foundation Training (FA1-style Java and FA2-style DBMS/SQL workspaces, OS/IT, SE & web, professional skills) and **C** the assigned technology stream (a user-built syllabus) plus the capstone. Alongside them are an internal assessment tracker (pass marks are configured by you, never hard-coded), a daily class/assignment tracker with weekly summaries, a revision dashboard, an MCQ engine, a SQL Lab and a Java practice log.
+A separate page for someone **already selected** as an Infosys Systems Engineer, preparing for internal Foundation Program training (not recruitment, not SP/DSE, not the 20 Dec coding tab). It has three phases: **A** pre-joining preparation (Java coding, OOP, core Java, DBMS, SQL, MCQs), **B** Generic Foundation Training (FA1-style Java and FA2-style DBMS/SQL workspaces, OS/IT, SE & web, professional skills) and **C** the assigned technology stream (a user-built syllabus) plus the capstone. Alongside them are an internal assessment tracker (pass marks are configured by you, never hard-coded), a daily class/assignment tracker with weekly summaries, a revision dashboard, an MCQ engine, a SQL Lab and a Java practice log.
 
 | File | What it holds |
 |---|---|
