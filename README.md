@@ -39,17 +39,18 @@ If you open the page in incognito or with site data blocked, an amber warning ap
 
 ## Plans
 
-The switcher at the top moves between three independent plans:
+The switcher at the top moves between four independent plans:
 
 | Tab | What it is | Stored under (per user) |
 |---|---|---|
+| **20 Dec Plan** | Day-by-day plan (28 Nov – 20 Dec 2026) for the Infosys in-person coding round: today view, redo queue, checkpoints, pattern drill, mock and error logs, plan PDF. Content in `dec20/plan-data.js`, rendering in `dec20/plan-app.js` | `dec20-plan-v1-<name>` |
 | **Onboarding Training** | The original pre-joining ledger | `prime-ledger-v1-<name>` |
 | **Deloitte NLA** | 331 sub-topics across six modules, a 2026 pattern overview, a "needs attention" summary, module notes and a study log | `deloitte-nla-v1-<name>` |
 | **Infosys R2** | A 332-item Java coding syllabus (six modules, five study phases), Easy/Medium/Hard/Complex progress, pattern-wise progress, a four-slot mock tracker with history and post-test analysis, and a revision tracker | `infosys-r2-v1-<name>` |
 
 - The tab each person had open last is stored in `prep-view-v1-<name>`.
 - No plan reads or writes another plan's key, so adding a plan never touches existing progress. The storage key names still say `prime-ledger` so existing data keeps loading.
-- Deloitte and Infosys each have their own **Export / Import backup** buttons at the bottom of their tab. The Study log backup covers only the Onboarding Training tab.
+- Deloitte, Infosys R2 and 20 Dec Plan each have their own **Export / Import backup** buttons at the bottom of their tab. The Study log backup covers only the Onboarding Training tab.
 - Deleting a profile from the "Continue as…" list removes that person's data from every plan.
 - Deloitte content lives in `NLA_MODULES` and Infosys content in `INF_MODULES`. Their item ids come from the item text (`module.section.slug`), so adding or reordering items is safe. Renaming an item clears only that item's tick.
 - Assessment patterns shown in the Deloitte and Infosys tabs are reported candidate and third-party information, not official specifications. Each tab says so.

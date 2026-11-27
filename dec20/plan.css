@@ -1,0 +1,32 @@
+/* 20 Dec plan view. Reuses the cards, bars and flags defined in index.html. */
+#d20View .nla-grid{align-items:start}
+.d20-link{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
+.d20-link:hover{color:var(--teal);border-color:var(--teal)}
+.d20-row .it{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.d20-row .it .flag{margin-left:0}
+.d20-row .tagbtn{font-weight:400}
+.d20-list{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:10px}
+.d20-list .item{border-bottom:1px solid var(--line)}
+.d20-list .item:last-child{border-bottom:0}
+.d20-of{font-size:13px;color:var(--ink-3)}
+.d20-check{display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+.d20-check input{margin:0}
+.d20-q{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.d20-q > span{min-width:0;overflow-wrap:anywhere}
+.d20-cp{padding:10px 0;border-top:1px solid var(--line)}
+.d20-cp:first-of-type{border-top:0}
+.d20-cp .tags{margin-top:8px}
+.d20-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.d20-meta .fld{width:130px}
+.d20-mock{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:8px}
+.d20-form{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,3fr) auto;gap:8px;margin:12px 0}
+section.mod.d20-now{border-color:var(--teal);border-width:2px}
+.d20-ref{margin-bottom:16px}
+.d20-ref summary{cursor:pointer;font-weight:700;font-size:14px;min-height:30px}
+.d20-ref table.pattern td, .d20-ref table.pattern th{padding-right:12px;vertical-align:top}
+.d20-ref table.pattern td:first-child{white-space:nowrap}
+@media (max-width:900px){.d20-mock{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){
+  .d20-form{grid-template-columns:1fr}
+  .d20-mock{grid-template-columns:1fr}
+}

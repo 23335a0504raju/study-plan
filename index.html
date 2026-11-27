@@ -188,8 +188,8 @@
   .prog[aria-selected="true"]{background:var(--ink);color:#fff}
   .prog .n{font-family:"JetBrains Mono",monospace;font-size:11px;opacity:.7}
   .prog:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-  body[data-view="nla"] .v-tcs, body[data-view="inf"] .v-tcs,
-  body:not([data-view="nla"]) .v-nla, body:not([data-view="inf"]) .v-inf{display:none !important}
+  body[data-view="nla"] .v-tcs, body[data-view="inf"] .v-tcs, body[data-view="d20"] .v-tcs,
+  body:not([data-view="nla"]) .v-nla, body:not([data-view="inf"]) .v-inf, body:not([data-view="d20"]) .v-d20{display:none !important}
 
   /* ---------- Deloitte NLA view ---------- */
   .nla-info{background:var(--teal-soft);border:1px solid #BCD8D1;color:var(--ink);border-radius:var(--radius);padding:11px 14px;font-size:13.5px;margin:18px 0 0}
@@ -504,6 +504,7 @@
 
   @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 </style>
+<link rel="stylesheet" href="dec20/plan.css">
 </head>
 <body>
 
@@ -526,12 +527,18 @@
 
 <div class="wrap">
   <nav class="programs" id="programs" role="tablist" aria-label="Preparation plan">
+    <button class="prog" role="tab" data-plan-view="d20" aria-selected="false">20 Dec Plan<span class="n" id="d20ProgPct"></span></button>
     <button class="prog" role="tab" data-plan-view="tcs" aria-selected="true">Onboarding Training</button>
     <button class="prog" role="tab" data-plan-view="nla" aria-selected="false">Deloitte NLA<span class="n" id="nlaProgPct"></span></button>
     <button class="prog" role="tab" data-plan-view="inf" aria-selected="false">Infosys R2<span class="n" id="infProgPct"></span></button>
     <a class="prog" href="/infosys" title="Infosys internal training (Systems Engineer): opens its own page" style="text-decoration:none">Infosys SE ↗</a>
   </nav>
   <header class="top">
+    <div class="v-d20">
+      <div class="eyebrow">Preparation plan · Infosys in-person coding round</div>
+      <h1>20 December Plan</h1>
+      <p class="sub">Day-by-day Java plan, 28 November to 20 December. Goal: at least two problems passing every test case.</p>
+    </div>
     <div class="v-tcs">
       <div class="eyebrow">Preparation plan · Pre-joining build-up</div>
       <h1>Onboarding Training</h1>
@@ -548,6 +555,10 @@
       <p class="sub">Master DSA patterns, algorithmic problem-solving and optimization for the Infosys four-question coding assessment.</p>
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+      <div class="totals v-d20">
+        <div class="big" id="d20TotalPct">0%</div>
+        <div class="cap" id="d20TotalCount">0 of 0 must problems</div>
+      </div>
       <div class="totals v-tcs">
         <div class="big" id="totalPct">0%</div>
         <div class="cap" id="totalCount">0 of 0 done</div>
@@ -569,6 +580,48 @@
   </header>
 
   <div class="warn hidden" id="storageWarn"><b>Progress can't be saved in this browser.</b> Private/incognito mode or blocked site data will make every tick disappear on refresh. Open the page in a normal window, or allow site data for this address.</div>
+
+  <!-- ===== 20 DEC PLAN (independent state, rendered by dec20/plan-app.js) ===== -->
+  <main id="d20View" class="v-d20">
+    <div class="nla-grid">
+      <div class="card" id="d20Today"></div>
+      <div class="card" id="d20Progress"></div>
+    </div>
+    <div class="nla-grid even">
+      <div class="card" id="d20Queue"></div>
+      <div class="card" id="d20Checks"></div>
+    </div>
+    <div class="track-head"><div><h2>Day by day</h2><p>Must problems first, stretch only if time remains, stdin problems typed as full programs. Today opens by itself. Pattern cards and Java templates are in the <a href="dec20/Infosys_20Dec_Prep_Plan.pdf" target="_blank" rel="noopener">plan PDF</a>.</p></div></div>
+    <div id="d20Days"></div>
+    <div class="track-head inf-gap"><div><h2>Practise and review</h2><p>Name the pattern before you reveal it. Log every failure.</p></div></div>
+    <div class="card d20-ref" id="d20Drill"></div>
+    <div class="card d20-ref" id="d20Mocks"></div>
+    <div class="card d20-ref" id="d20Errors"></div>
+    <details class="card d20-ref"><summary>Daily routine and the stuck rule</summary>
+      <table class="pattern"><thead><tr><th>Weekday (4 h)</th><th>Activity</th></tr></thead><tbody>
+        <tr><td>Morning, 60 min</td><td>One template from blank (15) · one redo problem (30) · five drill items (15)</td></tr>
+        <tr><td>Evening, 40 min</td><td>Learn the day's idea and dry-run one example</td></tr>
+        <tr><td>Evening, 90 min</td><td>Two must problems, 45 minutes each, no hints</td></tr>
+        <tr><td>Evening, 30 min</td><td>Third must problem or the stdin problem</td></tr>
+        <tr><td>Evening, 20 min</td><td>Error log</td></tr>
+        <tr><td>Weekend, 6 h</td><td>Two 2.5 h blocks + 1 h review</td></tr>
+        <tr><td>Stuck, minute 20</td><td>Write the brute force and look for repeated work</td></tr>
+        <tr><td>Stuck, minute 25</td><td>Read only the topic tag or first hint</td></tr>
+        <tr><td>Stuck, minute 40</td><td>Read the idea, close it, code from blank, then press “Needed help”</td></tr>
+      </tbody></table>
+    </details>
+    <details class="card d20-ref"><summary>Exam-day plan (3 hours)</summary>
+      <table class="pattern"><thead><tr><th>Time</th><th>Action</th></tr></thead><tbody>
+        <tr><td>0:00–0:15</td><td>Read every question; pick the order by what you understand</td></tr>
+        <tr><td>0:15–0:55</td><td>Easiest problem: every test passes before moving on</td></tr>
+        <tr><td>0:55–2:10</td><td>Second problem: 15 min on paper first; brute force for partial cases if stuck at 1:25</td></tr>
+        <tr><td>2:10–2:45</td><td>Third problem: brute force or special cases</td></tr>
+        <tr><td>2:45–3:00</td><td>No rewrites; recheck edge cases and final submissions</td></tr>
+      </tbody></table>
+      <p class="fine">Duration, question count and scoring are not stated in the invitation. These timings assume the 3-hour format reported by candidates.</p>
+    </details>
+    <div id="d20Backup"></div>
+  </main>
 
   <div class="ledger v-tcs">
     <h2>Mastery ledger — every square is one item</h2>
@@ -1096,13 +1149,13 @@ const DATA = [
 </script>
 <script>
 /* =====================================================================
-   PLAN SWITCHER — decides which plan is on screen (tcs / nla / inf), per user.
+   PLAN SWITCHER — decides which plan is on screen (tcs / nla / inf / d20), per user.
    Stored under "prep-view-v1-<name>". Each plan module registers itself with
    setUser / flush / forgetUser; the onboarding script calls Plans.setUser on login.
    ===================================================================== */
 (function () {
   const VIEW_PREFIX = "prep-view-v1-";
-  const VIEWS = { tcs: "Onboarding Training", nla: "Deloitte NLA", inf: "Infosys R2" };
+  const VIEWS = { tcs: "Onboarding Training", nla: "Deloitte NLA", inf: "Infosys R2", d20: "20 Dec Plan" };
   const plans = {};
   let user = null, view = "tcs";
   function readView() {
@@ -2885,6 +2938,8 @@ const DATA = [
   });
 })();
 </script>
+<script src="dec20/plan-data.js"></script>
+<script src="dec20/plan-app.js"></script>
 <script>
 (function () {
   // =====================================================================
